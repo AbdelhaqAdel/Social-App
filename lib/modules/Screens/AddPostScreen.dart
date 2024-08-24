@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:newapp/shared/Component/StaticComponent.dart';
 
 import '../../LayoutScreens/ChatLayoutScreen.dart';
 import '../../shared/Cubit/cubit/app_cubit.dart';
@@ -24,10 +23,11 @@ class AddPostScreen extends StatelessWidget {
                   cubit.AddPost(
                       postText:postTextController.text,
                   );
+                 cubit.sendNewNotification();
                  // cubit.GetPosts();
                   Navigator.pop(context);
                 }, child:Text('Post',
-                  style: Theme.of(context).textTheme.subtitle1?.copyWith(
+                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
                     color: Colors.black,
                     fontSize: 20
                   )
@@ -53,7 +53,7 @@ class AddPostScreen extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text('Abdelhaq Adel',
-                                style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                                     height: 1.5
                                 ),
                               ),
@@ -112,7 +112,7 @@ class AddPostScreen extends StatelessWidget {
                                 Icon(Icons.image,color: Colors.black,),
                                 SizedBox(width: 5,),
                                 Text('Add photo',
-                                    style:  Theme.of(context).textTheme.subtitle1?.copyWith(
+                                    style:  Theme.of(context).textTheme.titleMedium?.copyWith(
                                       color: Colors.black,
                                     ),
                                 ),
@@ -130,7 +130,7 @@ class AddPostScreen extends StatelessWidget {
                                 Icon(Icons.image,color: Colors.white,),
                                 SizedBox(width: 5,),
                                 Text('Done',
-                                  style:  Theme.of(context).textTheme.subtitle1?.copyWith(
+                                  style:  Theme.of(context).textTheme.titleMedium?.copyWith(
                                     color: Colors.white,
                                   ),
                                 ),

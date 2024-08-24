@@ -120,13 +120,13 @@ class USerProfile extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Text('${userModel?.nickname}',
-                            style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                                 color: Colors.grey[400],
                                 fontSize: 15
                             )
                           ),
                           Text('${userModel?.bio}',
-                              style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                                   color: Colors.grey[400],
                                   //fontSize: 15
                               )
@@ -139,12 +139,12 @@ class USerProfile extends StatelessWidget {
                           child: Column(
                             children: [
                               Text('2',
-                                style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                                   color: Colors.grey[400],
                                 ),
                               ),
                               Text('Posts',
-                                  style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                                     color: Colors.grey[400],
                                   ),
                               )
@@ -155,12 +155,12 @@ class USerProfile extends StatelessWidget {
                           child: Column(
                             children: [
                               Text('632',
-                                  style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                                     color: Colors.grey[400],
                                   ),
                               ),
                               Text('Followers',
-                                  style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                                     //fontSize: 15,
                                     color: Colors.grey[400],
                                   )
@@ -172,13 +172,13 @@ class USerProfile extends StatelessWidget {
                           child: Column(
                             children: [
                               Text('622',
-                                  style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                                     //fontSize: 15,
                                     color: Colors.grey[400],
                                   )
                               ),
                               Text('Following',
-                                  style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                                     //fontSize: 15,
                                     color: Colors.grey[400],
 
@@ -211,7 +211,7 @@ class USerProfile extends StatelessWidget {
                                     mainAxisAlignment:MainAxisAlignment.center,
                                     children: [
                                       Text('Edit profile',
-                                        style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                                           fontSize: 17,
 
                                         ),
@@ -243,7 +243,7 @@ class USerProfile extends StatelessWidget {
                                       mainAxisAlignment:MainAxisAlignment.center,
                                       children: [
                                         Text('Log out',
-                                          style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                                          style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                                             fontSize: 17,
 
                                           ),

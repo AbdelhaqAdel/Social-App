@@ -27,7 +27,7 @@ class TextStatusScreen extends StatelessWidget {
                       Navigator.pop(context);
                     },
                     child: Text('post',
-                        style: Theme.of(context).textTheme.subtitle1)),
+                        style: Theme.of(context).textTheme.titleMedium)),
               ],
             ),
             body: Container(
@@ -43,7 +43,7 @@ class TextStatusScreen extends StatelessWidget {
                           controller: statusTextController,
                           decoration: InputDecoration(
                               hintText: 'Write your status.....',
-                              hintStyle: Theme.of(context).textTheme.bodyText1,
+                              hintStyle: Theme.of(context).textTheme.bodyLarge,
                               border: InputBorder.none
                           ),
                         ),

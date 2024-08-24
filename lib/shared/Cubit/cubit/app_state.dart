@@ -149,3 +149,15 @@ class GetUserSuccessState extends AppState {}
 class GetUserErrorState extends AppState {}
 
 
+
+class SendNotifyLoadingState extends AppState {}
+class SendNotifySuccessState extends AppState {}
+class SendNotifyErrorState extends AppState {}
+
+class OnMessageSendLoadingState extends AppState {}
+
+class AddnewnotifyToHiveLoadingState extends AppState{}
+class AddnewNotifyToHiveSuccessState extends AppState{}
+class AddnewNotifyToHiveErrorState extends AppState{}
+
+

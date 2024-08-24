@@ -6,11 +6,11 @@ const defultColor = Colors.blue;
 
 ThemeData lightTheme = ThemeData(
   primarySwatch: defultColor,
-  floatingActionButtonTheme: FloatingActionButtonThemeData(
+  floatingActionButtonTheme: const FloatingActionButtonThemeData(
     backgroundColor: defultColor,
   ),
   scaffoldBackgroundColor: Colors.white,
-  appBarTheme: AppBarTheme(
+  appBarTheme: const AppBarTheme(
     titleSpacing: 20,
     systemOverlayStyle: SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
@@ -28,20 +28,20 @@ ThemeData lightTheme = ThemeData(
       fontWeight: FontWeight.bold,
     ),
   ),
-  bottomNavigationBarTheme: BottomNavigationBarThemeData(
+  bottomNavigationBarTheme: const BottomNavigationBarThemeData(
     type: BottomNavigationBarType.fixed,
     selectedItemColor: Colors.deepOrange,
     unselectedItemColor: Colors.grey,
     elevation: 30,
     backgroundColor: Colors.white,
   ),
-  textTheme: TextTheme(
-    bodyText1:TextStyle(
+  textTheme: const TextTheme(
+    bodyLarge:TextStyle(
       fontSize:18,
       fontWeight: FontWeight.w600,
       color: Colors.white,
     ),
-    subtitle1:TextStyle(
+    titleMedium:TextStyle(
       fontSize:16,
       fontWeight: FontWeight.w600,
       color: Colors.white,
@@ -53,21 +53,21 @@ ThemeData lightTheme = ThemeData(
 ThemeData darkTheme = ThemeData(
   scaffoldBackgroundColor: Colors.black,
   primarySwatch: defultColor,
-  floatingActionButtonTheme: FloatingActionButtonThemeData(
+  floatingActionButtonTheme: const FloatingActionButtonThemeData(
     backgroundColor: Colors.deepOrange,
   ),
   appBarTheme: AppBarTheme(
     titleSpacing: 20,
-    systemOverlayStyle: SystemUiOverlayStyle(
+    systemOverlayStyle: const SystemUiOverlayStyle(
       statusBarColor:Colors.transparent,
       statusBarIconBrightness: Brightness.light,
     ),
     backgroundColor: HexColor('333739'),
     elevation: 0.0,
-    iconTheme: IconThemeData(
+    iconTheme: const IconThemeData(
       color: Colors.white,
     ),
-    titleTextStyle: TextStyle(
+    titleTextStyle: const TextStyle(
       color: Colors.white,
       fontSize: 20,
       fontWeight: FontWeight.bold,
@@ -80,13 +80,13 @@ ThemeData darkTheme = ThemeData(
     elevation: 30,
     backgroundColor: HexColor('333739'),
   ),
-  textTheme: TextTheme(
-    bodyText1:TextStyle(
+  textTheme: const TextTheme(
+    bodyMedium:TextStyle(
       fontSize:18,
       fontWeight: FontWeight.w600,
       color: Colors.white,
     ),
-    subtitle1:TextStyle(
+    titleMedium:TextStyle(
       fontSize:16,
       fontWeight: FontWeight.w500,
       color: Colors.white,

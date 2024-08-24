@@ -56,6 +56,9 @@ dependencies:
   curved_navigation_bar: ^1.0.3
   percent_indicator: ^4.2.3
   firebase_messaging: ^14.7.3
+  dio: ^5.4.3+1
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
 
 
 

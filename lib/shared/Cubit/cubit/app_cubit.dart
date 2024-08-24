@@ -5,20 +5,20 @@ import 'dart:typed_data';
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hive/hive.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';
 import 'package:newapp/models/MessagesModel/MessagesModel.dart';
 import 'package:newapp/models/PostModel/PostModel.dart';
 import 'package:newapp/shared/Constants/KeyConstants.dart';
+import 'package:newapp/shared/network/DioHelper.dart';
 import 'package:newapp/shared/network/local/CacheHelper.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-
-import '../../../LayoutScreens/HomeScreen.dart';
+import '../../../models/NotificationModelAndAdabpter/NotificationHiveModel.dart';
 import '../../../models/UserModel/UsersModel.dart';
 import '../../../modules/Screens/AddPostScreen.dart';
 import '../../../modules/Screens/PostsScreen.dart';
@@ -27,7 +27,13 @@ import '../../../modules/Screens/UserProfile.dart';
 import '../../../modules/Screens/messagesScreen.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
+import '../../Constants/hive constant.dart';
+
+
 part 'app_state.dart';
+
+
+
 
 class AppCubit extends Cubit<AppState> {
   AppCubit() : super(AppInitial());
@@ -1248,6 +1254,125 @@ emit(UserCoverUpdateErrorState());
 
 
 
+//------------------------Notification --------------------
+
+
+  Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+    // If you're going to use other Firebase services in the background, such as Firestore,
+    // make sure you call `initializeApp` before using other Firebase services.
+    print("Handling a background message: ${message.data.toString()}");
+  }
+
+
+  final _firebaseMessaging=FirebaseMessaging.instance;
+
+
+  Future<void> initNotification()async{
+    await _firebaseMessaging.getToken().then((value) {
+      print('FBM TOKEN ---------------------- $value');
+
+    }).catchError((onError){
+      print('notification error $onError');
+    });
+  }
+
+  // var MToken=await _firebaseMessaging.getToken().then((value) {
+  // print('device token -------: $value');
+  // });
+
+  //when app is open
+
+  // void onMessageSend(){
+  //   emit(OnMessageSendLoadingState());
+  //    FirebaseMessaging.onMessage.listen((event) {
+  //     print('on message data :${event.data.toString()}');
+  //     print('on message from :${event.from.toString()}');
+  //     //print(event.notification)
+  //   });
+  //
+  //    FirebaseMessaging.onMessageOpenedApp.listen((event) {
+  //      print('on meaasage opened app data :${event.data.toString()}');
+  //      //print(event.notification)
+  //    });
+  //
+  //    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+  //
+  // }
+
+
+
+
+
+
+
+  void sendNewNotification(){
+    emit(SendNotifyLoadingState());
+    Dio_Helper.PostData(url:'send',
+      data: {
+        "to":"/topics/all",
+        "notificaion":{
+          "title":"you have new post from ${userModel?.name}",
+          "body":"testing body",
+          "sound":"default"
+        },
+        "android":{
+          "priority":"HIGH",
+          "notification":{
+            "notificaion_priority":"PRIORITY_MAX",
+            "sound":"default",
+            "default_sound":"true"
+          }
+        },
+        "data":{
+          "type":"new post from ${userModel?.name}",
+          "id":"87",
+          "click_action":"FLUTTER_NOTIFICATION_CLICK"
+        }
+      }
+    ).then((value) {
+    // if(value.statusCode==200){
+
+      print('sent successful');
+
+      emit(SendNotifySuccessState());
+    // }
+    }).catchError((onError){
+      print('error to send notify $onError');
+      storeNotificationToHive();
+      emit(SendNotifyErrorState());
+    });
+  }
+
+  //when click on notification to open app
+
+
+  //background FCM
+
+
+  final Box notifyBox=Hive.box(HiveConstants.notifyBox);
+  void storeNotificationToHive (){
+    print('Adding to notification ------//////');
+
+    emit(AddnewnotifyToHiveLoadingState());
+    List<NotificationModel> notifyList =
+     notifyBox.get(HiveConstants.notifyBox,defaultValue: []).
+    cast<NotificationModel>();
+
+    notifyList.add(
+     NotificationModel(
+          hiveIndex:notifyBox.length,
+          notifyMessage:'${userModel?.name} added new post',
+          notifyTime: DateFormat("${DateTime.now().day} / ${DateTime.now().month}\n${DateTime.now().hour} "
+              ": ${DateTime.now().minute}am ").format(DateTime.now()),
+        ));
+    notifyBox.put(HiveConstants.notifyBox, notifyList).then((value) {
+      emit(AddnewNotifyToHiveSuccessState());
+    }).catchError((error) {
+      print('error to store to notify');
+      print(error);
+      emit(AddnewNotifyToHiveErrorState());
+    });
+  }
 
 
 

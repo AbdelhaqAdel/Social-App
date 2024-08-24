@@ -108,7 +108,7 @@ class StatusScreen extends StatelessWidget {
                                     'Add to your story',
                                     style: Theme.of(context)
                                         .textTheme
-                                        .bodyText1
+                                        .bodyLarge
                                         ?.copyWith(height: 1.5),
                                   ),
                                 ),
@@ -137,7 +137,7 @@ class StatusScreen extends StatelessWidget {
                         ),
                         Text(
                           'Recent updates',
-                          style: Theme.of(context).textTheme.bodyText1,
+                          style: Theme.of(context).textTheme.bodyLarge,
                         ),
                         SizedBox(
                           height: 10,

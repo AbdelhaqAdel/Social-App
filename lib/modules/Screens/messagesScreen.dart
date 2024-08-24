@@ -9,12 +9,13 @@ import 'package:newapp/shared/Cubit/cubit/app_cubit.dart';
 import 'package:newapp/shared/ListComponent/ListComponent.dart';
 import 'package:newapp/shared/network/local/CacheHelper.dart';
 
-class MessagesScreen extends StatelessWidget {
+class MessagesScreen extends StatelessWidget{
   const MessagesScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AppCubit,AppState>(
+
          listener:(context,state){},
       builder: (context,state){
         AppCubit cubit=AppCubit.get(context);

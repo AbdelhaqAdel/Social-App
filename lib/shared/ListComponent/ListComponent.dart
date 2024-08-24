@@ -1,8 +1,6 @@
-import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:intl/intl.dart';
 import 'package:newapp/LayoutScreens/HomeScreen.dart';
 import 'package:newapp/models/PostModel/PostModel.dart';
 import 'package:newapp/models/UserModel/UsersModel.dart';
@@ -146,7 +144,7 @@ Widget GetAllUsersWidget(
                         //'${cubit.userModel?}',
                         style: Theme.of(context)
                             .textTheme
-                            .bodyText1
+                            .bodyLarge
                             ?.copyWith(color: Colors.grey[400], height: 1.5),
                       ),
                       SizedBox(
@@ -171,7 +169,7 @@ Widget GetAllUsersWidget(
                       'wwwwwwwwwwwwwwwww',
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: Theme.of(context).textTheme.caption?.copyWith(
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
                           height: 1,
                           color: Colors.grey[500],
                           fontSize: 15,
@@ -238,7 +236,7 @@ Widget BuildPostsWidget({
                               '${post?.name}',
                               style: Theme.of(context)
                                   .textTheme
-                                  .bodyText1
+                                  .bodyLarge
                                   ?.copyWith(
                                       color: Colors.grey[400], height: 1.5),
                             ),
@@ -259,7 +257,7 @@ Widget BuildPostsWidget({
                           '${DateTime.parse(post!.postDate!).year}-${DateTime.parse(post.postDate!).month}'
                           '-${DateTime.parse(post!.postDate!).day} at '
                           '${DateTime.parse(post!.postDate!).hour}:${DateTime.parse(post.postDate!).minute}',
-                          style: Theme.of(context).textTheme.caption?.copyWith(
+                          style: Theme.of(context).textTheme.bodySmall?.copyWith(
                                 height: 0.5,
                                 color: Colors.grey[400],
                               ),
@@ -275,7 +273,7 @@ Widget BuildPostsWidget({
               ),
               Text(
                 '${post.postText}',
-                style: Theme.of(context).textTheme.subtitle1?.copyWith(
+                style: Theme.of(context).textTheme.titleMedium?.copyWith(
                       fontWeight: FontWeight.w300,
                       color: Colors.grey[400],
                     ),
@@ -412,7 +410,7 @@ Widget BuildPostsWidget({
 
                             //"${AppCubit.get(context).likesNum[index!]}",
                             style:
-                                Theme.of(context).textTheme.caption!.copyWith(
+                                Theme.of(context).textTheme.bodySmall!.copyWith(
                                       fontSize: 15,
                                       color: Colors.white,
                                     ),
@@ -437,7 +435,7 @@ Widget BuildPostsWidget({
                           Text(
                             "${AppCubit.get(context).commentNum[index]}",
                             style:
-                                Theme.of(context).textTheme.caption?.copyWith(
+                                Theme.of(context).textTheme.bodySmall?.copyWith(
                                       color: Colors.grey[400],
                                     ),
                           )
@@ -466,7 +464,7 @@ Widget BuildPostsWidget({
                         decoration: InputDecoration(
                           hintText: 'Write a comment',
                           hintStyle:
-                              Theme.of(context).textTheme.caption?.copyWith(
+                              Theme.of(context).textTheme.bodySmall?.copyWith(
                                     fontSize: 14,
                                     color: Colors.grey[400],
                                   ),
@@ -572,7 +570,7 @@ Widget BuildStatusWidget(
                     '${status[index].name}',
                     style: Theme.of(context)
                         .textTheme
-                        .bodyText1
+                        .bodyLarge
                         ?.copyWith(height: 1.5),
                   ),
                   SizedBox(

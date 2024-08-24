@@ -21,7 +21,7 @@ class AddStatusScreen extends StatelessWidget {
                   );
                   Navigator.pop(context);
                 }, child: Text('post',
-                    style: Theme.of(context).textTheme.subtitle1
+                    style: Theme.of(context).textTheme.titleMedium
                 )),
               ],
             ),
@@ -43,7 +43,7 @@ class AddStatusScreen extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text('${cubit.userModel?.name}',
-                              style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                                   height: 1.5
                               ),
                             ),
@@ -104,7 +104,7 @@ class AddStatusScreen extends StatelessWidget {
                                     Icon(Icons.image,color: Colors.white,),
                                     SizedBox(width: 5,),
                                     Text('Add photo',
-                                      style:  Theme.of(context).textTheme.subtitle1?.copyWith(
+                                      style:  Theme.of(context).textTheme.titleMedium?.copyWith(
                                         color: Colors.white,
                                       ),
                                     ),
@@ -122,7 +122,7 @@ class AddStatusScreen extends StatelessWidget {
                                     Icon(Icons.image,color: Colors.white,),
                                     SizedBox(width: 5,),
                                     Text('Done',
-                                      style:  Theme.of(context).textTheme.subtitle1?.copyWith(
+                                      style:  Theme.of(context).textTheme.titleMedium?.copyWith(
                                         color: Colors.white,
                                       ),
                                     ),
@@ -140,7 +140,7 @@ class AddStatusScreen extends StatelessWidget {
                               color: Colors.deepOrange
                           ),
                           child: TextButton(child: Text('video',
-                            style:  Theme.of(context).textTheme.subtitle1?.copyWith(
+                            style:  Theme.of(context).textTheme.titleMedium?.copyWith(
                               color: Colors.white,
                             ),),onPressed: (){},),
                         ),

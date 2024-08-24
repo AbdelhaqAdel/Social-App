@@ -206,7 +206,7 @@ Widget BuildShowStatusByUser(
                   
                   Text(
                     '${status?[index].postText}',
-                    style: Theme.of(context).textTheme.bodyText1,
+                    style: Theme.of(context).textTheme.bodyLarge,
                   ),
                 ])
               : Container(
@@ -248,7 +248,7 @@ Widget BuildShowStatusByUser(
                       '${AppCubit.get(context).allStatus![index].name}',
                       style: Theme.of(context)
                           .textTheme
-                          .bodyText1
+                          .bodyLarge
                           ?.copyWith(fontSize: 20),
                     ),
                     // SizedBox(
@@ -267,7 +267,7 @@ Widget BuildShowStatusByUser(
               'at ${DateTime.parse(status![index].postDate!).hour}:${DateTime.parse(status[index].postDate!).minute}',
               style: Theme.of(context)
                   .textTheme
-                  .caption
+                  .bodySmall
                   ?.copyWith(
                 color: Colors.black,
                   height:1,
