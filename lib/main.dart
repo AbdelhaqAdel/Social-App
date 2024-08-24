@@ -2,7 +2,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:newapp/LayoutScreens/ChatLayoutScreen.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:newapp/CleanArch/layout.dart';
 import 'package:newapp/shared/Constants/KeyConstants.dart';
 import 'package:newapp/shared/Constants/hive%20constant.dart';
 import 'package:newapp/shared/Cubit/cubit/app_cubit.dart';
@@ -100,19 +101,18 @@ class MyApp extends StatelessWidget {
       child: BlocConsumer<AppCubit,AppState>(
         listener:(context,state){} ,
         builder: (context,state){
-          return   MaterialApp(
+          return  ScreenUtilInit(
+          designSize: const Size(360, 690),
+          minTextAdapt: true,
+          splitScreenMode: true,
+          builder: (_ , child) {
+          return MaterialApp(
             debugShowCheckedModeBanner: false,
-            // Set up your app's properties here, such as theme, title, etc.
             title: 'My App',
             theme: lightTheme,
-          //  darkTheme:darkTheme,
             themeMode: ThemeMode.light,
-           // appcubit.get(context).isDark ?ThemeMode.dark :
-           //  theme: ThemeData(
-           //    primarySwatch: Colors.blue,
-           //  ),
             home: StartWidget,
-          );
+          );});
         },
       ),
     );
@@ -120,26 +120,5 @@ class MyApp extends StatelessWidget {
 
   }
 }
-
-// class TestScreen extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return BlocProvider(create: (BuildContext context)=>AppCubit()..testprint(),
-//       child: BlocConsumer<AppCubit,AppState>(
-//         listener:(context,state){} ,
-//         builder: (context,state){
-//          return Scaffold(
-//             appBar: AppBar(
-//               title: Text('Test Screen'),
-//             ),
-//             body: Center(
-//               child: Text('Hello, World!'),
-//             ),
-//           );
-//         },
-//       ),
-//     );
-//   }
-
 
 

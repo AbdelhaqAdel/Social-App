@@ -35,14 +35,14 @@ ThemeData lightTheme = ThemeData(
     elevation: 30,
     backgroundColor: Colors.white,
   ),
-  textTheme: const TextTheme(
+  textTheme:  const TextTheme(
     bodyLarge:TextStyle(
       fontSize:18,
       fontWeight: FontWeight.w600,
       color: Colors.white,
     ),
     titleMedium:TextStyle(
-      fontSize:16,
+      fontSize:25,
       fontWeight: FontWeight.w600,
       color: Colors.white,
     ),
@@ -82,7 +82,7 @@ ThemeData darkTheme = ThemeData(
   ),
   textTheme: const TextTheme(
     bodyMedium:TextStyle(
-      fontSize:18,
+      fontSize:25,
       fontWeight: FontWeight.w600,
       color: Colors.white,
     ),

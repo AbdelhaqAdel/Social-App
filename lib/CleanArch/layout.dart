@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:newapp/CleanArch/core/utils/colors.dart';
 import 'package:newapp/shared/Component/StaticComponent.dart';
 import 'package:newapp/shared/Cubit/cubit/app_cubit.dart';
 import '../modules/Screens/AddPostScreen.dart';
@@ -19,7 +20,7 @@ class LayoutScreen extends StatelessWidget {
         builder:(context,state){
           AppCubit cubit=AppCubit.get(context);
           return Scaffold(
-            backgroundColor:HexColor('#13003b'),
+            backgroundColor:AppColor.layoutBackgroundColor,
             body:
             Stack(
               alignment: AlignmentDirectional.topStart,
@@ -46,7 +47,7 @@ class LayoutScreen extends StatelessWidget {
                       Container(
                         height: 50,
                         width: double.infinity,
-                        color:HexColor('#ea1a78'),
+                        color:AppColor.layoutBackgroundBottomColor,
                       ),
                     ],
                   ),
@@ -74,7 +75,7 @@ class LayoutScreen extends StatelessWidget {
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(15),
                               border: Border.all(
-                                color: Colors.white,
+                                color: AppColor.whiteColor,
                                 width: 1.2,
                                 style: BorderStyle.solid,
                               ),
@@ -82,7 +83,7 @@ class LayoutScreen extends StatelessWidget {
 
                             child:BottomNavigationBar(
                               backgroundColor: Colors.transparent,
-                              selectedItemColor:HexColor('#ea1a78'),
+                              selectedItemColor:AppColor.layoutBackgroundBottomColor,
                               elevation:1,
                               type: BottomNavigationBarType.fixed,
                               onTap: (index)
