@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 class PostModel{
   String? name;
   String? uId;

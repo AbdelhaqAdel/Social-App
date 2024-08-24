@@ -29,7 +29,7 @@ class RegisterScreen extends StatelessWidget {
     return BlocConsumer<AppCubit, AppState>(
       listener: ( context, state) => {
         if (State is shopAddUserSuccessState){
-        NavigateAndFinish(context, ChatLyaout()),
+        NavigateAndFinish(context, LayoutScreen()),
           // }
   }
       },
@@ -203,7 +203,7 @@ class RegisterScreen extends StatelessWidget {
                                        nickname: 'NickName',
                                     );
                                       ShowSnackBar(context, text: ('Register Succeed'));
-                                      NavigateAndFinish(context, ChatLyaout());
+                                      NavigateAndFinish(context, LayoutScreen());
                                     }on FirebaseAuthException catch (e) {
                                       if (e.code == 'weak-password') {
                                         ShowSnackBar(context, text: ('The password provided is too weak.'));

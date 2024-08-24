@@ -23,7 +23,7 @@ class LoginSreen extends StatelessWidget {
           if(state is shopLoginSuccessState){
             print('user id nn :${state.uid}');
             CacheHelper.saveData(key: 'uid', value: state.uid).then((value){
-              NavigateAndFinish(context, ChatLyaout());
+              NavigateAndFinish(context, LayoutScreen());
             });
           }
         },

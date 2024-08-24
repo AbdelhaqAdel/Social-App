@@ -79,7 +79,7 @@ void main() async{
   //print('UID: ${uid}');
 
   if(uid != null){
-    startWidget=ChatLyaout();
+    startWidget=LayoutScreen();
   }
   else{
     startWidget=LoginSreen();
