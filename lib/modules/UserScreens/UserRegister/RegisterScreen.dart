@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-import 'package:newapp/LayoutScreens/ChatLayoutScreen.dart';
+import 'package:newapp/CleanArch/layout.dart';
 import 'package:newapp/modules/UserScreens/UserLogin/LoginScreen.dart';
 import 'package:newapp/shared/Constants/KeyConstants.dart';
 
-import '../../../LayoutScreens/HomeScreen.dart';
+import '../../../CleanArch/features/chat/presentation/pages/chat_screen.dart';
 import '../../../shared/Component/StaticComponent.dart';
 import '../../../shared/Constants/KeyConstants.dart';
 import '../../../shared/Constants/KeyConstants.dart';

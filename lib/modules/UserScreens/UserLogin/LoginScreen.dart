@@ -2,14 +2,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:newapp/LayoutScreens/ChatLayoutScreen.dart';
+import 'package:newapp/CleanArch/layout.dart';
 import 'package:newapp/modules/UserScreens/UserLogin/LoginCubit/cubit/login_cubit.dart';
 import 'package:newapp/modules/UserScreens/UserRegister/RegisterScreen.dart';
 import 'package:newapp/shared/Component/StaticComponent.dart';
 import 'package:newapp/shared/Cubit/cubit/app_cubit.dart';
 import 'package:newapp/shared/network/local/CacheHelper.dart';
 
-import '../../../LayoutScreens/HomeScreen.dart';
+import '../../../CleanArch/features/chat/presentation/pages/chat_screen.dart';
 import '../../../shared/Constants/KeyConstants.dart';
 
 class LoginSreen extends StatelessWidget {

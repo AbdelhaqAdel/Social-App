@@ -37,7 +37,7 @@ ThemeData lightTheme = ThemeData(
   ),
   textTheme:  const TextTheme(
     bodyLarge:TextStyle(
-      fontSize:18,
+      fontSize:15,
       fontWeight: FontWeight.w600,
       color: Colors.white,
     ),

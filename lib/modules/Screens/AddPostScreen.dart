@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
 
-import '../../LayoutScreens/ChatLayoutScreen.dart';
+import '../../CleanArch/layout.dart';
 import '../../shared/Cubit/cubit/app_cubit.dart';
 
 class AddPostScreen extends StatelessWidget {

@@ -2,7 +2,7 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:newapp/LayoutScreens/HomeScreen.dart';
+import 'package:newapp/CleanArch/features/chat/presentation/pages/chat_screen.dart';
 import 'package:newapp/models/UserModel/UsersModel.dart';
 import 'package:newapp/shared/Component/StaticComponent.dart';
 import 'package:newapp/shared/Cubit/cubit/app_cubit.dart';

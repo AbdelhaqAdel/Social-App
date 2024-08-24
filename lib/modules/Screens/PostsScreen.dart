@@ -1,17 +1,19 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:newapp/CleanArch/core/utils/colors.dart';
+import 'package:newapp/CleanArch/features/home/presentation/widgets/all_posts_component.dart';
 import 'package:newapp/models/PostModel/PostModel.dart';
 import 'package:newapp/shared/Cubit/cubit/app_cubit.dart';
-
 import '../../shared/ListComponent/ListComponent.dart';
 
+// ignore: must_be_immutable
 class PostsScreen extends StatelessWidget {
   CollectionReference allPosts = FirebaseFirestore.instance.collection('posts');
-  var ScaffoldKey=GlobalKey<ScaffoldState>();
+  var scaffoldKey=GlobalKey<ScaffoldState>();
+  PostsScreen({super.key});
   @override
   Widget build(BuildContext context) {
     return Builder(
@@ -43,9 +45,6 @@ class PostsScreen extends StatelessWidget {
             //
             //       // Assuming you have a function to convert QuerySnapshot to a list of PostModel
             //       posts = cubit.convertQuerySnapshotToList(snapshot.data!);
-
-
-
                   //cubit.GetPosts();
                   //   StreamBuilder<QuerySnapshot>(
                   // stream: allPosts.orderBy('postDate',descending: true).snapshots(),
@@ -64,17 +63,7 @@ class PostsScreen extends StatelessWidget {
                   //   // }
                   return Scaffold(
                     backgroundColor: Colors.transparent,
-                    key: ScaffoldKey,
-                    // appBar: AppBar(
-                    //   backgroundColor: Colors.transparent,
-                    //   title: Text('Home'),
-                    //   actions: [
-                    //     IconButton(onPressed: (){},
-                    //       icon: Icon(Icons.search),),
-                    //     IconButton(onPressed: (){},
-                    //       icon: Icon(Icons.notifications),),
-                    //   ],
-                    // ),
+                    key: scaffoldKey,
                     body: SafeArea(
                       child: SingleChildScrollView(
                         child: Column(
@@ -84,15 +73,15 @@ class PostsScreen extends StatelessWidget {
                                   left: 10.0, right: 10, top: 14),
                               child: Row(
                                 children: [
-                                  Text('Posts',
-                                    style: TextStyle(
-                                      fontSize: 25,
-                                      fontWeight: FontWeight.bold,
+                                   Text('Posts',
+                                    style:Theme.of(context).textTheme.titleMedium?.copyWith(
+                                      color: AppColor.titleText,
+                                      fontSize: 22.sp
                                     ),
                                   ),
-                                  Spacer(),
+                                  const Spacer(),
                                   IconButton(onPressed: () {},
-                                    icon: Icon(Icons.search, size: 25,),),
+                                    icon: const Icon(Icons.search, size: 25,),),
                                   IconButton(onPressed: () {
                                     // showDialog<String>(
                                     //   context: context,
@@ -193,76 +182,44 @@ class PostsScreen extends StatelessWidget {
                                     //       ),
                                     // );
                                   },
-                                    icon: Icon(Icons.notifications),),
+                                    icon: const Icon(Icons.notifications),),
                                 ],
                               ),
                             ),
-                            // Stack(
-                            //     alignment: Alignment.bottomRight,
-                            //     children:[
-                            //       Container(
-                            //         height: 220,
-                            //         child: Card(
-                            //
-                            //           margin: EdgeInsets.all(8),
-                            //           clipBehavior:Clip.antiAliasWithSaveLayer,
-                            //           elevation: 10,
-                            //           child: Image.network('https://th.bing.com/th/id/OIP.wPAO9Ciq-gtRWEG5NYaFswHaD4?pid=ImgDet&rs=1',
-                            //             fit: BoxFit.cover,
-                            //           ),
-                            //         ),
-                            //       ),
-                            //       Padding(
-                            //         padding: const EdgeInsets.all(12.0),
-                            //         child: Text('Commmunicate with your friends',
-                            //           style: Theme.of(context).textTheme.subtitle1?.copyWith(
-                            //             color: Colors.deepOrange,
-                            //           ),
-                            //         ),
-                            //       ),
-                            //     ]
-                            // ),
-                            Container(
-                              child:
-                              ConditionalBuilder(
-                                condition:
-                                posts.length != null &&
-                                    cubit.likesNum.length!=null
-                                    &&cubit.commentNum.length!=null
-                                    //cubit.state is GetPostSuccessState &&
-                                   && cubit.state is! GetPostLoadingState,
-                                builder: (context) {
-                                  return ListView.separated(
-                                      reverse: true,
-                                      physics: BouncingScrollPhysics(),
-                                      shrinkWrap: true,
-                                      //physics:NeverScrollableScrollPhysics(),
-                                      itemBuilder: (context, index) {
-                                        var commentController = TextEditingController();
-                                        return BuildPostsWidget(
-                                          commentController: commentController,
-                                          ScaffoldKey: ScaffoldKey,
-                                          context: context,
-                                          post: posts[index],
-                                          index: index,);
-                                      },
-                                      separatorBuilder: (context, index) =>
-                                          SizedBox(height: 8,),
-                                      itemCount: posts.length
-                                  );
-                                },
-                                fallback: (context) =>
-                                    Center(child: CircularProgressIndicator()),
-                              ),
-                            ),
-                            SizedBox(height: 60),
+                                ConditionalBuilder(
+                                  condition:
+                                  posts.isNotEmpty &&
+                                      cubit.likesNum.isNotEmpty
+                                      &&cubit.commentNum.isNotEmpty
+                                     && cubit.state is! GetPostLoadingState,
+                                  builder: (context) {
+                                    return ListView.separated(
+                                        reverse: true,
+                                        physics: const BouncingScrollPhysics(),
+                                        shrinkWrap: true,
+                                        itemBuilder: (context, index) {
+                                          var commentController = TextEditingController();
+                                          return BuildPostsWidget(
+                                            commentController: commentController,
+                                            scaffoldKey: scaffoldKey,
+                                            post: posts[index],
+                                            index: index,);
+                                        },
+                                        separatorBuilder: (context, index) =>
+                                            SizedBox(height: 8.h,),
+                                        itemCount: posts.length
+                                    );
+                                  },
+                                  fallback: (context) =>
+                                      const Center (child: CircularProgressIndicator()),
+                                ),
+                            SizedBox(height: MediaQuery.of(context).size.height/13),
                           ],
                         ),
                       ),
                     ),
                   );
-            //     }
-            // );
+       
           },
         );
       });
