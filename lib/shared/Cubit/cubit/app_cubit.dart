@@ -13,7 +13,7 @@ import 'package:hive/hive.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';
-import 'package:newapp/models/MessagesModel/messages_model.dart';
+import 'package:newapp/CleanArch/features/chat/data/models/messages_model.dart';
 import 'package:newapp/CleanArch/features/home/data/models/post_model.dart';
 import 'package:newapp/shared/Constants/KeyConstants.dart';
 import 'package:newapp/shared/network/DioHelper.dart';
@@ -25,7 +25,7 @@ import '../../../modules/Screens/AddPostScreen.dart';
 import '../../../CleanArch/features/home/presentation/pages/PostsScreen.dart';
 import '../../../modules/Screens/StatusScreen.dart';
 import '../../../modules/Screens/UserProfile.dart';
-import '../../../modules/Screens/messagesScreen.dart';
+import '../../../CleanArch/features/chat/presentation/pages/all_chats_screen.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
 import '../../Constants/hive constant.dart';

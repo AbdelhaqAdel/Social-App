@@ -70,7 +70,7 @@ class PostsScreen extends StatelessWidget {
                                   left: 10.0, right: 10, top: 14),
                               child: Row(
                                 children: [
-                                   Text('Posts',
+                                   Text('For You',
                                     style:Theme.of(context).textTheme.titleMedium?.copyWith(
                                       color: AppColor.titleText,
                                       fontSize: 22.sp

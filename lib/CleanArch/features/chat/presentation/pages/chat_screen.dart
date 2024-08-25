@@ -1,11 +1,12 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:newapp/CleanArch/core/utils/colors.dart';
-import 'package:newapp/models/MessagesModel/messages_model.dart';
+import 'package:newapp/CleanArch/features/chat/data/models/messages_model.dart';
+import 'package:newapp/CleanArch/features/chat/presentation/widgets/other_messsage_widget.dart';
+import 'package:newapp/CleanArch/features/chat/presentation/widgets/user_message_widger.dart';
 import 'package:newapp/shared/Cubit/cubit/app_cubit.dart';
-import 'package:newapp/shared/ListComponent/ListComponent.dart';
-
 import '../../../../../models/UserModel/UsersModel.dart';
 
 // ignore: must_be_immutable
@@ -31,7 +32,7 @@ class ChatScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Builder(builder:(context) {
-      AppCubit.get(context).getMessages(recieverModel.uId!);
+      AppCubit.get(context).getMessages(recieverModel.uId??'');
       return BlocConsumer<AppCubit, AppState>(
         listener: (context, state) {},
         builder: (context, state) {
@@ -47,7 +48,6 @@ class ChatScreen extends StatelessWidget {
                   // for(int i=0;i<snapshot.data!.docs.length;i++){
                   //   messageList.add(MessagesModel.fromJson(snapshot.data!.docs[i]));
                   // }
-
                   // print(snapshot.data!.docs[0]['text']);
                   return Scaffold(
                     appBar: AppBar(
@@ -73,8 +73,8 @@ class ChatScreen extends StatelessWidget {
                               controller: _controller,
                               itemBuilder: (context, index) =>
                               messagees[index].reciever == recieverModel.uId
-                                  ? OtherMessageWidget(message: messagees[index])
-                                  : MeMessageWidget(message: messagees[index]),
+                                  ? OtherUserMessage(message: messagees[index])
+                                  : UserMessageWidget(message: messagees[index]),
 
                               itemCount: messagees.length,
                               separatorBuilder: (context, index) =>const SizedBox(),
@@ -88,7 +88,7 @@ class ChatScreen extends StatelessWidget {
                                 if (messageController.text.isNotEmpty) {
                                   cubit.addToUserChat(
                                     message: data,
-                                    userId: recieverModel.uId!,
+                                    userId: recieverModel.uId??'',
                                   );
                                   messageController.clear();
                                   scrollDown();
@@ -99,8 +99,8 @@ class ChatScreen extends StatelessWidget {
                                   onPressed: () {
                                   messageController.clear();
                                 },
-                                  icon: const Icon(Icons.send,
-                                    size: 30,
+                                  icon:  Icon(Icons.send,
+                                    size: 30.sp,
                                     color: Colors.deepOrange,),),
                                 hintText: 'Send Message',
                                 border: OutlineInputBorder(
