@@ -6,7 +6,7 @@ import 'package:newapp/models/UserModel/UsersModel.dart';
 import 'package:newapp/modules/Screens/showStatus.dart';
 import 'package:newapp/shared/Component/StaticComponent.dart';
 import 'package:newapp/shared/Cubit/cubit/app_cubit.dart';
-import '../../models/MessagesModel/MessagesModel.dart';
+import '../../models/MessagesModel/messages_model.dart';
 
 Widget OtherMessageWidget({
   required MessagesModel message,

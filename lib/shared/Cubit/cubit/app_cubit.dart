@@ -13,7 +13,7 @@ import 'package:hive/hive.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';
-import 'package:newapp/models/MessagesModel/MessagesModel.dart';
+import 'package:newapp/models/MessagesModel/messages_model.dart';
 import 'package:newapp/CleanArch/features/home/data/models/post_model.dart';
 import 'package:newapp/shared/Constants/KeyConstants.dart';
 import 'package:newapp/shared/network/DioHelper.dart';

@@ -2,7 +2,7 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:newapp/CleanArch/core/utils/colors.dart';
-import 'package:newapp/models/MessagesModel/MessagesModel.dart';
+import 'package:newapp/models/MessagesModel/messages_model.dart';
 import 'package:newapp/shared/Cubit/cubit/app_cubit.dart';
 import 'package:newapp/shared/ListComponent/ListComponent.dart';
 

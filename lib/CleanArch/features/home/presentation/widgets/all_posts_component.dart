@@ -310,7 +310,7 @@ class BuildPostsWidget extends StatelessWidget {
                           AppCubit.get(context).changeLikeButtonColor(
                               AppCubit.get(context).likes[index]);
                         },
-                        icon: const Icon(Icons.favorite_border,
+                        icon: const Icon(Icons.favorite,
                             size: 25,
                             color: // AppCubit.get(context).userLiked![AppCubit.get(context).likes[index]]!
                                 Colors.red
