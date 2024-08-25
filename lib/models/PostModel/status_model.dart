@@ -1,4 +1,3 @@
-
 class StatusModel{
   String? name;
   String? uId;

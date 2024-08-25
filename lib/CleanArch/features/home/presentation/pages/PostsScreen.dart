@@ -104,7 +104,7 @@ class PostsScreen extends StatelessWidget {
                                             index: index,);
                                         },
                                         separatorBuilder: (context, index) =>
-                                            SizedBox(height: 8.h,),
+                                            SizedBox(height: 3.h,),
                                         itemCount: posts.length
                                     );
                                   },
