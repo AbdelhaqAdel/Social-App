@@ -7,7 +7,6 @@ import 'package:newapp/CleanArch/core/utils/colors.dart';
 import 'package:newapp/CleanArch/features/home/presentation/widgets/all_posts_component.dart';
 import 'package:newapp/models/PostModel/PostModel.dart';
 import 'package:newapp/shared/Cubit/cubit/app_cubit.dart';
-import '../../shared/ListComponent/ListComponent.dart';
 
 // ignore: must_be_immutable
 class PostsScreen extends StatelessWidget {
@@ -24,8 +23,6 @@ class PostsScreen extends StatelessWidget {
           builder: (context, state) {
             AppCubit cubit = AppCubit.get(context);
             List<PostModel>posts = cubit.posts;
-
-
             // return StreamBuilder<QuerySnapshot>(
             //     stream: allPosts.orderBy('postDate', descending: false)
             //         .snapshots(),
@@ -81,108 +78,9 @@ class PostsScreen extends StatelessWidget {
                                   ),
                                   const Spacer(),
                                   IconButton(onPressed: () {},
-                                    icon: const Icon(Icons.search, size: 25,),),
-                                  IconButton(onPressed: () {
-                                    // showDialog<String>(
-                                    //   context: context,
-                                    //   barrierColor: Colors.black.withOpacity(.02),
-                                    //   useSafeArea: true,
-                                    //   builder: (BuildContext context) =>
-                                    //       AlertDialog(
-                                    //         insetPadding: const EdgeInsets.all(0.0),
-                                    //         scrollable: false,
-                                    //         shadowColor: Colors.transparent,
-                                    //
-                                    //         // title: const Text('AlertDialog Title'),
-                                    //         content: Center(
-                                    //           child: Container(
-                                    //             width:
-                                    //             MediaQuery.of(context).size.width,
-                                    //             child: GestureDetector(
-                                    //               onTap: () {
-                                    //                 Navigator.pop(context);
-                                    //               },
-                                    //               child: GlassBox(
-                                    //                   widget: Stack(
-                                    //                     children: [
-                                    //                       Column(
-                                    //                         children: [
-                                    //                           const SizedBox(
-                                    //                             height: 60,
-                                    //                           ),
-                                    //                           Text(
-                                    //                             'Notifications',
-                                    //                             style: TextStyle(
-                                    //                                 fontSize: 25,
-                                    //                                 fontWeight:
-                                    //                                 FontWeight.w900,
-                                    //                                 color: Colors.black
-                                    //                                     .withOpacity(
-                                    //                                     .7)),
-                                    //                           ),
-                                    //                           ConditionalBuilder(
-                                    //                             condition:cubit.stuHistoryModel.isNotEmpty||cubit.insHistoryModel.isNotEmpty,
-                                    //                             builder:(context)=> Expanded(
-                                    //                               child: Padding(
-                                    //                                 padding:
-                                    //                                 const EdgeInsets
-                                    //                                     .only(
-                                    //                                     top: 40,
-                                    //                                     left: 15,
-                                    //                                     bottom: 0,
-                                    //                                     right: 15),
-                                    //                                 child:  ListView
-                                    //                                     .separated(
-                                    //                                   physics:
-                                    //                                   const BouncingScrollPhysics(),
-                                    //                                   itemBuilder: (context, index) {
-                                    //                                     return rol=='Student'? historyCard(
-                                    //                                         icon: recent[index],
-                                    //                                         history: cubit.stuHistoryModel[index],
-                                    //                                         // :cubit.insHistoryModel[index],
-                                    //                                         context: context
-                                    //                                     ): insHistoryCard(
-                                    //                                         icon: recent[index],
-                                    //                                         history: cubit.insHistoryModel[index],
-                                    //                                         // :cubit.insHistoryModel[index],
-                                    //                                         context: context
-                                    //                                     );
-                                    //                                   },
-                                    //                                   separatorBuilder:
-                                    //                                       (context,
-                                    //                                       index) =>
-                                    //                                       Container(
-                                    //                                         height: 15,
-                                    //                                         color: Colors
-                                    //                                             .transparent,
-                                    //                                       ),
-                                    //                                   itemCount: rol=='Student'? cubit.stuHistoryModel.length
-                                    //                                       :cubit.insHistoryModel.length,
-                                    //                                 ),
-                                    //                               ),
-                                    //                             ),
-                                    //                             fallback:(context)=>SizedBox(),
-                                    //                           ),
-                                    //                         ],
-                                    //                       ),
-                                    //                     ],
-                                    //                   ),
-                                    //                   color: Colors.transparent,
-                                    //                   borderRadius: 0,
-                                    //                   x: 50,
-                                    //                   y: 50),
-                                    //             ),
-                                    //           ),
-                                    //         ),
-                                    //         elevation: 0,
-                                    //         clipBehavior: Clip.none,
-                                    //         surfaceTintColor: Colors.transparent,
-                                    //         backgroundColor: Colors.transparent,
-                                    //         contentPadding: EdgeInsets.zero,
-                                    //       ),
-                                    // );
-                                  },
-                                    icon: const Icon(Icons.notifications),),
+                                    icon:  const Icon(Icons.search,color: AppColor.titleText,),),
+                                  IconButton(onPressed: () {},
+                                    icon: const Icon(Icons.notifications,color: AppColor.titleText,),),
                                 ],
                               ),
                             ),

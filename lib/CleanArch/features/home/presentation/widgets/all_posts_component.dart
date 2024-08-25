@@ -1,11 +1,9 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:newapp/CleanArch/core/utils/colors.dart';
+import 'package:newapp/CleanArch/features/home/presentation/widgets/post_likes_showDialog.dart';
 import 'package:newapp/models/PostModel/PostModel.dart';
-import 'package:newapp/modules/Screens/ShowUsersLikedPosts/ShowUsersLikedPosts.dart';
-import 'package:newapp/shared/Component/StaticComponent.dart';
 import 'package:newapp/shared/Cubit/cubit/app_cubit.dart';
 class BuildPostsWidget extends StatelessWidget {
   const BuildPostsWidget({
@@ -31,7 +29,7 @@ class BuildPostsWidget extends StatelessWidget {
           color:AppColor.postCardColor
         ),
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding:  EdgeInsets.all(8.0.sp),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -58,7 +56,7 @@ class BuildPostsWidget extends StatelessWidget {
                                   .textTheme
                                   .bodyLarge
                                   ?.copyWith(
-                                      color: Colors.grey[400], height: 1.5),
+                                      color: Colors.grey[400], height: 1.h),
                             ),
                             SizedBox(
                               width: 5.w,
@@ -136,7 +134,7 @@ class BuildPostsWidget extends StatelessWidget {
               ),
               post.postImage != null
                   ? SizedBox(
-                      height: 200,
+                      height: 200.h,
                       width: double.infinity,
                       child: Card(
                         clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -152,7 +150,7 @@ class BuildPostsWidget extends StatelessWidget {
                 height: 5.h,
               ),
               Container(
-                height: 0.4,
+                height: 0.4.h,
                 color: HexColor('#13003b'),
               ),
               SizedBox(height: 5.h,),
@@ -162,7 +160,14 @@ class BuildPostsWidget extends StatelessWidget {
                     onTap: () {
                       AppCubit.get(context)
                           .getLikedUsers(AppCubit.get(context).likes[index]);
-                      NavigateTo(context, ShowUserLikedPosts());
+                          showDialog<String>(
+                              context: context,
+                              barrierColor: Colors.black.withOpacity(.3),
+                              useSafeArea: true,
+                              builder: (BuildContext context) => PostLikesDialog(
+                                height: MediaQuery.of(context).size.height/2.5,
+                                width: MediaQuery.of(context).size.width-20 ,
+                              ));
                     },
                   
                     // {
@@ -218,10 +223,10 @@ class BuildPostsWidget extends StatelessWidget {
                   
                     child: Row(
                       children: [
-                        const Icon(
+                         Icon(
                           Icons.favorite,
                           color: Colors.red,
-                          size: 18,
+                          size: 18.sp,
                         ),
                          SizedBox(
                           width: 5.w,
@@ -230,7 +235,7 @@ class BuildPostsWidget extends StatelessWidget {
                           "${AppCubit.get(context).likesNum[index]}",
                           style:
                               Theme.of(context).textTheme.bodySmall?.copyWith(
-                                    fontSize: 13,
+                                    fontSize: 13.sp,
                                     color: Colors.grey,
                                   ),
                         )
@@ -245,7 +250,7 @@ class BuildPostsWidget extends StatelessWidget {
                         Icon(
                               Icons.comment,
                               color: Colors.grey[400],
-                              size: 15,
+                              size: 15.sp,
                             ),
                                  SizedBox(
                           width: 5.w,
@@ -254,7 +259,7 @@ class BuildPostsWidget extends StatelessWidget {
                           "${AppCubit.get(context).commentNum[index]}",
                          style:
                               Theme.of(context).textTheme.bodySmall?.copyWith(
-                                    fontSize: 13,
+                                    fontSize: 13.sp,
                                     color: Colors.grey,
                                   ),
                         )
@@ -274,21 +279,24 @@ class BuildPostsWidget extends StatelessWidget {
                       width: 10.w,
                     ),
                     SizedBox(
-                      width: 150,
+                      width: 150.w,
                       child: TextFormField(
+                        style:  TextStyle(
+                          fontSize: 18.sp
+                        ),
                         controller: commentController,
                         decoration: InputDecoration(
                           hintText: 'Write a comment',
                           hintStyle:
                               Theme.of(context).textTheme.bodySmall?.copyWith(
-                                    fontSize: 14,
+                                    fontSize: 12.sp,
                                     color: Colors.grey[400],
                                   ),
                         ),
                         onFieldSubmitted: (value) {
                           if (value.isNotEmpty) {
                             AppCubit.get(context).addComment(
-                                AppCubit.get(context).likes[index!], value);
+                                AppCubit.get(context).likes[index], value);
                             commentController.clear();
                           }
                         },
