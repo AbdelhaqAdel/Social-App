@@ -2,7 +2,8 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:newapp/models/PostModel/PostModel.dart';
+import 'package:newapp/CleanArch/features/home/data/models/post_model.dart';
+import 'package:newapp/models/PostModel/status_model.dart';
 import 'package:newapp/modules/Screens/StatusScreen.dart';
 import 'package:newapp/shared/Cubit/cubit/app_cubit.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
@@ -28,7 +29,7 @@ class _ShowStatusState extends State<ShowStatus> {
       listener: (context, state) {},
       builder: (context, state) {
         AppCubit cubit = AppCubit.get(context);
-        List<statusModel>? statusByUser = cubit.allStatus;
+        List<StatusModel>? statusByUser = cubit.allStatus;
         return Scaffold(
           // appBar: AppBar(
           //   leading:
@@ -184,7 +185,7 @@ class _ShowStatusState extends State<ShowStatus> {
 }
 
 Widget BuildShowStatusByUser(
-  List<statusModel>? status,
+  List<StatusModel>? status,
   context,
   index,
 ) =>

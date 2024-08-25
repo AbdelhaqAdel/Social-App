@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:newapp/CleanArch/features/chat/presentation/pages/chat_screen.dart';
-import 'package:newapp/models/PostModel/PostModel.dart';
+import 'package:newapp/models/PostModel/status_model.dart';
 import 'package:newapp/models/UserModel/UsersModel.dart';
 import 'package:newapp/modules/Screens/showStatus.dart';
 import 'package:newapp/shared/Component/StaticComponent.dart';
@@ -193,7 +193,7 @@ Widget GetAllUsersWidget(
 
 Widget BuildStatusWidget(
   context,
-  List<statusModel> status,
+  List<StatusModel> status,
   int index,
 ) =>
     Container(

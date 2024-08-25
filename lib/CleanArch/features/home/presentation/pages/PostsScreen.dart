@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:newapp/CleanArch/core/utils/colors.dart';
 import 'package:newapp/CleanArch/features/home/presentation/widgets/all_posts_component.dart';
-import 'package:newapp/models/PostModel/PostModel.dart';
+import 'package:newapp/CleanArch/features/home/data/models/post_model.dart';
 import 'package:newapp/shared/Cubit/cubit/app_cubit.dart';
 
 // ignore: must_be_immutable

@@ -14,14 +14,15 @@ import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';
 import 'package:newapp/models/MessagesModel/MessagesModel.dart';
-import 'package:newapp/models/PostModel/PostModel.dart';
+import 'package:newapp/CleanArch/features/home/data/models/post_model.dart';
+import 'package:newapp/models/PostModel/status_model.dart';
 import 'package:newapp/shared/Constants/KeyConstants.dart';
 import 'package:newapp/shared/network/DioHelper.dart';
 import 'package:newapp/shared/network/local/CacheHelper.dart';
 import '../../../models/NotificationModelAndAdabpter/NotificationHiveModel.dart';
 import '../../../models/UserModel/UsersModel.dart';
 import '../../../modules/Screens/AddPostScreen.dart';
-import '../../../modules/Screens/PostsScreen.dart';
+import '../../../CleanArch/features/home/presentation/pages/PostsScreen.dart';
 import '../../../modules/Screens/StatusScreen.dart';
 import '../../../modules/Screens/UserProfile.dart';
 import '../../../modules/Screens/messagesScreen.dart';
@@ -787,7 +788,7 @@ emit(UserCoverUpdateErrorState());
     //Color? color,
   }){
     emit(ImageStatusUploadLoadingState());
-    statusModel model=statusModel(
+    StatusModel model=StatusModel(
       userModel!.name,
       userModel!.uId,
       userModel!.image,
@@ -821,7 +822,7 @@ emit(UserCoverUpdateErrorState());
   }
 
 
-  List<statusModel>?allUserAddStatus=[];
+  List<StatusModel>?allUserAddStatus=[];
   void whoUserAddStory()async {
     emit(GetUserAddStatusLoadingState());
 
@@ -843,7 +844,7 @@ emit(UserCoverUpdateErrorState());
           });
           //  print(value.docs.isEmpty);
           if(value.docs.isNotEmpty){
-            allUserAddStatus?.add(statusModel.fromJson(element.data()));
+            allUserAddStatus?.add(StatusModel.fromJson(element.data()));
           }
           emit(GetUserAddStatusSuccessState());
         });
@@ -884,12 +885,12 @@ emit(UserCoverUpdateErrorState());
 
 
 
- List <statusModel> convertListQuerySnapshotToList(QuerySnapshot querySnapshot) {
-   List <statusModel> statusList=[] ;
+ List <StatusModel> convertListQuerySnapshotToList(QuerySnapshot querySnapshot) {
+   List <StatusModel> statusList=[] ;
     querySnapshot.docs.forEach((doc) {
       var data = doc.data() as Map<String, dynamic>;
 
-      var status = statusModel(
+      var status = StatusModel(
         // Replace these with the actual fields in your PostModel
         data['name'],
         data['uId'],
@@ -905,7 +906,7 @@ emit(UserCoverUpdateErrorState());
     return statusList;
   }
 
-  List<statusModel>? allStatus=[];
+  List<StatusModel>? allStatus=[];
   void anotherGetStatus(String? userId)async
   {
     emit(GetStatusLoadingState());
@@ -915,7 +916,7 @@ emit(UserCoverUpdateErrorState());
 
       value.docs.forEach((element) {
 
-       allStatus?.add(statusModel.fromJson(element.data()));
+       allStatus?.add(StatusModel.fromJson(element.data()));
        print('${DateTime.now().hour}');
 
         // print('not cleared ${DateTime.now().minute}');

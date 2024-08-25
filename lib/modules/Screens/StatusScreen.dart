@@ -1,13 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:newapp/models/PostModel/status_model.dart';
 import 'package:newapp/shared/Component/StaticComponent.dart';
 import 'package:newapp/shared/Cubit/cubit/app_cubit.dart';
 import 'package:newapp/shared/ListComponent/ListComponent.dart';
-
-import '../../models/PostModel/PostModel.dart';
 import 'AddStatusScreen.dart';
 import 'AddTextStatusScreen.dart';
 
@@ -18,7 +15,7 @@ class StatusScreen extends StatelessWidget {
         listener: (context, state) {},
         builder: (context, state) {
           AppCubit cubit = AppCubit.get(context);
-         List<statusModel>? status=cubit.allUserAddStatus;
+         List<StatusModel>? status=cubit.allUserAddStatus;
           return StreamBuilder<QuerySnapshot>(
             stream: cubit.getStatusUpdates(),
             builder: (context, snapshot) {
