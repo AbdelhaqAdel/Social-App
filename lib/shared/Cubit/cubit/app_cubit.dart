@@ -160,10 +160,10 @@ class AppCubit extends Cubit<AppState> {
     required String nickname,
 
   }){
-    UserRegisterModel ?registerModel=UserRegisterModel(name, email,uId,phone,image,bio,cover,nickname);
+    UserRegisterModel ?registerModel=UserRegisterModel(
+      name:name,email: email,uId:uid!,phone: phone,image: image,bio: bio,cover :cover,nickname: nickname);
     FirebaseFirestore.instance.collection(Kusers).doc(uId).set(registerModel.toMap()).then((value) {
       emit(shopAddUserSuccessState(uId));
-      print("uidd : ${uId}");
     }).catchError((onError){
       print(onError);
       emit(shopAddUserErrorState());
@@ -419,14 +419,14 @@ class AppCubit extends Cubit<AppState> {
   String?nickname,
 }){
 UserRegisterModel model=UserRegisterModel(
-  name,
-  userModel!.email,
-  userModel!.uId,
-  phone,
-  profileImage??userModel!.image,
-  bio,
-  coverImage?? userModel!.cover,
-  nickname??userModel!.nickname,
+  name:name,
+  email:userModel!.email,
+   uId: userModel!.uId,
+ phone: phone,
+  image:profileImage??userModel!.image,
+  bio: bio,
+  cover: coverImage?? userModel!.cover,
+ nickname:nickname??userModel!.nickname,
 );
 FirebaseFirestore.instance.collection(Kusers).doc(model.uId).update(model.toMap())
     .then((value) {
@@ -970,7 +970,7 @@ emit(UserCoverUpdateErrorState());
     emit(AddChatLoadingState());
     MessagesModel model =MessagesModel(
       message,
-      userModel!.uId!,
+      userModel!.uId,
     //    DateFormat.jm().format(DateTime.now())
     DateTime.now().toString(),
     );
@@ -1006,19 +1006,23 @@ emit(UserCoverUpdateErrorState());
  // CollectionReference ?messages;
   List<MessagesModel>message=[];
   void getMessages(String userId){
+    message=[];
     emit(GetAllMessagesLoadingState());
-     //message=[];
-
-    FirebaseFirestore.instance.collection('${Kusers}')
-        .doc(userModel!.uId).collection('allChats')
+    try{
+    FirebaseFirestore.instance.collection(Kusers)
+        .doc(userModel?.uId).collection('allChats')
         .doc(userId).collection('chatwith').orderBy('date').snapshots()
-         .listen((event) {
-           message=[];
-           event.docs.forEach((element) {
+         .listen((event)  {
+          //  message=[];
+           for (var element in event.docs) {
+            message.add(MessagesModel.fromJson(element.data()));
              print(element.data());
-             message.add(MessagesModel.fromJson(element.data()));
-           });
+           }
     });
+    emit(GetAllMessagesSuccessState());
+    }catch(e){
+          emit(GetAllMessagesErrorState());
+    }
     // FirebaseFirestore.instance.collection('${Kusers}')
     //     .doc(userModel!.uId).collection('allChats')
     //     .doc(userId).collection('chatwith').get().then((value) {
@@ -1030,11 +1034,7 @@ emit(UserCoverUpdateErrorState());
     //         print(element.message);
     //       });
 
-          emit(GetAllMessagesSuccessState());
-    // }).catchError((error){
-    //   print('getting all messages error${error}');
-    //   emit(GetAllMessagesErrorState());
-    // });
+   
   }
 
   // Stream<QuerySnapshot> getMessagesUpdates(String userId) {
@@ -1077,11 +1077,6 @@ emit(UserCoverUpdateErrorState());
 //   });
 // }
 
-// int id=0;
-
-
-
-
 //
 // void AddStatus({
 //   String? postText,
@@ -1106,7 +1101,6 @@ emit(UserCoverUpdateErrorState());
 //     emit(ImageStatusUploadErrorState());
 //   });
 // }
-
 
 // void updateUserInfo({
 //   required String name,
@@ -1133,7 +1127,6 @@ emit(UserCoverUpdateErrorState());
 //   });
 // }
 
-
 // List<String>allUsersStatus=[];
   // void getAllStatus(){
   //   FirebaseFirestore.instance
@@ -1157,8 +1150,6 @@ emit(UserCoverUpdateErrorState());
   //   });
   // }
 
-
-
   // List <statusModel>userStatus=[];
   // Map<String,dynamic>?allStatusAsMap;
   //  void getUSerStatus(String userId){
@@ -1177,10 +1168,6 @@ emit(UserCoverUpdateErrorState());
   //          // });
   //    }).catchError((error){});
   //  }
-
-
-
-
 
 //
     // void getLikesByName(String postId){

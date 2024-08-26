@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:newapp/CleanArch/core/utils/colors.dart';
 import 'package:newapp/CleanArch/features/chat/data/models/messages_model.dart';
 
 class UserMessageWidget extends StatelessWidget {
@@ -14,25 +16,23 @@ class UserMessageWidget extends StatelessWidget {
         Align(
           alignment: Alignment.topRight,
           child: Container(
-            margin: EdgeInsets.only(left: 15, right: 15, top: 20, bottom: 5),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.only(
+            margin: EdgeInsets.only(left: 15.w, right: 15.w, top: 20.h, bottom: 5.h),
+            decoration:  BoxDecoration(
+              borderRadius: const BorderRadius.only(
                 topRight: Radius.circular(20),
                 topLeft: Radius.circular(20),
                 bottomLeft: Radius.circular(20),
               ),
-              color: Colors.deepOrange,
+              color: AppColor.layoutBackgroundColor,
             ),
-            child: Container(
-              child: Padding(
-                padding: const EdgeInsets.only(
-                    top: 15, bottom: 15, right: 70, left: 8),
-                child: Text(
-                  message.message,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 12,
-                  ),
+            child: Padding(
+              padding: const EdgeInsets.only(
+                  top: 15, bottom: 15, right: 70, left: 8),
+              child: Text(
+                message.message,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 12,
                 ),
               ),
             ),
@@ -40,7 +40,7 @@ class UserMessageWidget extends StatelessWidget {
         ),
         Align(
           alignment: Alignment.topRight,
-          child: Container(
+          child: SizedBox(
             width: 80,
             child: Text(
               'ccccc',

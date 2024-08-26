@@ -3,6 +3,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:newapp/CleanArch/generated/bloc_observer.dart';
 import 'package:newapp/CleanArch/layout.dart';
 import 'package:newapp/shared/Constants/KeyConstants.dart';
 import 'package:newapp/shared/Constants/hive%20constant.dart';
@@ -27,6 +28,8 @@ void main() async{
     options: DefaultFirebaseOptions.currentPlatform,
   );
   //  AppNotification().initNotification();
+    Bloc.observer = MyBlocObserver();
+
   final _firebaseMessaging=FirebaseMessaging.instance;
   await _firebaseMessaging.requestPermission().then((value){
     print('permission----------------------------');

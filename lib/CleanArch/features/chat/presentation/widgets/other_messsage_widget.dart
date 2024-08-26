@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:newapp/CleanArch/features/chat/data/models/messages_model.dart';
 
 class OtherUserMessage extends StatelessWidget {
@@ -9,11 +10,11 @@ class OtherUserMessage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return    Align(
+    return Align(
       alignment: Alignment.centerLeft,
       child: Container(
-        margin: EdgeInsets.all(15),
-        decoration: BoxDecoration(
+        margin: EdgeInsets.all(15.sp),
+        decoration: const BoxDecoration(
           borderRadius: BorderRadius.only(
             topRight: Radius.circular(20),
             topLeft: Radius.circular(20),
@@ -24,24 +25,23 @@ class OtherUserMessage extends StatelessWidget {
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.only(
-                  top: 30, bottom: 30, right: 70, left: 8),
+              padding:  EdgeInsets.only(
+                  top: 30.h, bottom: 30.h, right: 70.w, left: 8.w),
               child: Text(
-                '${message.message}',
+                message.message,
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 15,
+                  fontSize: 15.sp,
                 ),
               ),
             ),
-            Text(
+            const Text(
               'ssds',
               // '${DateTime.parse(message.date).timeZoneName}',
               style: TextStyle(
                 color: Colors.white,
               ),
             )
-            //Text('${message.time}'),
           ],
         ),
       ),
