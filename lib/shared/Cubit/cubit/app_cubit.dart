@@ -21,7 +21,7 @@ import 'package:newapp/shared/network/local/CacheHelper.dart';
 import '../../../models/NotificationModelAndAdabpter/NotificationHiveModel.dart';
 import '../../../models/PostModel/status_model.dart';
 import '../../../models/UserModel/UsersModel.dart';
-import '../../../modules/Screens/AddPostScreen.dart';
+import '../../../CleanArch/features/add post/presentation/pages/add_post_screen.dart';
 import '../../../CleanArch/features/home/presentation/pages/PostsScreen.dart';
 import '../../../modules/Screens/StatusScreen.dart';
 import '../../../modules/Screens/UserProfile.dart';
