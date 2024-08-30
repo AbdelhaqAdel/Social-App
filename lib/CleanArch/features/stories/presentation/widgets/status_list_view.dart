@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:newapp/CleanArch/features/stories/presentation/widgets/status_custom_widget.dart';
-import 'package:newapp/models/PostModel/status_model.dart';
+import 'package:newapp/CleanArch/features/stories/data/models/status_model.dart';
 import 'package:newapp/shared/Cubit/cubit/app_cubit.dart';
 
 class StatusListView extends StatelessWidget {

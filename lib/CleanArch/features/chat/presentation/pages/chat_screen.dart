@@ -6,7 +6,7 @@ import 'package:newapp/CleanArch/features/chat/presentation/widgets/other_messsa
 import 'package:newapp/CleanArch/features/chat/presentation/widgets/text_form_feild_widget.dart';
 import 'package:newapp/CleanArch/features/chat/presentation/widgets/user_message_widget.dart';
 import 'package:newapp/shared/Cubit/cubit/app_cubit.dart';
-import '../../../../../models/UserModel/UsersModel.dart';
+import '../../../profile/data/models/user_model.dart';
 
 // ignore: must_be_immutable
 class ChatScreen extends StatelessWidget {

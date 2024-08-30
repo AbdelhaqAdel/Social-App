@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:newapp/CleanArch/core/utils/colors.dart';
-import 'package:newapp/models/UserModel/UsersModel.dart';
+import 'package:newapp/CleanArch/features/profile/data/models/user_model.dart';
 import 'package:newapp/shared/Cubit/cubit/app_cubit.dart';
 
 class TextFormFeild extends StatelessWidget {

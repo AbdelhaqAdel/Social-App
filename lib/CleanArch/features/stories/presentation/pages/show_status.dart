@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:newapp/CleanArch/features/stories/presentation/widgets/view_status_custom_widget.dart';
-import 'package:newapp/models/PostModel/status_model.dart';
+import 'package:newapp/CleanArch/features/stories/data/models/status_model.dart';
 import 'package:newapp/shared/Cubit/cubit/app_cubit.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
