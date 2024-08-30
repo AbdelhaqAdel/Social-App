@@ -907,7 +907,7 @@ emit(UserCoverUpdateErrorState());
     return statusList;
   }
 
-  List<StatusModel>? allStatus=[];
+  List<StatusModel> allStatus=[];
   void anotherGetStatus(String? userId)async
   {
     emit(GetStatusLoadingState());
@@ -917,7 +917,7 @@ emit(UserCoverUpdateErrorState());
 
       value.docs.forEach((element) {
 
-       allStatus?.add(StatusModel.fromJson(element.data()));
+       allStatus.add(StatusModel.fromJson(element.data()));
        print('${DateTime.now().hour}');
 
         // print('not cleared ${DateTime.now().minute}');

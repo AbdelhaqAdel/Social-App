@@ -1,12 +1,16 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:newapp/CleanArch/features/stories/presentation/widgets/view_status_custom_widget.dart';
 import 'package:newapp/models/PostModel/status_model.dart';
 import 'package:newapp/shared/Cubit/cubit/app_cubit.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class ShowStatus extends StatefulWidget {
+  const ShowStatus({super.key});
+
   @override
   State<ShowStatus> createState() => _ShowStatusState();
 }
@@ -15,9 +19,9 @@ class _ShowStatusState extends State<ShowStatus> {
   var boardcontroller = PageController();
   bool islast = false;
 
-  @override
   State<ShowStatus> createState() => _ShowStatusState();
 
+  @override
   Widget build(BuildContext context) {
     return BlocConsumer<AppCubit, AppState>(
       listener: (context, state) {},
@@ -25,21 +29,14 @@ class _ShowStatusState extends State<ShowStatus> {
         AppCubit cubit = AppCubit.get(context);
         List<StatusModel>? statusByUser = cubit.allStatus;
         return Scaffold(
-          // appBar: AppBar(
-          //   leading:
-
-          //   actions: [
-          //
-          //   ],
-          // ),
           body: Column(
             children: [
               Container(
-                // width: double.infinity,
                 height: 690,
+
                 color: Colors.transparent,
                 child: ConditionalBuilder(
-                  condition: AppCubit.get(context).allStatus?.length != 0,
+                  condition: AppCubit.get(context).allStatus.isNotEmpty,
                   builder: (context) =>
                       // ListView.separated(
                       //   scrollDirection: Axis.horizontal,
@@ -50,16 +47,14 @@ class _ShowStatusState extends State<ShowStatus> {
                       // ),
                       PageView.builder(
                     onPageChanged: (index) {
-                      if (index == statusByUser!.length - 1) {
+                      if (index == statusByUser.length - 1) {
                         setState(() {
                           islast = true;
                         });
                       }
-
                       else {
                         setState(() {
                           islast = false;
-                          //ismiddle = false;
                         });
                       }
                       // if(DateTime.parse(AppCubit.get(context).allStatus![index].postDate!).hour==DateTime.parse(DateTime.now().toString()).hour){
@@ -76,13 +71,11 @@ class _ShowStatusState extends State<ShowStatus> {
                       // }
                     },
                     controller: boardcontroller,
-                    itemBuilder: (context, index) => BuildShowStatusByUser(
-                        AppCubit.get(context).allStatus, context, index),
-                    itemCount: AppCubit.get(context).allStatus!.length,
-                    //statusByUser?.length,
-                    //AppCubit.get(context).allStatus?.length,
+                    itemBuilder: (context, index) => ViewStatusWidget(
+                     status:  AppCubit.get(context).allStatus,index: index),
+                    itemCount: AppCubit.get(context).allStatus.length,
                   ),
-                  fallback: (context) => Center(
+                  fallback: (context) => const Center(
                     child: CircularProgressIndicator(
                       color: Colors.red,
                     ),
@@ -96,19 +89,19 @@ class _ShowStatusState extends State<ShowStatus> {
                 child: Row(
                   children: [
                     SizedBox(
-                      width: 6,
+                      width: 6.w,
                     ),
                     SmoothPageIndicator(
                       controller: boardcontroller,
                       effect: ExpandingDotsEffect(
                         dotColor: Colors.grey,
                         activeDotColor: Colors.blue,
-                        dotHeight: 7,
-                        dotWidth: 7,
+                        dotHeight: 7.h,
+                        dotWidth: 7.w,
                         spacing: 5,
                         expansionFactor: 4,
                       ),
-                      count: AppCubit.get(context).allStatus!.length,
+                      count: AppCubit.get(context).allStatus.length,
                     ),
                     // islast? GestureDetector(
                     //   onTap: (){
@@ -130,11 +123,9 @@ class _ShowStatusState extends State<ShowStatus> {
                     //   ),
                     // ):SizedBox(),
                     // SizedBox(width: 250,),
-                    Spacer(),
+                    const Spacer(),
                     CircularPercentIndicator(
                       animation: true,
-                      // addAutomaticKeepAlive: true,
-                      // animateFromLastPercent: true,
                       animationDuration: 1000,
                       radius: 38,
                       lineWidth: 5,
@@ -146,12 +137,12 @@ class _ShowStatusState extends State<ShowStatus> {
                       center: FloatingActionButton(
                         onPressed: () {
                           if (islast ||
-                              AppCubit.get(context).allStatus!.length == 1) {
-                            AppCubit.get(context).allStatus?.clear();
+                              AppCubit.get(context).allStatus.length == 1) {
+                            AppCubit.get(context).allStatus.clear();
                             Navigator.pop(context);
                           } else {
                             boardcontroller.nextPage(
-                              duration: Duration(
+                              duration: const Duration(
                                 milliseconds: 750,
                               ),
                               curve: Curves.fastLinearToSlowEaseIn,
@@ -159,12 +150,12 @@ class _ShowStatusState extends State<ShowStatus> {
                           }
                         },
                         child: islast ||
-                                AppCubit.get(context).allStatus!.length == 1
-                            ? Icon(
+                                AppCubit.get(context).allStatus.length == 1
+                            ? const Icon(
                                 Icons.done,
                                 size: 20,
                               )
-                            : Icon(Icons.arrow_forward_ios),
+                            : const Icon(Icons.arrow_forward_ios),
                       ),
                     ),
                   ],
@@ -177,102 +168,3 @@ class _ShowStatusState extends State<ShowStatus> {
     );
   }
 }
-
-Widget BuildShowStatusByUser(
-  List<StatusModel>? status,
-  context,
-  index,
-) =>
-    Stack(
-      children:[
-        Container(
-          // height: 700,
-          // width: 400,
-          child: status?[index].postImage != null
-              ? Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                  Expanded(
-                    child: Card(
-                      child: Image.network('${status?[index].postImage}'),
-                    ),
-                  ),
-                  
-                  Text(
-                    '${status?[index].postText}',
-                    style: Theme.of(context).textTheme.bodyLarge,
-                  ),
-                ])
-              : Container(
-                 color: Colors.red,
-                  // height: 400,
-                  //  width: 400,
-                 // color: status?[index].color,
-                  child: Center(
-                    child: Text('${status?[index].postText}'),
-                  ),
-                )),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 45.0),
-                child: Row(
-                  children: [
-                    IconButton(
-                      onPressed: () {
-                        AppCubit.get(context).allStatus?.clear();
-                        Navigator.pop(context);
-                      },
-                      icon: Icon(Icons.arrow_back_ios),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(4.0),
-                      child: CircleAvatar(
-                        radius: 27,
-                        backgroundImage: NetworkImage(
-                            '${AppCubit.get(context).allStatus![index].image}'),
-                      ),
-                    ),
-                    SizedBox(
-                      width: 8,
-                    ),
-                    Text(
-                      '${AppCubit.get(context).allStatus![index].name}',
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyLarge
-                          ?.copyWith(fontSize: 20),
-                    ),
-                    // SizedBox(
-                    //   width: 190,
-                    // ),
-                    // IconButton(
-                    //     onPressed: () {
-                    //       print(AppCubit.get(context).allStatus?.length);
-                    //       print(AppCubit.get(context).allStatus![0].postText);
-                    //     },
-                    //     icon: Icon(Icons.add)),
-                  ],
-                ),
-              ),
-              Text(
-              'at ${DateTime.parse(status![index].postDate!).hour}:${DateTime.parse(status[index].postDate!).minute}',
-              style: Theme.of(context)
-                  .textTheme
-                  .bodySmall
-                  ?.copyWith(
-                color: Colors.black,
-                  height:1,
-                fontSize: 15
-
-              ),
-              ),
-            ],
-          ),
-        ),
-       // Text('${status?[index].postDate}'),
-      ]
-    );
