@@ -1,14 +1,18 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:newapp/CleanArch/core/utils/colors.dart';
 
 
-PreferredSizeWidget DefaultAppBar({
+PreferredSizeWidget defaultAppBar({
   required BuildContext context,
   String? title,
   List<Widget>?actions,
 })=>AppBar(
-  title: Text(title!,style: TextStyle(
-    fontSize: 18,
+  backgroundColor: AppColor.layoutBackgroundColor,
+  title: Text(title??'',style: TextStyle(
+    color: Colors.grey,
+    fontSize: 18.sp,
   ),),
   actions: actions,
   titleSpacing: 0.5,
@@ -16,7 +20,7 @@ PreferredSizeWidget DefaultAppBar({
     onPressed: (){
       Navigator.pop(context);
     },
-    icon: Icon(Icons.arrow_back_ios),
+    icon: const Icon(Icons.arrow_back_ios,color: Colors.grey,),
   ),
 );
 

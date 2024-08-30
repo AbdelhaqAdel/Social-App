@@ -19,12 +19,12 @@ import 'package:newapp/shared/Constants/KeyConstants.dart';
 import 'package:newapp/shared/network/DioHelper.dart';
 import 'package:newapp/shared/network/local/CacheHelper.dart';
 import '../../../models/NotificationModelAndAdabpter/NotificationHiveModel.dart';
-import '../../../models/PostModel/status_model.dart';
-import '../../../models/UserModel/UsersModel.dart';
+import '../../../CleanArch/features/stories/data/models/status_model.dart';
+import '../../../CleanArch/features/profile/data/models/user_model.dart';
 import '../../../CleanArch/features/add post/presentation/pages/add_post_screen.dart';
 import '../../../CleanArch/features/home/presentation/pages/PostsScreen.dart';
 import '../../../CleanArch/features/stories/presentation/pages/status_screen.dart';
-import '../../../modules/Screens/UserProfile.dart';
+import '../../../CleanArch/features/profile/presentation/pages/user_profile.dart';
 import '../../../CleanArch/features/chat/presentation/pages/all_chats_screen.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
