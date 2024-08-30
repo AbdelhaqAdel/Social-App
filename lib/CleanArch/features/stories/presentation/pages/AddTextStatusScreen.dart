@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../shared/Cubit/cubit/app_cubit.dart';
+import '../../../../../shared/Cubit/cubit/app_cubit.dart';
 
 class TextStatusScreen extends StatelessWidget {
   var statusTextController = TextEditingController();

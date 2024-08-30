@@ -23,7 +23,7 @@ import '../../../models/PostModel/status_model.dart';
 import '../../../models/UserModel/UsersModel.dart';
 import '../../../CleanArch/features/add post/presentation/pages/add_post_screen.dart';
 import '../../../CleanArch/features/home/presentation/pages/PostsScreen.dart';
-import '../../../modules/Screens/StatusScreen.dart';
+import '../../../CleanArch/features/stories/presentation/pages/status_screen.dart';
 import '../../../modules/Screens/UserProfile.dart';
 import '../../../CleanArch/features/chat/presentation/pages/all_chats_screen.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
@@ -822,7 +822,7 @@ emit(UserCoverUpdateErrorState());
   }
 
 
-  List<StatusModel>?allUserAddStatus=[];
+  List<StatusModel>allUserAddStatus=[];
   void whoUserAddStory()async {
     emit(GetUserAddStatusLoadingState());
 
@@ -844,9 +844,9 @@ emit(UserCoverUpdateErrorState());
           });
           //  print(value.docs.isEmpty);
           if(value.docs.isNotEmpty){
-            allUserAddStatus?.add(StatusModel.fromJson(element.data()));
+            allUserAddStatus.add(StatusModel.fromJson(element.data()));
           }
-          emit(GetUserAddStatusSuccessState());
+          emit(GetUserAddStatusSuccessState(status: allUserAddStatus));
         });
       });
       // print('lllll${allUserAddStatus.length}');

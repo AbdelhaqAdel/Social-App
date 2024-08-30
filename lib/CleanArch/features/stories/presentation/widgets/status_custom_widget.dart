@@ -1,17 +1,20 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:newapp/CleanArch/features/stories/presentation/pages/showStatus.dart';
 import 'package:newapp/models/PostModel/status_model.dart';
-import 'package:newapp/modules/Screens/showStatus.dart';
 import 'package:newapp/shared/Component/StaticComponent.dart';
 import 'package:newapp/shared/Cubit/cubit/app_cubit.dart';
 
-
-
-Widget BuildStatusWidget(
-  context,
-  List<StatusModel> status,
-  int index,
-) =>
-    Container(
+class StatusCustomWidget extends StatelessWidget {
+  const StatusCustomWidget({
+    required this.status,
+    required this.index,
+    super.key});
+   final List<StatusModel> status;
+  final int index;
+  @override
+  Widget build(BuildContext context) {
+    return Container(
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -76,3 +79,6 @@ Widget BuildStatusWidget(
         ],
       ),
     );
+
+  }
+}

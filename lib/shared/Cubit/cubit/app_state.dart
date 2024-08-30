@@ -129,7 +129,10 @@ class GetStatusSuccessState extends AppState {}
 class GetStatusErrorState extends AppState {}
 
 class GetUserAddStatusLoadingState extends AppState {}
-class GetUserAddStatusSuccessState extends AppState {}
+class GetUserAddStatusSuccessState extends AppState {
+  final  List<StatusModel>status;
+  GetUserAddStatusSuccessState({required this.status});
+}
 class GetUserAddStatusErrorState extends AppState {}
 
 
