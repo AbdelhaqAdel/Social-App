@@ -1,11 +1,13 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../shared/Cubit/cubit/app_cubit.dart';
 
 class TextStatusScreen extends StatelessWidget {
-  var statusTextController = TextEditingController();
+  final statusTextController = TextEditingController();
+
+  TextStatusScreen({super.key});
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AppCubit, AppState>(
@@ -15,19 +17,19 @@ class TextStatusScreen extends StatelessWidget {
           return Scaffold(
             appBar: AppBar(
               backgroundColor: cubit.statusColor[cubit.colorIndex],
-              title: Text("create story"),
+              title:Text("create story",style: Theme.of(context).textTheme.titleMedium,),
               actions: [
                 TextButton(
                     onPressed: () {
                       cubit.AddUsersStatus(
                         statusText: statusTextController.text,
-                        //color: cubit.statusColor[cubit.colorIndex],
                       );
-                      //cubit.whoUserAddStory();
                       Navigator.pop(context);
                     },
                     child: Text('post',
-                        style: Theme.of(context).textTheme.titleMedium)),
+                        style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                          fontSize: 15.sp
+                        ))),
               ],
             ),
             body: Container(
@@ -36,7 +38,7 @@ class TextStatusScreen extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Center(
-                  child: Container(
+                  child: SizedBox(
                     height: double.infinity,
                     width: double.infinity,
                     child:   TextFormField(
@@ -57,7 +59,7 @@ class TextStatusScreen extends StatelessWidget {
                 cubit.changeCurrentStatusColorIndex();
               },
               backgroundColor: Colors.white,
-              child: Icon(Icons.color_lens_outlined,color: Colors.deepOrange,),
+              child: const Icon(Icons.color_lens_outlined,color: Colors.deepOrange,),
             ),
           );
         });

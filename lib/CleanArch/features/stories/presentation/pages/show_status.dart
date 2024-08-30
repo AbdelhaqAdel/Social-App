@@ -1,16 +1,10 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:newapp/CleanArch/features/home/data/models/post_model.dart';
 import 'package:newapp/models/PostModel/status_model.dart';
-import 'package:newapp/CleanArch/features/stories/presentation/pages/status_screen.dart';
 import 'package:newapp/shared/Cubit/cubit/app_cubit.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-
-import '../../../../../shared/Component/StaticComponent.dart';
-import '../../../../../shared/Styles/themes.dart';
 
 class ShowStatus extends StatefulWidget {
   @override

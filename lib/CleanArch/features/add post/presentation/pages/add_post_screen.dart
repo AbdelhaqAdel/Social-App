@@ -29,7 +29,6 @@ class AddPostScreen extends StatelessWidget {
                       postText:postTextController.text,
                   );
                  cubit.sendNewNotification();
-                 // cubit.GetPosts();
                   Navigator.pop(context);
                 }, child:Text('Post',
                   style: Theme.of(context).textTheme.titleMedium?.copyWith(
@@ -51,27 +50,6 @@ class AddPostScreen extends StatelessWidget {
                 children: [
                   if(state is ImagePostUploadLoadingState)
                     const LinearProgressIndicator(),
-                  //   Row(
-                  //   children: [
-                  //     CircleAvatar(
-                  //       radius: 26.sp,
-                  //       backgroundImage:NetworkImage('${cubit.userModel?.image}'),
-                  //     ),
-                  //   SizedBox(width: 10.w,),
-                  //   Column(
-                  //         children: [
-                  //           Text('${cubit.userModel?.name}',
-                  //             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  //                 height: 2,
-                  //                 fontSize: 20.sp,
-                  //             ),
-                  //           ),
-                  //           SizedBox(height: 10.h,),
-                  //         ],
-                  //       ),
-                  //   ],
-                  // ),
-                
                    const SizedBox(height:20,),
                    TextFormField(
                         controller: postTextController,

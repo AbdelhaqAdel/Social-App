@@ -115,7 +115,8 @@ class AppCubit extends Cubit<AppState> {
   List<Color>statusColor=[
     Colors.deepOrange,
     Colors.deepPurple,
-    Colors.white,
+   
+    Colors.blue,
     Colors.redAccent,
   ];
 

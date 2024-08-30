@@ -3,11 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:newapp/CleanArch/features/stories/presentation/widgets/status_builder.dart';
-import 'package:newapp/models/PostModel/status_model.dart';
 import 'package:newapp/shared/Component/StaticComponent.dart';
 import 'package:newapp/shared/Cubit/cubit/app_cubit.dart';
-import 'AddStatusScreen.dart';
-import 'AddTextStatusScreen.dart';
+import 'add_status_screen.dart';
+import 'add_text_status_screen.dart';
 
 class StatusScreen extends StatelessWidget {
   const StatusScreen({super.key});
@@ -17,7 +16,6 @@ class StatusScreen extends StatelessWidget {
         listener: (context, state) {},
         builder: (context, state) {
           AppCubit cubit = AppCubit.get(context);
-         List<StatusModel> status=cubit.allUserAddStatus;
           return StreamBuilder<QuerySnapshot>(
             stream: cubit.getStatusUpdates(),
             builder: (context, snapshot) {
