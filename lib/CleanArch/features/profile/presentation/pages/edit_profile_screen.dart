@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:newapp/shared/Cubit/cubit/app_cubit.dart';
 import '../../data/models/user_model.dart';
-import '../../../../../shared/Component/StaticComponent.dart';
+import '../../../../core/utils/widgets/static_component.dart';
 
 class EditProfileScreen extends StatelessWidget {
   final nameController = TextEditingController();
@@ -19,7 +19,7 @@ class EditProfileScreen extends StatelessWidget {
       builder: (context, state) {
         var screenSize=MediaQuery.of(context).size;
         AppCubit cubit = AppCubit.get(context);
-        UserRegisterModel? userModel = cubit.userModel;
+        UserModel? userModel = cubit.userModel;
         nameController.text = userModel!.name!;
         phoneController.text=userModel.phone!;
         bioController.text = userModel.bio!;

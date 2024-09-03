@@ -1,4 +1,4 @@
-class UserRegisterModel{
+class UserModel{
   String? name;
   String? email;
   String uId;
@@ -7,10 +7,10 @@ class UserRegisterModel{
   String? cover;
   String? bio;
   String? nickname;
-  UserRegisterModel({this.name,this.email,required this.uId,this.phone,this.image,this.bio,this.cover,this.nickname});
+  UserModel({this.name,this.email,required this.uId,this.phone,this.image,this.bio,this.cover,this.nickname});
 
-  factory UserRegisterModel.fromJson(Map<String,dynamic>json){return 
-  UserRegisterModel(
+  factory UserModel.fromJson(Map<String,dynamic>json){return 
+  UserModel(
     name:json['name'],
     email:json['email'],
     uId:json['uid'],

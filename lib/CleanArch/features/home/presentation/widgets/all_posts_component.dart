@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:newapp/CleanArch/core/utils/colors.dart';
+import 'package:newapp/CleanArch/config/theme/colors.dart';
 import 'package:newapp/CleanArch/features/home/presentation/widgets/post_likes_showDialog.dart';
 import 'package:newapp/CleanArch/features/home/data/models/post_model.dart';
 import 'package:newapp/shared/Cubit/cubit/app_cubit.dart';

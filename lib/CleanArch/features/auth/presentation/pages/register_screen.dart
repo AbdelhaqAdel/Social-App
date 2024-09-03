@@ -1,21 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hexcolor/hexcolor.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:newapp/CleanArch/layout.dart';
-import 'package:newapp/modules/UserScreens/UserLogin/LoginScreen.dart';
-import 'package:newapp/shared/Constants/KeyConstants.dart';
+import 'package:newapp/CleanArch/features/auth/presentation/pages/login_screen.dart';
+import '../../../../core/utils/widgets/static_component.dart';
+import '../../../../../shared/Cubit/cubit/app_cubit.dart';
 
-import '../../../CleanArch/features/chat/presentation/pages/chat_screen.dart';
-import '../../../shared/Component/StaticComponent.dart';
-import '../../../shared/Constants/KeyConstants.dart';
-import '../../../shared/Constants/KeyConstants.dart';
-import '../../../shared/Constants/KeyConstants.dart';
-import '../../../shared/Cubit/cubit/app_cubit.dart';
-import '../../../shared/network/local/CacheHelper.dart';
-import '../UserLogin/LoginCubit/cubit/login_cubit.dart';
 
 class RegisterScreen extends StatelessWidget {
   var regemailController = TextEditingController();
@@ -239,7 +230,7 @@ class RegisterScreen extends StatelessWidget {
                               ),
                               TextButton(
                                   onPressed: () {
-                                    NavigateTo(context, LoginSreen());
+                                    NavigateTo(context, LoginScreen());
                                   },
                                   child: Text('Login now')),
                             ],

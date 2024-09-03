@@ -1,7 +1,7 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:newapp/CleanArch/core/utils/colors.dart';
+import 'package:newapp/CleanArch/config/theme/colors.dart';
 import 'package:newapp/CleanArch/features/chat/presentation/widgets/other_messsage_widget.dart';
 import 'package:newapp/CleanArch/features/chat/presentation/widgets/text_form_feild_widget.dart';
 import 'package:newapp/CleanArch/features/chat/presentation/widgets/user_message_widget.dart';
@@ -10,7 +10,7 @@ import '../../../profile/data/models/user_model.dart';
 
 // ignore: must_be_immutable
 class ChatScreen extends StatelessWidget {
-  final UserRegisterModel recieverModel;
+  final UserModel recieverModel;
   ChatScreen({super.key, 
    required this.recieverModel
 });

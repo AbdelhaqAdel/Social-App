@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:newapp/CleanArch/core/utils/colors.dart';
+import 'package:newapp/CleanArch/config/theme/colors.dart';
 import 'package:newapp/shared/Cubit/cubit/app_cubit.dart';
 
 class SelectImageButton extends StatelessWidget {

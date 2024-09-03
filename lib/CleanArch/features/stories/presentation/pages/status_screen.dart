@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:newapp/CleanArch/features/stories/presentation/widgets/status_builder.dart';
-import 'package:newapp/shared/Component/StaticComponent.dart';
+import 'package:newapp/CleanArch/core/utils/widgets/static_component.dart';
 import 'package:newapp/shared/Cubit/cubit/app_cubit.dart';
 import 'add_status_screen.dart';
 import 'add_text_status_screen.dart';

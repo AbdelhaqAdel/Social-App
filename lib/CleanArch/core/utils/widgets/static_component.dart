@@ -1,7 +1,6 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:newapp/CleanArch/core/utils/colors.dart';
+import 'package:newapp/CleanArch/config/theme/colors.dart';
 
 
 PreferredSizeWidget defaultAppBar({
