@@ -1,7 +1,7 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:newapp/CleanArch/core/widgets/glass_box_custom_widget.dart';
+import 'package:newapp/CleanArch/core/utils/widgets/glass_box_custom_widget.dart';
 import 'package:newapp/CleanArch/features/home/presentation/widgets/posts_likes_component.dart';
 import 'package:newapp/shared/Cubit/cubit/app_cubit.dart';
 

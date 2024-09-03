@@ -6,12 +6,12 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:newapp/CleanArch/features/profile/presentation/pages/edit_profile_screen.dart';
 import 'package:newapp/CleanArch/features/profile/presentation/widgets/user_fav_story_custom_widget.dart';
 import 'package:newapp/CleanArch/features/profile/presentation/widgets/user_posts_followers_following_custom.dart';
-import 'package:newapp/modules/UserScreens/UserLogin/LoginScreen.dart';
-import 'package:newapp/shared/Component/StaticComponent.dart';
+import 'package:newapp/CleanArch/features/auth/presentation/pages/login_screen.dart';
+import 'package:newapp/CleanArch/core/utils/widgets/static_component.dart';
 import '../../data/models/user_model.dart';
-import '../../../../../shared/Constants/KeyConstants.dart';
+import '../../../../core/utils/key_constants.dart';
 import '../../../../../shared/Cubit/cubit/app_cubit.dart';
-import '../../../../../shared/network/local/CacheHelper.dart';
+import '../../../../core/cache_helper.dart';
 
 
 class USerProfile extends StatelessWidget {
@@ -27,7 +27,7 @@ class USerProfile extends StatelessWidget {
         builder:(context,state){
           var screenSize=MediaQuery.of(context).size;
           AppCubit cubit =AppCubit.get(context);
-          UserRegisterModel ?userModel=cubit.userModel;
+          UserModel ?userModel=cubit.userModel;
           return Scaffold(
             backgroundColor: Colors.transparent,
             appBar: AppBar(
@@ -139,7 +139,7 @@ class USerProfile extends StatelessWidget {
                           child: GestureDetector(
                             onTap: (){
                               CacheHelper.removedata(key: 'uid');
-                              NavigateAndFinish(context, LoginSreen());
+                              NavigateAndFinish(context, LoginScreen());
                             },
                             child:  Container(
                                   height: 30.h,

@@ -15,9 +15,9 @@ import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';
 import 'package:newapp/CleanArch/features/chat/data/models/messages_model.dart';
 import 'package:newapp/CleanArch/features/home/data/models/post_model.dart';
-import 'package:newapp/shared/Constants/KeyConstants.dart';
+import 'package:newapp/CleanArch/core/utils/key_constants.dart';
 import 'package:newapp/shared/network/DioHelper.dart';
-import 'package:newapp/shared/network/local/CacheHelper.dart';
+import 'package:newapp/CleanArch/core/cache_helper.dart';
 import '../../../models/NotificationModelAndAdabpter/NotificationHiveModel.dart';
 import '../../../CleanArch/features/stories/data/models/status_model.dart';
 import '../../../CleanArch/features/profile/data/models/user_model.dart';
@@ -28,7 +28,7 @@ import '../../../CleanArch/features/profile/presentation/pages/user_profile.dart
 import '../../../CleanArch/features/chat/presentation/pages/all_chats_screen.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
-import '../../Constants/hive constant.dart';
+import '../../../CleanArch/core/utils/hive constant.dart';
 
 
 part 'app_state.dart';
@@ -56,6 +56,8 @@ class AppCubit extends Cubit<AppState> {
     isPassword=!isPassword;
     emit(LoginPasswordState());
   }
+ 
+ 
   bool isBottomSheetShown=false;
 
   void changeBottomSheetState(isBottomSheetShown){
@@ -161,7 +163,7 @@ class AppCubit extends Cubit<AppState> {
     required String nickname,
 
   }){
-    UserRegisterModel ?registerModel=UserRegisterModel(
+    UserModel ?registerModel=UserModel(
       name:name,email: email,uId:uid!,phone: phone,image: image,bio: bio,cover :cover,nickname: nickname);
     FirebaseFirestore.instance.collection(Kusers).doc(uId).set(registerModel.toMap()).then((value) {
       emit(shopAddUserSuccessState(uId));
@@ -221,16 +223,16 @@ class AppCubit extends Cubit<AppState> {
   /*-----------Get User Data------------*/
 
 
-  UserRegisterModel? userModel;
+  UserModel? userModel;
   void GetUserData()async
   {
     emit(shopGetUserLoadingState());
-  await  FirebaseFirestore.instance.collection(Kusers).doc(CacheHelper.getData('uid')).get()
+  await  FirebaseFirestore.instance.collection(Kusers).doc(CacheHelper.getData('UID')).get()
         .then((value) {
          // print(CacheHelper.getData('uid'));
         //  print('token ${uid}');
           print('all user data ${value.data()}');
-          userModel=UserRegisterModel.fromJson(value.data()!);
+          userModel=UserModel.fromJson(value.data()!);
          // print('user image: ${userModel?.image}');
           emit(shopGetUserSuccessState());
     }).catchError((onError){
@@ -419,7 +421,7 @@ class AppCubit extends Cubit<AppState> {
   String? profileImage,
   String?nickname,
 }){
-UserRegisterModel model=UserRegisterModel(
+UserModel model=UserModel(
   name:name,
   email:userModel!.email,
    uId: userModel!.uId,
@@ -944,7 +946,7 @@ emit(UserCoverUpdateErrorState());
   }
 
 
-  List<UserRegisterModel>allUsers=[];
+  List<UserModel>allUsers=[];
 
   void getAllUsers(){
     emit(GetUserLoadingState());
@@ -952,7 +954,7 @@ emit(UserCoverUpdateErrorState());
       FirebaseFirestore.instance.collection('${Kusers}').get().then((value) {
         value.docs.forEach((element) {
           if (element.data()['uid'] != userModel?.uId) {
-            allUsers.add(UserRegisterModel.fromJson(element.data()));
+            allUsers.add(UserModel.fromJson(element.data()));
           }
         });
         emit(GetUserSuccessState());

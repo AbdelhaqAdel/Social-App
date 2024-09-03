@@ -2,8 +2,8 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:newapp/CleanArch/core/utils/colors.dart';
-import 'package:newapp/shared/Component/StaticComponent.dart';
+import 'package:newapp/CleanArch/config/theme/colors.dart';
+import 'package:newapp/CleanArch/core/utils/widgets/static_component.dart';
 import 'package:newapp/shared/Cubit/cubit/app_cubit.dart';
 import 'features/add post/presentation/pages/add_post_screen.dart';
 
