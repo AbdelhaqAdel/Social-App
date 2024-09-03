@@ -19,7 +19,7 @@ class LoginSuccessState extends AuthState {
   LoginSuccessState({required this.uid});
 }
 class LoginErrorState extends AuthState {
-  final Failure errMessage;
+  final String errMessage;
   LoginErrorState({required this.errMessage});
 }
 

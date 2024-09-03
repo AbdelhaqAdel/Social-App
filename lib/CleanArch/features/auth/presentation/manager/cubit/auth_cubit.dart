@@ -46,10 +46,8 @@ class AuthCubit extends Cubit<AuthState> {
    final response=await authRepository.signIn(email: email,password: password);
     response.fold(
       (errMessage) {
-        print(errMessage);
-       emit(LoginErrorState(errMessage: errMessage));},
+       emit(LoginErrorState(errMessage: errMessage.message));},
       (uid) {
-        print('user id :  $uid');
          emit(LoginSuccessState(uid: uid));}
     );
   }
