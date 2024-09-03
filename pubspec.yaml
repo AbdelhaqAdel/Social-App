@@ -39,9 +39,7 @@ dependencies:
   conditional_builder_null_safety: ^0.0.6
   bloc: ^8.1.0
   flutter_bloc: ^8.1.1
- # dio: ^4.0.6
   hexcolor: ^3.0.1
-#  shared_preferences: ^2.0.18
   smooth_page_indicator: ^1.0.1
   fluttertoast: ^8.2.1
   carousel_slider: ^4.2.1
@@ -60,6 +58,8 @@ dependencies:
   hive_flutter: ^1.1.0
   # cached_network_image: ^3.4.1
   flutter_screenutil: ^5.9.3
+  dartz: ^0.10.1
+  get_it: ^7.6.6
 
 
 
