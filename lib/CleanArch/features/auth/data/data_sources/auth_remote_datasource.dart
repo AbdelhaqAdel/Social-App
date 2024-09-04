@@ -7,7 +7,7 @@ import 'package:newapp/CleanArch/features/profile/data/models/user_model.dart';
 abstract class IAuthDatasource{
   Future<String>signIn({required email,required password});
   Future<String>register({
-required String name,
+   required String name,
     required String email,
     required String password,
     required String phone,
@@ -15,6 +15,8 @@ required String name,
     required String bio,
     required String cover,
     required String nickname    });
+  Future<UserModel>getUserData();
+
 }
 class RemoteDataSource implements IAuthDatasource{
 final user = FirebaseAuth.instance;
@@ -28,7 +30,6 @@ final user = FirebaseAuth.instance;
       });
       return token??'';
     }
-
 
   @override
   Future<String> register({
@@ -57,9 +58,19 @@ final user = FirebaseAuth.instance;
     void createUuser({
        required String uId,
        required UserModel registerModel
-  }){
-    FirebaseFirestore.instance.collection(Kusers).doc(uId).set(registerModel.toMap()).then((value) {
-    }).catchError((onError){});
+  })async{
+    await FirebaseFirestore.instance.collection(Kusers).doc(uId).set(registerModel.toMap());
   }
+  
+  @override
+  Future<UserModel> getUserData() async{
+     UserModel? userData;
+     await FirebaseFirestore.instance.collection(Kusers).doc(CacheHelper.getData('UID')).get().then((value) {
+        userData= UserModel.fromJson(json: value.data());
+     });
+     return userData!;
+  }
+
+
 
 }

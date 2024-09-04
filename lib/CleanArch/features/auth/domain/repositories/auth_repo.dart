@@ -20,5 +20,5 @@ abstract class IAuthRepo {
   });
     void saveUserData();
 
-  Future<Either<String, UserModel>> getUserProfile();
+  Future<Either<Failure, UserModel>> getUserProfile();
 }

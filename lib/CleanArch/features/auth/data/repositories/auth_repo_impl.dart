@@ -66,9 +66,17 @@ class AuthRepository implements IAuthRepo{
   }
 
  @override
- Future<Either<String, UserModel>> getUserProfile() async {
-    //TODO implement get user profile
-        throw UnimplementedError();
+ Future<Either<Failure, UserModel>> getUserProfile() async {
+  try{
+    final response = await remoteDataSource.getUserData();
+    return right(response);
+  }catch(e){
+     if(e is FirebaseAuthException){
+       return left(FirebaseError.firebaseException(e));
+     }else{
+       return left(ServerFailure(e.toString()));
+     }   
+  }
   }
 
 

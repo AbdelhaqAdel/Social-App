@@ -1,24 +1,25 @@
 class UserModel{
-  String? name;
-  String? email;
-  String uId;
-  String? phone;
-  String? image;
-  String? cover;
-  String? bio;
-  String? nickname;
-  UserModel({this.name,this.email,required this.uId,this.phone,this.image,this.bio,this.cover,this.nickname});
+ final String? name;
+ final String? email;
+ final String uId;
+ final String? phone;
+ final String? image;
+ final String? cover;
+ final String? bio;
+ final String? nickname;
+  UserModel({required this.name,required this.email,required this.uId,
+ required this.phone,this.image,this.bio,this.cover,this.nickname});
 
-  factory UserModel.fromJson(Map<String,dynamic>json){return 
+  factory UserModel.fromJson({required Map<String,dynamic>? json}){return 
   UserModel(
-    name:json['name'],
-    email:json['email'],
-    uId:json['uid'],
-    phone:json['phone']??'',
-    image:json['image']??'',
-    bio:json['bio']??'',
-    cover:json['cover']??'',
-    nickname:json['nickname']??'');
+    name:json?['name']??'',
+    email:json?['email']??'',
+    uId:json?['uid']??"",
+    phone:json?['phone']??'',
+    image:json?['image']??'',
+    bio:json?['bio']??'',
+    cover:json?['cover']??'',
+    nickname:json?['nickname']??'');
   }
 
 
