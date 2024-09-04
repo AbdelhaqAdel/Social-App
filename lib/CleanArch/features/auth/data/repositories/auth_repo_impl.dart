@@ -4,7 +4,6 @@ import 'package:newapp/CleanArch/core/utils/error_handliing.dart';
 import 'package:newapp/CleanArch/core/utils/firebase_handle_error.dart';
 import 'package:newapp/CleanArch/core/utils/key_constants.dart';
 import 'package:newapp/CleanArch/features/auth/data/data_sources/auth_remote_datasource.dart';
-import 'package:newapp/CleanArch/features/auth/data/models/sign_up_model.dart';
 import 'package:newapp/CleanArch/features/auth/domain/repositories/auth_repo.dart';
 import 'package:newapp/CleanArch/features/profile/data/models/user_model.dart';
 
@@ -40,13 +39,30 @@ class AuthRepository implements IAuthRepo{
   }
 
   @override
-  Future<Either<String, SignUpModel>> signUp({
-     required String email,
+  Future<Either<Failure, String>> signUp({
+   required String name,
+    required String email,
     required String password,
+    required String phone,
+    required String image,
+    required String bio,
+    required String cover,
+    required String nickname
   })
    async {
-    //TODO implement sign up
-    throw UnimplementedError();
+    try{
+      final responce=await remoteDataSource.register(
+        name: name, email: email, password: password, phone: phone,
+         image: image, bio: bio, cover: cover, nickname: nickname);
+         uid=responce;
+         return right(responce);
+    }catch(e){
+       if(e is FirebaseAuthException){
+       return left(FirebaseError.firebaseException(e));
+     }else{
+       return left(ServerFailure(e.toString()));
+     }    
+    }
   }
 
  @override
