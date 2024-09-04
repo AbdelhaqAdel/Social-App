@@ -232,7 +232,7 @@ class AppCubit extends Cubit<AppState> {
          // print(CacheHelper.getData('uid'));
         //  print('token ${uid}');
           print('all user data ${value.data()}');
-          userModel=UserModel.fromJson(value.data()!);
+          userModel=UserModel.fromJson(json:value.data());
          // print('user image: ${userModel?.image}');
           emit(shopGetUserSuccessState());
     }).catchError((onError){
@@ -954,7 +954,7 @@ emit(UserCoverUpdateErrorState());
       FirebaseFirestore.instance.collection('${Kusers}').get().then((value) {
         value.docs.forEach((element) {
           if (element.data()['uid'] != userModel?.uId) {
-            allUsers.add(UserModel.fromJson(element.data()));
+            allUsers.add(UserModel.fromJson(json:element.data()));
           }
         });
         emit(GetUserSuccessState());

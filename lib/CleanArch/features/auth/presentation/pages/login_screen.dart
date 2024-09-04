@@ -23,13 +23,14 @@ class LoginScreen extends StatelessWidget {
     child: BlocConsumer<AuthCubit,AuthState>(
       listener: (context,state){
           if(state is LoginSuccessState){
-              NavigateAndFinish(context,const LayoutScreen());
-                ScaffoldMessenger.of(context).showSnackBar(
+             ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
                 backgroundColor:Colors.green,
                  content: Text("Login success"),
               ),
             );
+             AuthCubit.get(context).getUserData();
+             NavigateAndFinish(context,const LayoutScreen());
           }else if (state is LoginErrorState) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(

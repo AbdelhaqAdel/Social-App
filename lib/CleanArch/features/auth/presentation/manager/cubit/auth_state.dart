@@ -26,7 +26,12 @@ class LoginErrorState extends AuthState {
   LoginErrorState({required this.errMessage});
 }
 
-class GetUserLoadingState extends AuthState {}
-class GetUserSuccessState extends AuthState {}
-class GetUserErrorState extends AuthState {
+class GetUserDataLoadingState extends AuthState {}
+class GetUserDataSuccessState extends AuthState {
+   final UserModel userData;
+   GetUserDataSuccessState({required this.userData});
+}
+class GetUserDataErrorState extends AuthState {
+   final String errMessage;
+  GetUserDataErrorState({required this.errMessage});
 }

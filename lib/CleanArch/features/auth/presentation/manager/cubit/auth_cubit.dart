@@ -1,9 +1,7 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:newapp/CleanArch/features/auth/data/repositories/auth_repo_impl.dart';
 import 'package:newapp/CleanArch/features/profile/data/models/user_model.dart';
 import 'package:newapp/CleanArch/core/utils/key_constants.dart';
-import 'package:newapp/CleanArch/core/cache_helper.dart';
 part 'auth_state.dart';
 
 class AuthCubit extends Cubit<AuthState> {
@@ -73,16 +71,13 @@ class AuthCubit extends Cubit<AuthState> {
   }
 
   UserModel? userModel;
-  void getUserData()async
-  {
-    emit(GetUserLoadingState());
-   await FirebaseFirestore.instance.collection(Kusers).doc(CacheHelper.getData('uid')).get()
-        .then((value) {
-          userModel=UserModel.fromJson(value.data()!);
-          emit(GetUserSuccessState());
-    }).catchError((onError){
-      emit(GetUserErrorState());
-    });
+  Future<void> getUserData()async{
+   emit(GetUserDataLoadingState());
+  final response=await authRepository.getUserProfile(); 
+  response.fold((errMessage) => emit(GetUserDataErrorState(errMessage: errMessage.message)),
+   (userData){
+     print(userData.name);
+     emit(GetUserDataSuccessState(userData: userData));}
+  );
   }
- 
 }
