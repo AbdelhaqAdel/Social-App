@@ -1,7 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:newapp/CleanArch/core/utils/error_handliing.dart';
 import 'package:newapp/CleanArch/features/auth/data/repositories/auth_repo_impl.dart';
 import 'package:newapp/CleanArch/features/profile/data/models/user_model.dart';
 import 'package:newapp/CleanArch/core/utils/key_constants.dart';
@@ -15,8 +13,10 @@ class AuthCubit extends Cubit<AuthState> {
 
 
 
-  String? passwordValidator(value) {
-    if (value!.length < 8 ||
+  String? passwordRegisValidator(value) {
+    if (value!.isEmpty) {
+      return 'Please enter your Email';
+    } else if (value!.length < 8 ||
         !RegExp(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])').hasMatch(value)) {
       return 'Password must be at least 8 characters with a mix of uppercase, lowercase, and numbers';
     }
@@ -52,24 +52,6 @@ class AuthCubit extends Cubit<AuthState> {
     );
   }
 
-  void createUuser({
-    required String name,
-    required String email,
-    required String uId,
-    required String phone,
-    required String image,
-    required String bio,
-    required String cover,
-    required String nickname,
-  }){
-    UserModel ?registerModel=UserModel(
-      name:name,email: email,uId:uid!,phone: phone,image: image,bio: bio,cover :cover,nickname: nickname);
-    FirebaseFirestore.instance.collection(Kusers).doc(uId).set(registerModel.toMap()).then((value) {
-    }).catchError((onError){
-      print(onError);
-    });
-  }
-
   Future<void> register({
     required String name,
     required String email,
@@ -80,19 +62,14 @@ class AuthCubit extends Cubit<AuthState> {
     required String cover,
     required String nickname
   }) async{
-    final user = FirebaseAuth.instance;
-    await user.createUserWithEmailAndPassword(email: email, password: password).then((value) {
-      emit(RegisterSuccessState(value.user!.uid));
-      CacheHelper.saveData(key: 'uid', value: value.user!.uid).then((value){
-      });
-      createUuser(name: name, email: email, 
-      uId: value.user!.uid, phone:phone,
-      image:image,bio:bio,cover: cover,
+      emit(RegisterLoadingState());
+    final response=await authRepository.signUp
+    (name: name, email: email, password: password,
+     phone: phone, image: image, bio: bio, cover: cover,
       nickname: nickname);
-      print('user id : ${value.user!.uid}');
-    }).catchError((onError){
-      emit(RegisterErrorState());
-    });
+      response.fold((errMessage)=>emit(RegisterErrorState(errMessage: errMessage.message)),
+       (r) => emit(RegisterSuccessState(uid: uid)),
+       );
   }
 
   UserModel? userModel;
@@ -104,7 +81,6 @@ class AuthCubit extends Cubit<AuthState> {
           userModel=UserModel.fromJson(value.data()!);
           emit(GetUserSuccessState());
     }).catchError((onError){
-      print('getting user data error : ${onError.toString()}');
       emit(GetUserErrorState());
     });
   }
