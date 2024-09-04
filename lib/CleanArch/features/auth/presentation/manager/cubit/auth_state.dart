@@ -9,9 +9,12 @@ class IsObsecurePassState extends AuthState {}
 class RegisterLoadingState extends AuthState {}
 class RegisterSuccessState extends AuthState {
   final String uid;
-  RegisterSuccessState(this.uid);
+  RegisterSuccessState({required this.uid});
 }
-class RegisterErrorState extends AuthState {}
+class RegisterErrorState extends AuthState {
+    final String errMessage;
+  RegisterErrorState({required this.errMessage});
+}
 
 class LoginLoadingState extends AuthState {}
 class LoginSuccessState extends AuthState {
@@ -23,7 +26,12 @@ class LoginErrorState extends AuthState {
   LoginErrorState({required this.errMessage});
 }
 
-class GetUserLoadingState extends AuthState {}
-class GetUserSuccessState extends AuthState {}
-class GetUserErrorState extends AuthState {
+class GetUserDataLoadingState extends AuthState {}
+class GetUserDataSuccessState extends AuthState {
+   final UserModel userData;
+   GetUserDataSuccessState({required this.userData});
+}
+class GetUserDataErrorState extends AuthState {
+   final String errMessage;
+  GetUserDataErrorState({required this.errMessage});
 }
