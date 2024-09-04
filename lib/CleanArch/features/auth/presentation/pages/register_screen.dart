@@ -1,252 +1,124 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:newapp/CleanArch/config/theme/colors.dart';
+import 'package:newapp/CleanArch/core/utils/Get%20it/auth_locator.dart';
+import 'package:newapp/CleanArch/core/utils/widgets/custom_button.dart';
+import 'package:newapp/CleanArch/features/auth/data/repositories/auth_repo_impl.dart';
+import 'package:newapp/CleanArch/features/auth/presentation/manager/cubit/auth_cubit.dart';
+import 'package:newapp/CleanArch/features/auth/presentation/widgets/register_custom_widget.dart';
+import 'package:newapp/CleanArch/features/auth/presentation/widgets/text_button_auth_account.dart';
 import 'package:newapp/CleanArch/layout.dart';
-import 'package:newapp/CleanArch/features/auth/presentation/pages/login_screen.dart';
 import '../../../../core/utils/widgets/static_component.dart';
-import '../../../../../shared/Cubit/cubit/app_cubit.dart';
 
 
 class RegisterScreen extends StatelessWidget {
-  var regemailController = TextEditingController();
-  var regpasswordController = TextEditingController();
-  var phoneController = TextEditingController();
-  var nameController = TextEditingController();
+  final GlobalKey<FormState> signUpFormKey = GlobalKey();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+  final phoneController = TextEditingController();
+  final nameController = TextEditingController();
 
-  GlobalKey<FormState> formkey = GlobalKey();
+  RegisterScreen({super.key});
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<AppCubit, AppState>(
-      listener: ( context, state) => {
-        if (State is shopAddUserSuccessState){
-        NavigateAndFinish(context, LayoutScreen()),
-          // }
-  }
-      },
-      builder: ( context, state) {
-        AppCubit cubit = AppCubit.get(context);
+       return BlocProvider(create: (context)=>AuthCubit(authRepository: getIt.get<AuthRepository>(), ),
+    child: BlocConsumer<AuthCubit,AuthState>(
+      listener: (context,state){
+          if(state is RegisterSuccessState){
+              NavigateAndFinish(context,const LayoutScreen());
+                ScaffoldMessenger.of(context).showSnackBar(
+                 const SnackBar(
+                  backgroundColor: Colors.green,
+                 content: Text("Login success"),
+              ),
+            );
+          }else if (state is RegisterErrorState) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                backgroundColor: AppColor.layoutBackgroundBottomColor,
+                content: Text(state.errMessage.toString()),
+              ),
+            );
+          }
+        },
+        builder: (context, state) {
         return Scaffold(
             appBar: AppBar(
               backgroundColor:Colors.transparent
             ),
-            body: Form(
-              key: formkey,
-              child: ModalProgressHUD(
-                inAsyncCall:cubit.isRegisLoading,
-                child: SingleChildScrollView(
-                  child: Container(
-                    child: Padding(
-                      padding: const EdgeInsets.all(20.0),
+            body:
+              Form(
+           key: signUpFormKey,
+           child: SingleChildScrollView(
+            child: Column(
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  child: Padding(
+                      padding: const EdgeInsets.all(3.0),
                       child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(
-                            height: 200,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                             Padding(
+                              padding: EdgeInsets.fromLTRB(0, 20.h, 0, 40.h),
+                              child:  Text(
+                                    'Create new account',
+                                    style: TextStyle(
+                                      fontSize: 40.0.sp,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  )),
+                                  SizedBox(height: MediaQuery.of(context).size.height/25,),
+                        RegisterFormWidget(
+                            emailController:emailController ,
+                            nameController: nameController,
+                            passwordController:passwordController ,
+                            phoneController:phoneController ,
                           ),
-                          Text(
-                            'REGISTER',
-                            style: TextStyle(
-                              fontSize: 30,
-                              color: Colors.grey[700],
-                            ),
-                          ),
-                          SizedBox(
-                            height: 30,
-                          ),
-                          TextFormField(
-                            controller: nameController,
-                            // onChanged: (data){
-                            //   nameController.text=data;
-                            // },
-                            keyboardType:TextInputType.emailAddress,
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return 'name can\'t be empty';
-                              }
-                              return null;
-                            },
-                            decoration: InputDecoration(
-                              labelText:'User name',
-                              prefixIcon:Icon(Icons.person,),
-                              suffixIcon: Icons.person !=null ? IconButton(onPressed: (){
-                              },
-                                icon: Icon(Icons.person,),
-                              ):null,
-                              border: OutlineInputBorder(),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 30,
-                          ),
-                          TextFormField(
-                            controller: regemailController,
-                            // onChanged: (data) {
-                            //   regemailController.text = data;
-                            // },
-                            keyboardType: TextInputType.emailAddress,
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return 'email can not bs null';
-                              } else
-                                return null;
-                            },
-                            decoration: InputDecoration(
-                              labelText: 'Email Address',
-                              prefixIcon: Icon(
-                                Icons.email_outlined,
-                              ),
-                              suffixIcon: Icons.email_outlined != null
-                                  ? IconButton(
-                                      onPressed: () {},
-                                      icon: Icon(
-                                        Icons.email_outlined,
-                                      ),
-                                    )
-                                  : null,
-                              border: OutlineInputBorder(),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 30,
-                          ),
-                          TextFormField(
-                            // onChanged: (data) {
-                            //   regpasswordController.text = data;
-                            // },
-                            controller: regpasswordController,
-                            keyboardType: TextInputType.visiblePassword,
-                            obscureText: cubit.isPassword,
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return 'password can not be null';
-                              } else
-                                return null;
-                            },
-                            decoration: InputDecoration(
-                              labelText: 'Password',
-                              prefixIcon: Icon(
-                                Icons.remove_red_eye,
-                              ),
-                              suffixIcon: Icons.remove_red_eye != null
-                                  ? IconButton(
-                                      onPressed: () {
-                                        cubit.showPassword();
-                                      },
-                                      icon: Icon(
-                                        cubit.isPassword
-                                            ? Icons.visibility
-                                            : Icons.visibility_off,
-                                      ),
-                                    )
-                                  : null,
-                              border: OutlineInputBorder(),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 30,
-                          ),
-                          TextFormField(
-                            controller: phoneController,
-                            // onChanged: (data){
-                            //   phoneController.text=data;
-                            // },
-                            keyboardType:TextInputType.phone,
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return 'phone can\'t be empty';
-                              }
-                              return null;
-                            },
-                            decoration: InputDecoration(
-                              labelText:'Phone',
-                              prefixIcon:Icon(Icons.phone,),
-                              suffixIcon: Icons.phone !=null ? IconButton(onPressed: (){
-                              },
-                                icon: Icon(Icons.phone,),
-                              ):null,
-                              border: OutlineInputBorder(),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 30,
-                          ),
-                          Container(
-                            height: 60,
-                            width: double.infinity,
-                            decoration: BoxDecoration(
-                              color: Colors.deepOrange,
-                            ),
-                            child: TextButton(
-                                onPressed: () async {
-                                  if (formkey.currentState!.validate()) {
-
-                                    cubit.RegisterIsLoading();
-                                    try {
-                                    await  cubit.RegisterMethod(
-                                      name: nameController.text,
-                                      email: regemailController.text,
-                                      password: regpasswordController.text,
-                                      phone: phoneController.text,
-                                      image: 'https://th.bing.com/th/id/R.581eb679a50357ed30ad0d7544081ec6?rik=54dcWNzgeTMHEg&pid=ImgRaw&r=0',
-                                      bio:'Add to your bio',
-                                      cover: 'https://th.bing.com/th/id/R.581eb679a50357ed30ad0d7544081ec6?rik=54dcWNzgeTMHEg&pid=ImgRaw&r=0',
-                                       nickname: 'NickName',
-                                    );
-                                      ShowSnackBar(context, text: ('Register Succeed'));
-                                      NavigateAndFinish(context, LayoutScreen());
-                                    }on FirebaseAuthException catch (e) {
-                                      if (e.code == 'weak-password') {
-                                        ShowSnackBar(context, text: ('The password provided is too weak.'));
-                                        print('The password provided is too weak.');
-                                      } else if (e.code == 'email-already-in-use') {
-                                        ShowSnackBar(context, text: ('The account already exists for that email.'));
-                                        print('The account already exists for that email.');
-                                      }
-                                      else {
-                                        ShowSnackBar(context,
-                                            text: ('${e.
-                                            toString()} itsss errroooorrrr '));
-                                        print('${e.toString()} itsss errroooorrrr ');
-                                      }
-                                      }
-                                    cubit.RegisterIsLoading();
-                                  }
-
-                                },
-                                child: Text('REGISTER',
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 20
-                                  ),)),
-                          ),
-                          Row(
-                            children: [
-                              Text(
-                                'Are you have account?',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                ),
-                              ),
-                              TextButton(
-                                  onPressed: () {
-                                    NavigateTo(context, LoginScreen());
+                            SizedBox(height: MediaQuery.of(context).size.height/25,),
+                            Padding(
+                              padding: EdgeInsets.fromLTRB(0, 0, 0, 20.h),
+                            child:state is RegisterLoadingState
+                            ? Center(child: CircularProgressIndicator(color: AppColor.layoutBackgroundBottomColor ,))
+                            : CustomButton(
+                              backgroundColor: AppColor.layoutBackgroundColor,
+                               width:MediaQuery.of(context).size.width,
+                                text:'Sign up',
+                                onPressed: () async{
+                                    if (signUpFormKey.currentState!.validate()) {
+                                      await AuthCubit.get(context).register(
+                                        email: emailController.text,
+                                        password: passwordController.text,
+                                        name:nameController.text,
+                                        phone: phoneController.text,
+                                        image:'https://th.bing.com/th/id/R.581eb679a50357ed30ad0d7544081ec6?rik=54dcWNzgeTMHEg&pid=ImgRaw&r=0',
+                                        bio:'Add to your bio',
+                                        cover:'https://th.bing.com/th/id/R.581eb679a50357ed30ad0d7544081ec6?rik=54dcWNzgeTMHEg&pid=ImgRaw&r=0',
+                                        nickname:'Nick name'
+                                        );
+                                    }
                                   },
-                                  child: Text('Login now')),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+                            ),),
+                            Center(
+                              child:TextButtonAuthAccount(
+                                size: MediaQuery.of(context).size,
+                                text:"Already have an account?",
+                                textButton: "Sign in",
+                                navigationScreen:const LayoutScreen(),
+                              )
+                       )
+                          ])),
                 ),
-              ),
+              ],
             ),
+                 ),
+         ),
+       
           );
 
       },
-    );
-  }
-
-
+    )
+);  }
 }
+ 

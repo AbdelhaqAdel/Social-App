@@ -6,6 +6,7 @@ import 'package:newapp/CleanArch/core/utils/Get%20it/auth_locator.dart';
 import 'package:newapp/CleanArch/core/utils/widgets/custom_button.dart';
 import 'package:newapp/CleanArch/features/auth/data/repositories/auth_repo_impl.dart';
 import 'package:newapp/CleanArch/features/auth/presentation/manager/cubit/auth_cubit.dart';
+import 'package:newapp/CleanArch/features/auth/presentation/pages/register_screen.dart';
 import 'package:newapp/CleanArch/features/auth/presentation/widgets/form_custom_widget.dart';
 import 'package:newapp/CleanArch/features/auth/presentation/widgets/text_button_auth_account.dart';
 import 'package:newapp/CleanArch/layout.dart';
@@ -24,13 +25,15 @@ class LoginScreen extends StatelessWidget {
           if(state is LoginSuccessState){
               NavigateAndFinish(context,const LayoutScreen());
                 ScaffoldMessenger.of(context).showSnackBar(
-                 const SnackBar(
+                  const SnackBar(
+                backgroundColor:Colors.green,
                  content: Text("Login success"),
               ),
             );
           }else if (state is LoginErrorState) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
+               backgroundColor: AppColor.layoutBackgroundBottomColor,
                 content: Text(state.errMessage.toString()),
               ),
             );
@@ -90,7 +93,7 @@ class LoginScreen extends StatelessWidget {
                                 size: MediaQuery.of(context).size,
                                 text:"Don't have an account",
                                 textButton: "Sign up",
-                                navigationScreen:const LayoutScreen(),
+                                navigationScreen: RegisterScreen(),
                               )
                        )
                           ])),
