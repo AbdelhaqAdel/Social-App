@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:newapp/CleanArch/features/auth/data/models/sign_up_model.dart';
 import 'package:newapp/CleanArch/features/auth/data/repositories/auth_repo_impl.dart';
-import 'package:newapp/CleanArch/features/profile/data/models/user_model.dart';
 import 'package:newapp/CleanArch/core/utils/key_constants.dart';
 part 'auth_state.dart';
 
@@ -70,7 +70,7 @@ class AuthCubit extends Cubit<AuthState> {
        );
   }
 
-  UserModel? userModel;
+  RegisterModel? userModel;
   Future<void> getUserData()async{
    emit(GetUserDataLoadingState());
   final response=await authRepository.getUserProfile(); 

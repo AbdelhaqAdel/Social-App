@@ -3,16 +3,17 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:newapp/CleanArch/core/utils/error_handliing.dart';
 import 'package:newapp/CleanArch/core/utils/firebase_handle_error.dart';
 import 'package:newapp/CleanArch/core/utils/key_constants.dart';
+import 'package:newapp/CleanArch/features/auth/data/data_sources/auth_local_datasource.dart';
 import 'package:newapp/CleanArch/features/auth/data/data_sources/auth_remote_datasource.dart';
+import 'package:newapp/CleanArch/features/auth/data/models/sign_up_model.dart';
 import 'package:newapp/CleanArch/features/auth/domain/repositories/auth_repo.dart';
-import 'package:newapp/CleanArch/features/profile/data/models/user_model.dart';
 
 class AuthRepository implements IAuthRepo{
 
   final RemoteDataSource remoteDataSource;
-  // final LocalDataSource localDataSource;
+  final LocalDataSource localDataSource;
   
-  AuthRepository({required this.remoteDataSource});
+  AuthRepository({required this.remoteDataSource,required this.localDataSource});
 
   @override
   Future<Either<Failure,String>>signIn({
@@ -33,11 +34,6 @@ class AuthRepository implements IAuthRepo{
     }
   }
   
-  @override
-  void saveUserData(){
-    //TODO save to cach helper
-  }
-
   @override
   Future<Either<Failure, String>> signUp({
    required String name,
@@ -66,8 +62,12 @@ class AuthRepository implements IAuthRepo{
   }
 
  @override
- Future<Either<Failure, UserModel>> getUserProfile() async {
+ Future<Either<Failure, RegisterModel>> getUserProfile() async {
   try{
+    final cachedData=await localDataSource.getUserData();
+    if(cachedData.name!=null){
+      return right(cachedData);
+    }
     final response = await remoteDataSource.getUserData();
     return right(response);
   }catch(e){

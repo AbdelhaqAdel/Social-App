@@ -28,7 +28,7 @@ import '../../../CleanArch/features/profile/presentation/pages/user_profile.dart
 import '../../../CleanArch/features/chat/presentation/pages/all_chats_screen.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
-import '../../../CleanArch/core/utils/hive constant.dart';
+import '../../../CleanArch/core/utils/hive_constant.dart';
 
 
 part 'app_state.dart';
