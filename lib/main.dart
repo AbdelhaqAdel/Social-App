@@ -4,11 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:newapp/CleanArch/core/utils/Get%20it/auth_locator.dart';
+import 'package:newapp/CleanArch/core/utils/set_up_hive.dart';
 import 'package:newapp/CleanArch/features/auth/presentation/pages/login_screen.dart';
 import 'package:newapp/CleanArch/generated/bloc_observer.dart';
 import 'package:newapp/CleanArch/layout.dart';
 import 'package:newapp/CleanArch/core/utils/key_constants.dart';
-import 'package:newapp/CleanArch/core/utils/hive%20constant.dart';
+import 'package:newapp/CleanArch/core/utils/hive_constant.dart';
 import 'package:newapp/shared/Cubit/cubit/app_cubit.dart';
 import 'package:newapp/shared/Styles/themes.dart';
 import 'package:newapp/shared/network/DioHelper.dart';
@@ -36,7 +37,6 @@ void main() async{
   //   print('permission----------------------------');
   //    FirebaseMessaging.instance.subscribeToTopic('all');
   // });
-
   // // _firebaseMessaging.requestPermission(
   // //   alert: true,
   // //   announcement: false,
@@ -49,35 +49,23 @@ void main() async{
   // await _firebaseMessaging.getToken().then((value) {
   //   print('device token -------: $value');
   // });
-
   // //when app is open
   // FirebaseMessaging.onMessage.listen((event) {
   //   print('on message data :${event.notification.toString()}');
   //   print('on message from :${event.from.toString()}');
   //   //print(event.notification)
   // });
-
   //  //when click on notification to open app
   // FirebaseMessaging.onMessageOpenedApp.listen((event) {
   //   print('on meaasage opened app data :${event.data.toString()}');
   //   //print(event.notification)
   // });
-
-
   // //background FCM
   // FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-
-  await Hive.initFlutter().then((value) {print('hive initialize');});
+  await setupHive();
   setupLocator();
-  Hive.registerAdapter(StuHistoryAdapter());
-  await Hive.openBox(HiveConstants.notifyBox).then((value){
-    print('Notify  box is opened ');}).catchError((error){
-    print('Notify  box is already opened ');
-  });
-
   await CacheHelper.init();
   Dio_Helper.init();
-
   Widget startWidget=LoginScreen();
   // if(uid != ''){
   //   startWidget=const LayoutScreen();

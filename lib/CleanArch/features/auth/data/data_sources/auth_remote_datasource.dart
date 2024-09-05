@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:newapp/CleanArch/core/cache_helper.dart';
 import 'package:newapp/CleanArch/core/utils/hive_constant.dart';
 import 'package:newapp/CleanArch/core/utils/key_constants.dart';
-import 'package:newapp/CleanArch/core/utils/save_date_to_hive.dart';
+import 'package:newapp/CleanArch/core/utils/hive_services.dart';
 import 'package:newapp/CleanArch/features/auth/data/models/sign_up_model.dart';
 
 abstract class IAuthDatasource{
