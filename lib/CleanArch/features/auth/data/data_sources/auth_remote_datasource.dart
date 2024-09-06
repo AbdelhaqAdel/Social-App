@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:newapp/CleanArch/core/cache_helper.dart';
+import 'package:newapp/CleanArch/core/utils/hive_constant.dart';
 import 'package:newapp/CleanArch/core/utils/key_constants.dart';
-import 'package:newapp/CleanArch/features/profile/data/models/user_model.dart';
+import 'package:newapp/CleanArch/core/utils/hive_services.dart';
+import 'package:newapp/CleanArch/features/auth/data/models/sign_up_model.dart';
 
 abstract class IAuthDatasource{
   Future<String>signIn({required email,required password});
@@ -15,7 +17,7 @@ abstract class IAuthDatasource{
     required String bio,
     required String cover,
     required String nickname    });
-  Future<UserModel>getUserData();
+  Future<RegisterModel>getUserData();
 
 }
 class RemoteDataSource implements IAuthDatasource{
@@ -45,7 +47,7 @@ final user = FirebaseAuth.instance;
      await user.createUserWithEmailAndPassword(email: email, password: password).then((value) {
       token=value.user!.uid;
       CacheHelper.saveData(key: 'UID', value: value.user!.uid);
-      UserModel registerModel=UserModel(
+      RegisterModel registerModel=RegisterModel(
       name:name,email: email,uId:uid,phone: phone,image: image,bio: bio,cover :cover,nickname: nickname);
       createUuser(
       uId: value.user!.uid,
@@ -57,16 +59,17 @@ final user = FirebaseAuth.instance;
 
     void createUuser({
        required String uId,
-       required UserModel registerModel
+       required RegisterModel registerModel
   })async{
     await FirebaseFirestore.instance.collection(Kusers).doc(uId).set(registerModel.toMap());
   }
   
   @override
-  Future<UserModel> getUserData() async{
-     UserModel? userData;
+  Future<RegisterModel> getUserData() async{
+     RegisterModel? userData;
      await FirebaseFirestore.instance.collection(Kusers).doc(CacheHelper.getData('UID')).get().then((value) {
-        userData= UserModel.fromJson(json: value.data());
+        userData= RegisterModel.fromJson(json: value.data());
+        HiveServices.saveDataToHive(HiveConstants.userDataBox,userData, HiveConstants.userDataBox);
      });
      return userData!;
   }

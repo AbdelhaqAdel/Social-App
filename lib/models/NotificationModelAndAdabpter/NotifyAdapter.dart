@@ -5,7 +5,7 @@ import 'NotificationHiveModel.dart';
 
 class StuHistoryAdapter extends TypeAdapter<NotificationModel> {
   @override
-  final int typeId = 0; // Unique identifier for this type adapter
+  final int typeId = 1; // Unique identifier for this type adapter
 
   @override
   NotificationModel read(BinaryReader reader) {

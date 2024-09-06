@@ -28,7 +28,7 @@ class LoginErrorState extends AuthState {
 
 class GetUserDataLoadingState extends AuthState {}
 class GetUserDataSuccessState extends AuthState {
-   final UserModel userData;
+   final RegisterModel userData;
    GetUserDataSuccessState({required this.userData});
 }
 class GetUserDataErrorState extends AuthState {

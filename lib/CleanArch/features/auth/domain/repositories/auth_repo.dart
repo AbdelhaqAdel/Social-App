@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:newapp/CleanArch/core/utils/error_handliing.dart';
-import 'package:newapp/CleanArch/features/profile/data/models/user_model.dart';
+import 'package:newapp/CleanArch/features/auth/data/models/sign_up_model.dart';
 
 abstract class IAuthRepo {
   Future<Either<Failure,String>>signIn({
@@ -18,7 +18,6 @@ abstract class IAuthRepo {
     required String cover,
     required String nickname
   });
-    void saveUserData();
 
-  Future<Either<Failure, UserModel>> getUserProfile();
+  Future<Either<Failure, RegisterModel>> getUserProfile();
 }
