@@ -5,6 +5,7 @@ import 'package:newapp/CleanArch/config/theme/colors.dart';
 import 'package:newapp/CleanArch/features/home/presentation/widgets/post_author_data.dart';
 import 'package:newapp/CleanArch/features/home/presentation/widgets/post_content.dart';
 import 'package:newapp/CleanArch/features/home/presentation/widgets/post_interaction.dart';
+
 import 'package:newapp/CleanArch/features/home/data/models/post_model.dart';
 import 'package:newapp/CleanArch/features/home/presentation/widgets/post_reach.dart';
 class BuildPostsWidget extends StatelessWidget {
