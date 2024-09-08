@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:newapp/CleanArch/core/utils/key_constants.dart';
 import 'package:newapp/CleanArch/features/home/data/models/post_model.dart';
 
 
@@ -7,6 +8,7 @@ abstract class PostRmoteDataSourse{
 }
 class PostRemoteDatasourceImpl extends PostRmoteDataSourse{
   List<PostModel>postsList=[];
+
   @override
   Future<List<PostModel>> fetchPosts()async {
       FirebaseFirestore.instance.collection('posts').orderBy('postDate')
@@ -20,9 +22,27 @@ class PostRemoteDatasourceImpl extends PostRmoteDataSourse{
  void fillPostsList(list) {
       postsList=[];
      for (var element in list){
-        // if(postsList.length < list.length){
+          isCurrentUserLikeCurrentPost(element);
           postsList.add(PostModel.fromJson(element.data()));
        }
+       print('----***************');
+ }
+
+ void isCurrentUserLikeCurrentPost(element){
+    FirebaseFirestore.instance.collection('posts').doc(element.id)
+          .collection('likes').get().then((value) {
+            for (var e in value.docs) {
+            if(uid==e.id) {
+              FirebaseFirestore.instance.collection('posts').doc(element.id).update({'isUserLike':true});
+              return;
+            }
+            }
+           FirebaseFirestore.instance.collection('posts').doc(element.id).update({'isUserLike':false});
+           return;
+            });
+ }
+ 
+    
     //  }
   //  }}
   //  else if(postsList.length<list.length){
@@ -36,12 +56,13 @@ class PostRemoteDatasourceImpl extends PostRmoteDataSourse{
   //   }
  
  
- if(postsList.length < list.length){
- for (int i = postsList.length; i < list.length; i++) {
-    postsList.add(PostModel.fromJson(list[i].data()));
- }  
-   }
- }
+//  if(postsList.length < list.length){
+//  for (int i = postsList.length; i < list.length; i++) {
+//     postsList.add(PostModel.fromJson(list[i].data()));
+//  }  
+//    }
+//  }
+
     // If the index exists in postsList, update the item
   //   if (i < postsList.length) {
   //     postsList[i] = postData;
