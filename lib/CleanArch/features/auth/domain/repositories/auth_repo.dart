@@ -8,7 +8,7 @@ abstract class IAuthRepo {
     required String password,
   });
   
-  Future<Either<Failure, String>> signUp({
+  Future<Either<Failure, RegisterModel>> signUp({
    required String name,
     required String email,
     required String password,
@@ -19,5 +19,5 @@ abstract class IAuthRepo {
     required String nickname
   });
 
-  Future<Either<Failure, RegisterModel>> getUserProfile();
+  Future<Either<Failure, RegisterModel>> getUserProfile({required String uid});
 }

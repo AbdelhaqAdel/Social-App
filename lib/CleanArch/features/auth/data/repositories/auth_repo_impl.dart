@@ -23,6 +23,7 @@ class AuthRepository implements IAuthRepo{
     try{
     final response=await remoteDataSource.signIn(email: email, password: password);
       uid=response;
+      print('uuuuuiiiiddddd$uid');
       return right(response);
     }catch(e){
       print('errrroooorrrrr');
@@ -35,7 +36,7 @@ class AuthRepository implements IAuthRepo{
   }
   
   @override
-  Future<Either<Failure, String>> signUp({
+  Future<Either<Failure, RegisterModel>> signUp({
    required String name,
     required String email,
     required String password,
@@ -47,11 +48,11 @@ class AuthRepository implements IAuthRepo{
   })
    async {
     try{
-      final responce=await remoteDataSource.register(
+      final response=await remoteDataSource.register(
         name: name, email: email, password: password, phone: phone,
          image: image, bio: bio, cover: cover, nickname: nickname);
-         uid=responce;
-         return right(responce);
+         userModel=response;
+         return right(response);
     }catch(e){
        if(e is FirebaseAuthException){
        return left(FirebaseError.firebaseException(e));
@@ -62,13 +63,15 @@ class AuthRepository implements IAuthRepo{
   }
 
  @override
- Future<Either<Failure, RegisterModel>> getUserProfile() async {
+ Future<Either<Failure, RegisterModel>> getUserProfile({required uid}) async {
   try{
     final cachedData=await localDataSource.getUserData();
-    if(cachedData.name!=null){
+    print(cachedData.image);
+    if(cachedData.image!=null){
       return right(cachedData);
     }
-    final response = await remoteDataSource.getUserData();
+    final response = await remoteDataSource.getUserData(uid: uid);
+    userModel=response;
     return right(response);
   }catch(e){
      if(e is FirebaseAuthException){

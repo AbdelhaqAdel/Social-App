@@ -66,18 +66,16 @@ class AuthCubit extends Cubit<AuthState> {
      phone: phone, image: image, bio: bio, cover: cover,
       nickname: nickname);
       response.fold((errMessage)=>emit(RegisterErrorState(errMessage: errMessage.message)),
-       (r) => emit(RegisterSuccessState(uid: uid)),
+       (r) { 
+        print('user dataaaa_---${userModel?.name}');
+        emit(RegisterSuccessState(uid: uid));},
        );
   }
 
-  RegisterModel? userModel;
-  Future<void> getUserData()async{
+  Future<void> getUserData({required String uid})async{
    emit(GetUserDataLoadingState());
-  final response=await authRepository.getUserProfile(); 
+  final response=await authRepository.getUserProfile(uid: uid); 
   response.fold((errMessage) => emit(GetUserDataErrorState(errMessage: errMessage.message)),
-   (userData){
-     print(userData.name);
-     emit(GetUserDataSuccessState(userData: userData));}
-  );
-  }
+   (userData)=> emit(GetUserDataSuccessState(userData: userData))
+  );}
 }
