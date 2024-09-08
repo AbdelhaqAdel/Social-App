@@ -8,7 +8,7 @@ import 'package:newapp/CleanArch/features/auth/data/models/sign_up_model.dart';
 
 abstract class IAuthDatasource{
   Future<String>signIn({required email,required password});
-  Future<String>register({
+  Future<RegisterModel>register({
    required String name,
     required String email,
     required String password,
@@ -17,7 +17,7 @@ abstract class IAuthDatasource{
     required String bio,
     required String cover,
     required String nickname    });
-  Future<RegisterModel>getUserData();
+  Future<RegisterModel>getUserData({required String uid});
 
 }
 class RemoteDataSource implements IAuthDatasource{
@@ -27,6 +27,7 @@ final user = FirebaseAuth.instance;
   Future<String> signIn({required email, required password}) async{
     String? token;
     await user.signInWithEmailAndPassword(email: email, password: password).then((value){
+      print('............${value.user?.uid}');
       token=value.user?.uid;
        CacheHelper.saveData(key: 'UID', value:value.user?.uid);
       });
@@ -34,7 +35,7 @@ final user = FirebaseAuth.instance;
     }
 
   @override
-  Future<String> register({
+  Future<RegisterModel> register({
     required String name,
     required String email,
     required String password,
@@ -43,18 +44,19 @@ final user = FirebaseAuth.instance;
     required String bio,
     required String cover,
     required String nickname})async {
-     String? token;
+     RegisterModel? registerModel;
      await user.createUserWithEmailAndPassword(email: email, password: password).then((value) {
-      token=value.user!.uid;
       CacheHelper.saveData(key: 'UID', value: value.user!.uid);
-      RegisterModel registerModel=RegisterModel(
+      registerModel=RegisterModel(
       name:name,email: email,uId:uid,phone: phone,image: image,bio: bio,cover :cover,nickname: nickname);
+      print(value.user!.uid);
+      uid=value.user!.uid;
       createUuser(
       uId: value.user!.uid,
-      registerModel: registerModel,
+      registerModel: registerModel!,
       );
      });
-     return token??'';
+     return registerModel!;
   }
 
     void createUuser({
@@ -62,12 +64,13 @@ final user = FirebaseAuth.instance;
        required RegisterModel registerModel
   })async{
     await FirebaseFirestore.instance.collection(Kusers).doc(uId).set(registerModel.toMap());
+    await FirebaseFirestore.instance.collection(Kusers).doc(uId).update({'uid':uId});
   }
   
   @override
-  Future<RegisterModel> getUserData() async{
+  Future<RegisterModel> getUserData({required uid}) async{
      RegisterModel? userData;
-     await FirebaseFirestore.instance.collection(Kusers).doc(CacheHelper.getData('UID')).get().then((value) {
+     await FirebaseFirestore.instance.collection(Kusers).doc(uid).get().then((value) {
         userData= RegisterModel.fromJson(json: value.data());
         HiveServices.saveDataToHive(HiveConstants.userDataBox,userData, HiveConstants.userDataBox);
      });

@@ -66,13 +66,13 @@ void main() async{
   setupLocator();
   await CacheHelper.init();
   Dio_Helper.init();
-  Widget startWidget=LoginScreen();
-  // if(uid != ''){
-  //   startWidget=const LayoutScreen();
-  // }
-  // else{
-  //   startWidget=Login();
-  // }
+  Widget startWidget;
+  if(uid != ''){
+    startWidget=const LayoutScreen();
+  }
+  else{
+    startWidget=LoginScreen();
+  }
   runApp(MyApp(
       startWidget,
   ));

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:newapp/CleanArch/config/theme/colors.dart';
 import 'package:newapp/CleanArch/core/utils/Get%20it/auth_locator.dart';
+import 'package:newapp/CleanArch/features/home/data/repositories/post_reaction_reo_impl.dart';
 import 'package:newapp/CleanArch/features/home/data/repositories/posts_repo_impl.dart';
 import 'package:newapp/CleanArch/features/home/presentation/manager/cubit/post_cubit.dart';
 import 'package:newapp/CleanArch/features/home/presentation/widgets/posts_builder.dart';
@@ -16,7 +17,7 @@ class PostsScreen extends StatelessWidget {
     return Builder(
       builder:(context) {
         return BlocProvider(
-          create: (context)=>PostCubit(postRepository:getIt.get<PostRepository>())..fetchAllPosts(),
+          create: (context)=>PostCubit(postRepository:getIt.get<PostRepository>(),postReactRepo:getIt.get<PostReactoinRepository>())..fetchAllPosts(),
           child: BlocConsumer<PostCubit, PostState>(
             listener: (context, state) {},
             builder: (context, state) {

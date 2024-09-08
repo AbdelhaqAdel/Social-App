@@ -7,15 +7,16 @@ abstract class PostDataRmoteDataSourse{
 class PostDataRemoteDatasourceImpl extends PostDataRmoteDataSourse{
   PostModel? postData;
   List<String>postLikes=[];
-  List<int>postLikeNum=[];
+  Map<String,int>postLikeNum={};
   List<int>postCommrntsNum=[];
   @override
   Future<void> fetchPostData()async {
   FirebaseFirestore.instance.collection('posts').orderBy('postDate').snapshots()
   .listen((event) {
       for (var element in event.docs) {
+       print('idddddd${element.id}');
       getUsersLikes(element);
-      getLikesNumber(element);
+      // getLikesNumber(element);
       getCommentsNumber(element);
       }
   });
@@ -26,13 +27,14 @@ class PostDataRemoteDatasourceImpl extends PostDataRmoteDataSourse{
     postLikes.add(element.id);
   }
   
- void getLikesNumber(element){
-  postLikeNum=[];
-      element.reference.collection('likes')
-        .snapshots().listen((value) {
-        postLikeNum.add(value.docs.length); 
-        });
-  }
+//  void getLikesNumber(element){
+//   postLikeNum={};
+      
+//       element.reference.collection('likes')
+//         .snapshots().listen((value) {
+//         postLikeNum.addEntries({element.id,element.docs.length}); 
+//         });
+//   }
 
 void getCommentsNumber(element){
   postCommrntsNum=[];

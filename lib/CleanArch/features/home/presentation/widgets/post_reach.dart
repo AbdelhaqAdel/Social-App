@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:newapp/CleanArch/features/home/data/models/post_model.dart';
 import 'package:newapp/CleanArch/features/home/presentation/widgets/post_likes_showDialog.dart';
 import 'package:newapp/shared/Cubit/cubit/app_cubit.dart';
 
 class PostReach extends StatelessWidget {
   const PostReach({super.key,
       required this.index,
+      required this.post,
   });
    final int index;
-
+   final PostModel post;
   @override
   Widget build(BuildContext context) {
   return Row(
@@ -37,7 +39,7 @@ class PostReach extends StatelessWidget {
                 width: 5.w,
               ),
               Text(
-                "${AppCubit.get(context).likesNum[index]}",
+                "${post.postLikes}",
                 style:
                     Theme.of(context).textTheme.bodySmall?.copyWith(
                           fontSize: 13.sp,

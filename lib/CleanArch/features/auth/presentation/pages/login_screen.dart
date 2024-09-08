@@ -29,7 +29,8 @@ class LoginScreen extends StatelessWidget {
                  content: Text("Login success"),
               ),
             );
-             AuthCubit.get(context).getUserData();
+            print('uid ]]]]${state.uid}');
+             AuthCubit.get(context).getUserData(uid:state.uid);
              NavigateAndFinish(context,const LayoutScreen());
           }else if (state is LoginErrorState) {
             ScaffoldMessenger.of(context).showSnackBar(

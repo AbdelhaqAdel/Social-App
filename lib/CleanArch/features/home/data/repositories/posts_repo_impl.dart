@@ -15,9 +15,10 @@ class PostRepository extends PostRepo{
   final PostLocalDatasourceImpl postLocalDatasource;
   PostRepository({required this.postRemoteDataSource,required this.postLocalDatasource,required this.postData});
   List<String>postLikes=[];
-  List<int>postLikeNum=[];
+  Map<String,int>postLikeNum={};
   List<int>postCommrntsNum=[];
   @override
+
   Future<Either<Failure, List<PostModel>>> getAllPosts()async {
     try{
       final List<PostModel>posts=await postRemoteDataSource.fetchPosts();
@@ -32,4 +33,5 @@ class PostRepository extends PostRepo{
       else{return left(ServerFailure(e.toString()));}
     }
   }
+
 }

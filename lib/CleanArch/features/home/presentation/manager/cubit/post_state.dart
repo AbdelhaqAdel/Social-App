@@ -8,7 +8,7 @@ class GetPostsLoadingState extends PostState {}
 class GetPostsSuccessState extends PostState {
   final List<PostModel>posts;
   final List<String>postLikes;
-  final List<int>postLikeNum;
+  final Map<String,int>postLikeNum;
   final List<int>postCommrntsNum;
 
   GetPostsSuccessState({
@@ -21,3 +21,5 @@ class GetPostsErrorState extends PostState {
   final String errMessage;
   GetPostsErrorState({required this.errMessage});
 }
+class UserAddLikeState extends PostState{}
+

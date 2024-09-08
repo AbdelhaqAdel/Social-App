@@ -22,7 +22,7 @@ import '../../../models/NotificationModelAndAdabpter/NotificationHiveModel.dart'
 import '../../../CleanArch/features/stories/data/models/status_model.dart';
 import '../../../CleanArch/features/profile/data/models/user_model.dart';
 import '../../../CleanArch/features/add post/presentation/pages/add_post_screen.dart';
-import '../../../CleanArch/features/home/presentation/pages/PostsScreen.dart';
+import '../../../CleanArch/features/home/presentation/pages/posts_screen.dart';
 import '../../../CleanArch/features/stories/presentation/pages/status_screen.dart';
 import '../../../CleanArch/features/profile/presentation/pages/user_profile.dart';
 import '../../../CleanArch/features/chat/presentation/pages/all_chats_screen.dart';
@@ -487,12 +487,15 @@ emit(UserCoverUpdateErrorState());
   }){
     emit(ImagePostUploadLoadingState());
     PostModel model=PostModel(
-      userModel!.name,
-      userModel!.uId,
-      userModel!.image,
-      postImage,
-      postText,
-      DateTime.now().toString(),
+     name:      userModel!.name,
+     uId:       userModel!.uId,
+     image:     userModel!.image,
+     postImage: postImage,
+     postText:  postText,
+     postDate:  DateTime.now().toString(),
+     postLikes:0,
+     isUserLike:false,
+    
     );
     FirebaseFirestore.instance.collection('posts')
         .add(model.toMap())
@@ -586,12 +589,12 @@ emit(UserCoverUpdateErrorState());
  //          emit(GetPostErrorState());
  //    });
  //  }
+  
   void GetAllPosts(){
     emit(GetPostLoadingState());
 
     FirebaseFirestore
         .instance.collection('posts').orderBy('postDate')
-    //.orderBy('postDate',descending: true)
         .snapshots().listen((value) {//value is all collections in post  (all posts)
       posts=[];
       likesNum=[];
@@ -608,21 +611,18 @@ emit(UserCoverUpdateErrorState());
       emit(GetPostSuccessState());
     });
   }
+ 
   void GetPostsData(){
     emit(GetPostDataLoadingState());
 
     FirebaseFirestore
         .instance.collection('posts').orderBy('postDate')
-    //.orderBy('postDate',descending: true)
         .snapshots().listen((value) {//value is all collections in post  (all posts)
-      // likesNum=[];
-      // likes=[];
       value.docs.forEach((element) {//element is map<String dynamic> contain all data in post model
         likes.add(element.id);
         element.reference.collection('likes')  //to go to likes collection from post
             .snapshots().listen((value) {
-          //print(value.);
-          // likeee=value.size;
+
           likesNum?.add(value.docs.length);    //add number of items in likes collection to likkesNum list
           //to add all data in element to posts list
         });
@@ -641,17 +641,14 @@ emit(UserCoverUpdateErrorState());
     });
   }
 
-
   List likedName=[];
   void getLikedUsers(String postId){
     emit(GetPostsLikesLoadingState());
     likedName = [];
-    // print('dddddddd ${
     FirebaseFirestore.instance.collection('posts')
         .doc(postId).collection('likes')
         .get().then((value) {
       value.docs.forEach((element) {
-        //print(element.reference.id);
         likedName.add(element.get('user'));
         print(' users liked ${element.get('user')}');
         emit(GetPostsLikesSuccessState());
@@ -679,27 +676,16 @@ emit(UserCoverUpdateErrorState());
        // value.docs.forEach((element)
        for(var n in value.docs){
 
-          // print(userModel?.uId);
-          // print(element.id);
-          //print(element.reference.id);
           if (userModel?.uId == n.reference.id) {
             userLiked?.addAll({
               postId:true
             });
             isLiked = true;
-            //print('true');
-           // break;
-            //isLiked.add(element.get('like'));
+;
           }
-          print(userLiked?.keys);
-
-            //isLiked = false;
-          // isLiked.add(false);
-         // print(isLiked);
+     
         }
-    // isLiked.forEach((element) {
-    //   print(element);
-    // });
+
     emit(GetIsLikedSuccessState());
 
     }).catchError((error){
@@ -708,20 +694,43 @@ emit(UserCoverUpdateErrorState());
 
   });}
 
+
+//  Future<bool>isUserLike(postDoc){
+//          postDoc.collection('likes').get().then((value) {
+//             value.docs.forEach((element) {
+//               if(uid==element.id) {
+//                 print('userrrrrr$uid------------${element.id}');
+//               }
+//             });
+//           });
+//  }
+   
+  
+  // bool isUserTap=false;
+  // void changeLikeButton(){
+  //  isUserTap = !isUserTap;
+  //  emit()
+  // }
+
+
   void addLike(String postId){
-    FirebaseFirestore.instance.collection('posts')
-        .doc(postId).collection('likes')
-        .doc(userModel?.uId).set({
-      'like':true,
-      'user':userModel?.name
-        })
-        .then((value) {
-          print('add like');
-          emit(UserAddPostLikeSuccessState());
-    }).catchError((error){
-      print('add like error ${error}');
-          emit(UserAddPostLikeErrorState());
-    });
+    var postDoc= FirebaseFirestore.instance.collection('posts').doc(postId);
+         postDoc.get().then((value){
+        int thisPostLikes=value['likes'];
+          postDoc.collection('likes').get().then((value) {
+            for (var element in value.docs) {
+              if(uid==element.id) {
+             postDoc.collection('likes').doc(uid).delete();
+             postDoc.update({'likes':thisPostLikes-1});
+             postDoc.update({'isUserLike':false});
+             return;              
+             }}
+            postDoc.collection('likes').doc(uid).set({'user':userModel?.name});
+             postDoc.update({'likes':thisPostLikes+1});
+             postDoc.update({'isUserLike':true});
+            return; 
+        });
+        }); 
   }
 
   void addComment(String postId,String comment){
@@ -864,27 +873,27 @@ emit(UserCoverUpdateErrorState());
 
 
 
-  List<PostModel> convertQuerySnapshotToList(QuerySnapshot querySnapshot) {
-    List<PostModel> postList = [];
+  // List<PostModel> convertQuerySnapshotToList(QuerySnapshot querySnapshot) {
+  //   List<PostModel> postList = [];
 
-    querySnapshot.docs.forEach((doc) {
-      var data = doc.data() as Map<String, dynamic>;
+  //   querySnapshot.docs.forEach((doc) {
+  //     var data = doc.data() as Map<String, dynamic>;
 
-      var post = PostModel(
-        // Replace these with the actual fields in your PostModel
-        data['name'],
-        data['uId'],
-        data['image'],
-        data['postImage'],
-        data['postText'],
-        data['postDate'],
-      );
+  //     var post = PostModel(
+  //       // Replace these with the actual fields in your PostModel
+  //       data['name'],
+  //       data['uId'],
+  //       data['image'],
+  //       data['postImage'],
+  //       data['postText'],
+  //       data['postDate'],
+  //     );
 
-      postList.add(post);
-    });
+  //     postList.add(post);
+  //   });
 
-    return postList;
-  }
+  //   return postList;
+  // }
 
 
 

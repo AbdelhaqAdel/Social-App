@@ -47,9 +47,10 @@ class BuildPostsWidget extends StatelessWidget {
                 color: HexColor('#13003b'),
               ),
               SizedBox(height: 5.h,),
-           PostReach(index:index),
+           PostReach(index:index,post: post,),
           PostInteraction(commentController: commentController,
           index: index,
+          post: post,
           ),
              
               SizedBox(
