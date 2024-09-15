@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:newapp/CleanArch/features/home/data/models/post_model.dart';
-import 'package:newapp/CleanArch/features/home/data/repositories/post_reaction_reo_impl.dart';
+import 'package:newapp/CleanArch/features/home/data/repositories/post_reaction_repo_impl.dart';
 import 'package:newapp/CleanArch/features/home/data/repositories/posts_repo_impl.dart';
 
 part 'post_state.dart';
