@@ -495,6 +495,7 @@ emit(UserCoverUpdateErrorState());
      postDate:  DateTime.now().toString(),
      postLikes:0,
      isUserLike:false,
+     postComments: 0,
     
     );
     FirebaseFirestore.instance.collection('posts')
@@ -681,7 +682,6 @@ emit(UserCoverUpdateErrorState());
               postId:true
             });
             isLiked = true;
-;
           }
      
         }

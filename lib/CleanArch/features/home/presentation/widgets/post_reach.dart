@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:newapp/CleanArch/features/home/data/models/post_model.dart';
-import 'package:newapp/CleanArch/features/home/presentation/widgets/post_likes_showDialog.dart';
-import 'package:newapp/shared/Cubit/cubit/app_cubit.dart';
+import 'package:newapp/CleanArch/features/home/presentation/manager/cubit/post_cubit.dart';
+import 'package:newapp/CleanArch/features/home/presentation/widgets/post_likes_show_dialog.dart';
 
 class PostReach extends StatelessWidget {
   const PostReach({super.key,
       required this.index,
       required this.post,
-  });
-   final int index;
+  required this.cubitContext,
+});
+  final BuildContext cubitContext;
+     final int index;
    final PostModel post;
   @override
   Widget build(BuildContext context) {
@@ -17,16 +19,16 @@ class PostReach extends StatelessWidget {
       children: [
         GestureDetector(
           onTap: () {
-            AppCubit.get(context)
-                .getLikedUsers(AppCubit.get(context).likes[index]);
+            PostCubit.get(context)
+                .getPostLikedUser(postIndex: index);
                 showDialog<String>(
-                    context: context,
                     barrierColor: Colors.black.withOpacity(.3),
                     useSafeArea: true,
                     builder: (BuildContext context) => PostLikesDialog(
+                      cubitContext: cubitContext,
                       height: MediaQuery.of(context).size.height/2.5,
                       width: MediaQuery.of(context).size.width-20 ,
-                    ));
+                    ), context: context);
           },          
           child: Row(
             children: [
@@ -63,7 +65,7 @@ class PostReach extends StatelessWidget {
                 width: 5.w,
               ),
               Text(
-                "${AppCubit.get(context).commentNum[index]}",
+                '${post.postComments}',
                style:
                     Theme.of(context).textTheme.bodySmall?.copyWith(
                           fontSize: 13.sp,

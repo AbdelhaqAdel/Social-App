@@ -14,9 +14,10 @@ class BuildPostsWidget extends StatelessWidget {
     required this.scaffoldKey,
     required this.post,
     required this.index,
-    super.key
-    });
-   final TextEditingController commentController;
+    super.key,
+  required this.cubitContext,
+});
+  final BuildContext cubitContext;   final TextEditingController commentController;
    final GlobalKey<ScaffoldState> scaffoldKey;
    final PostModel post;
    final int index;
@@ -47,7 +48,7 @@ class BuildPostsWidget extends StatelessWidget {
                 color: HexColor('#13003b'),
               ),
               SizedBox(height: 5.h,),
-           PostReach(index:index,post: post,),
+           PostReach(index:index,post: post,cubitContext: cubitContext,),
           PostInteraction(commentController: commentController,
           index: index,
           post: post,

@@ -3,7 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:newapp/CleanArch/config/theme/colors.dart';
 import 'package:newapp/CleanArch/core/utils/Get%20it/auth_locator.dart';
-import 'package:newapp/CleanArch/features/home/data/repositories/post_reaction_repo_impl.dart';
+import 'package:newapp/CleanArch/features/home/data/repositories/post_comment_repo_impl.dart';
+import 'package:newapp/CleanArch/features/home/data/repositories/post_like_repo_impl.dart';
 import 'package:newapp/CleanArch/features/home/data/repositories/posts_repo_impl.dart';
 import 'package:newapp/CleanArch/features/home/presentation/manager/cubit/post_cubit.dart';
 import 'package:newapp/CleanArch/features/home/presentation/widgets/posts_builder.dart';
@@ -17,7 +18,9 @@ class PostsScreen extends StatelessWidget {
     return Builder(
       builder:(context) {
         return BlocProvider(
-          create: (context)=>PostCubit(postRepository:getIt.get<PostRepository>(),postReactRepo:getIt.get<PostReactoinRepository>())..fetchAllPosts(),
+          create: (context)=>PostCubit(postRepository:getIt.get<PostRepository>(),postLikeRepo:getIt.get<PostLikeRepository>(),
+          postCommentRepo: getIt.get<PostCommentRepository>()
+          )..fetchAllPosts(),
           child: BlocConsumer<PostCubit, PostState>(
             listener: (context, state) {},
             builder: (context, state) {
@@ -65,33 +68,7 @@ class PostsScreen extends StatelessWidget {
                                   ],
                                 ),
                               ),
-                                  // ConditionalBuilder(
-                                  //   condition:
-                                  //   posts.isNotEmpty &&
-                                  //       state.postLikes.isNotEmpty
-                                  //       &&cubit.commentNum.isNotEmpty
-                                  //      && cubit.state is! GetPostLoadingState,
-                                  //   builder: (context) {
-                                  //     return ListView.separated(
-                                  //         reverse: true,
-                                  //         physics: const BouncingScrollPhysics(),
-                                  //         shrinkWrap: true,
-                                  //         itemBuilder: (context, index) {
-                                  //           var commentController = TextEditingController();
-                                  //           return BuildPostsWidget(
-                                  //             commentController: commentController,
-                                  //             scaffoldKey: scaffoldKey,
-                                  //             post: posts[index],
-                                  //             index: index,);
-                                  //         },
-                                  //         separatorBuilder: (context, index) =>
-                                  //             SizedBox(height: 3.h,),
-                                  //         itemCount: posts.length
-                                  //     );
-                                  //   },
-                                  //   fallback: (context) =>
-                                  //       const Center (child: CircularProgressIndicator()),
-                                  // ),
+
                               PostsBuilder(scaffoldKey: scaffoldKey,),
                               SizedBox(height: MediaQuery.of(context).size.height/13),
                             ],
