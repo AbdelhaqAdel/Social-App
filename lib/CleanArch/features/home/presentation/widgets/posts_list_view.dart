@@ -7,9 +7,11 @@ class PostsList extends StatelessWidget {
   const PostsList({
     required this.scaffoldKey,
     required this.posts,
+   required this.cubitContext,
     super.key});
   final GlobalKey<ScaffoldState> scaffoldKey;
   final List<PostModel>posts;
+  final BuildContext cubitContext;
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
@@ -19,6 +21,7 @@ class PostsList extends StatelessWidget {
              itemBuilder: (context, index) {
                var commentController = TextEditingController();
                return BuildPostsWidget(
+                cubitContext: cubitContext,
                  commentController: commentController,
                  scaffoldKey: scaffoldKey,
                  post:posts[index],

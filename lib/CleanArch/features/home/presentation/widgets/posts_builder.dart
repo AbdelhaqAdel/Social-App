@@ -30,15 +30,26 @@ class PostsBuilder extends StatelessWidget {
             for(var element in newData){
              newList.add(PostModel.fromJson(element.data()as Map<String, dynamic>));
             }
-           return PostsList(scaffoldKey: scaffoldKey, posts:newList);
+           return PostsList(scaffoldKey: scaffoldKey, posts:newList,cubitContext: context,);
            }
-           if(state is GetPostsSuccessState){
-             return PostsList(scaffoldKey: scaffoldKey, posts:PostCubit.get(context).allPostsList );
-           }else if(state is GetPostsErrorState){
+          //  else if(state is GetPostsSuccessState){
+          //    return PostsList(scaffoldKey: scaffoldKey, posts:PostCubit.get(context).allPostsList ,cubitContext: context,);
+          //  }
+           else if(state is GetPostsErrorState){
              return Text(state.errMessage);
            }else{
              return const Center(child: CircularProgressIndicator(),);
            }
     } );
+   
+//     if(state is GetPostsSuccessState){
+//       return PostsList(scaffoldKey: scaffoldKey, posts:GetPostsSuccessState.allPosts,cubitContext: context,);
+//     }else if(state is GetPostsErrorState){
+//       return Text(state.errMessage);
+//     } 
+//     else{return const Center(child: CircularProgressIndicator(),);
+//  }
+     
     });}  
 }
+
