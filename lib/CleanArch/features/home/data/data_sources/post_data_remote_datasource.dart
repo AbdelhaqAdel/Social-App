@@ -15,17 +15,9 @@ class PostDataRemoteDatasourceImpl extends PostDataRmoteDataSourse{
   .listen((event) {
       for (var element in event.docs) {
        print('idddddd${element.id}');
-      getUsersLikes(element);
-      // getLikesNumber(element);
-      getCommentsNumber(element);
       }
   });
 }
-
- void getUsersLikes(element){
-  postLikes=[];
-    postLikes.add(element.id);
-  }
   
 //  void getLikesNumber(element){
 //   postLikeNum={};
@@ -36,13 +28,7 @@ class PostDataRemoteDatasourceImpl extends PostDataRmoteDataSourse{
 //         });
 //   }
 
-void getCommentsNumber(element){
-  postCommrntsNum=[];
-      element.reference.collection('likes')
-        .snapshots().listen((value) {
-        postCommrntsNum.add(value.docs.length); 
-        });
-  }
+
   
 }
 
