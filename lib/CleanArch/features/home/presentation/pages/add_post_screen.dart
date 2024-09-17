@@ -12,7 +12,7 @@ class AddPostScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AppCubit,AppState>(
-        listener:(context,stata){},
+        listener:(context,state){},
         builder: (context,state){
           AppCubit cubit=AppCubit.get(context);
           return Scaffold(
@@ -53,10 +53,16 @@ class AddPostScreen extends StatelessWidget {
                    const SizedBox(height:20,),
                    TextFormField(
                         controller: postTextController,
+                        style: TextStyle(
+                          fontWeight: FontWeight.w400,
+                            fontSize: 30.sp,
+                            color:Colors.black,
+                          ),  
                         decoration:  InputDecoration(
-                          counterStyle: TextStyle(
-                            fontSize: 12.sp,
-                            color: Colors.black
+                          
+                          hintStyle: TextStyle(
+                            fontSize: 25.sp,
+                            color:Colors.grey,
                           ),
                         hintText: 'what is in your mind .....',
                           border: InputBorder.none
