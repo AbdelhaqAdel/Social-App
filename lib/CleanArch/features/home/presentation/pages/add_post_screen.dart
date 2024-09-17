@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:newapp/CleanArch/config/theme/colors.dart';
-import 'package:newapp/CleanArch/features/add%20post/presentation/widgets/image_card.dart';
-import 'package:newapp/CleanArch/features/add%20post/presentation/widgets/select_image.dart';
+import 'package:newapp/CleanArch/features/home/presentation/widgets/add%20post/image_card.dart';
+import 'package:newapp/CleanArch/features/home/presentation/widgets/add%20post/select_image.dart';
 import '../../../../../shared/Cubit/cubit/app_cubit.dart';
 
 class AddPostScreen extends StatelessWidget {
