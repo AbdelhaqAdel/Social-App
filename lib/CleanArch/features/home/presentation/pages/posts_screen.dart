@@ -6,6 +6,7 @@ import 'package:newapp/CleanArch/core/utils/Get%20it/auth_locator.dart';
 import 'package:newapp/CleanArch/features/home/data/repositories/post_comment_repo_impl.dart';
 import 'package:newapp/CleanArch/features/home/data/repositories/post_like_repo_impl.dart';
 import 'package:newapp/CleanArch/features/home/data/repositories/posts_repo_impl.dart';
+import 'package:newapp/CleanArch/features/home/domain/use_cases/create_post_usecase.dart';
 import 'package:newapp/CleanArch/features/home/presentation/manager/cubit/post_cubit.dart';
 import 'package:newapp/CleanArch/features/home/presentation/widgets/posts_builder.dart';
 
@@ -18,8 +19,10 @@ class PostsScreen extends StatelessWidget {
     return Builder(
       builder:(context) {
         return BlocProvider(
-          create: (context)=>PostCubit(postRepository:getIt.get<PostRepository>(),postLikeRepo:getIt.get<PostLikeRepository>(),
-          postCommentRepo: getIt.get<PostCommentRepository>()
+          create: (context)=>PostCubit(
+            postRepository:getIt.get<PostRepository>(),postLikeRepo:getIt.get<PostLikeRepository>(),
+          postCommentRepo: getIt.get<PostCommentRepository>(),
+          createPostUseCase: getIt.get<CreatePostUseCase>()
           )..fetchAllPosts(),
           child: BlocConsumer<PostCubit, PostState>(
             listener: (context, state) {},

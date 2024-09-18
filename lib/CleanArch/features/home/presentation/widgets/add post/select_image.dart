@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:newapp/CleanArch/config/theme/colors.dart';
+import 'package:newapp/CleanArch/features/home/presentation/manager/cubit/post_cubit.dart';
 import 'package:newapp/shared/Cubit/cubit/app_cubit.dart';
 
 class SelectImageButton extends StatefulWidget {
@@ -7,22 +8,21 @@ class SelectImageButton extends StatefulWidget {
   @override
   State<SelectImageButton> createState() => _SelectImageButtonState();
 }
- 
 class _SelectImageButtonState extends State<SelectImageButton> {
   @override
   Widget build(BuildContext context) {
-    return          Row(
-                  children: [
+    return Row(
+             children: [
                 Expanded(
              child: Container(
                height: MediaQuery.of(context).size.height/15,
                decoration: BoxDecoration(
                  color: AppColor.layoutBackgroundColor
                ),
-               child:AppCubit.get(context).pickPostImage!=null
-               ?   IconButton(
+               child:PostCubit.get(context).imageString!=''
+               ?IconButton(
                    onPressed: (){
-                     AppCubit.get(context).uploadPostImage();
+                     PostCubit.get(context).uploadPostImage();
                    },
                    icon:Row(
                        mainAxisAlignment: MainAxisAlignment.center,
@@ -39,12 +39,9 @@ class _SelectImageButtonState extends State<SelectImageButton> {
                      )
                      :IconButton(
                          onPressed: (){
-                           AppCubit.get(context).PickPostImage().then((value) {
+                           PostCubit.get(context).pickPostImage();
                              setState(() {
-                                // AppCubit.get(context).pickPostImage=
-                              });
-                            });
-                          },
+                              });},
                           icon:Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
