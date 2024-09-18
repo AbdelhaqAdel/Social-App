@@ -1,14 +1,29 @@
+import 'dart:convert';
+import 'dart:typed_data';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:newapp/CleanArch/features/home/data/models/post_model.dart';
 import 'package:newapp/CleanArch/features/home/data/repositories/post_comment_repo_impl.dart';
 import 'package:newapp/CleanArch/features/home/data/repositories/post_like_repo_impl.dart';
 import 'package:newapp/CleanArch/features/home/data/repositories/posts_repo_impl.dart';
+import 'package:newapp/CleanArch/features/home/domain/use_cases/create_post_usecase.dart';
+
 
 part 'post_state.dart';
 
 class PostCubit extends Cubit<PostState> {
-  PostCubit({required this.postRepository,required this.postLikeRepo,required this.postCommentRepo}) : super(PostInitial());
+  PostCubit({required this.postRepository,
+  required this.postLikeRepo,required this.postCommentRepo,
+  required this.createPostUseCase,
+  //required this.pickPostImageUseCase,
+  // required this.uploadPostImageUseCase,
+  }) : super(PostInitial());
+  
+  final CreatePostUseCase createPostUseCase;
+  // final PickPostImageUseCase pickPostImageUseCase;
+  // final UploadPostImageUseCase uploadPostImageUseCase;
+
   final PostRepository postRepository;
   final PostLikeRepository postLikeRepo;
   final PostCommentRepository postCommentRepo;
@@ -63,4 +78,38 @@ class PostCubit extends Cubit<PostState> {
     final response=await postLikeRepo.getLikedUsers(postId: postsId[postIndex]);
     emit(GetLikedUsersSuccessState(likedUsers:response));
     }
+
+ Future<void> createPost({required String postText})async{
+  emit(CreatePostLoadingState());
+  if(imageString!=''){
+    print('////////////////////////////////');
+  await uploadPostImage();}
+  final response=await createPostUseCase.call(postText);
+  response.fold((l) =>emit(CreatePostErrorState()),
+   (r) =>emit(CreatePostSuccessState()));
+  }
+
+  Uint8List? imageAsByte;
+  String imageString='';
+
+  Future<void> pickPostImage()async{
+    emit(PickPostImageLoadingState());
+    final response=await createPostUseCase.pickPostImageUseCase.call();
+    response.fold((l) =>emit(PickPostImageErrorState()),
+     (r)async {
+      await r.readAsBytes().then((value) {
+      imageString= base64Encode(value);
+      imageAsByte=value;
+      });
+      emit(PickPostImageSuccessState());
+     });
+  }
+  
+  Future<void> uploadPostImage()async{
+    emit(UploadPostImageLoadingState());
+    final response=await createPostUseCase.uploadPostImageUseCase.call();
+    response.fold((l) =>emit(UploadPostImageErrorState()),
+     (r) =>emit(UploadPostImageSuccessState()));
+  }
+
 }

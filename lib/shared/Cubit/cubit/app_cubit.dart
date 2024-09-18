@@ -21,7 +21,7 @@ import 'package:newapp/CleanArch/core/cache_helper.dart';
 import '../../../models/NotificationModelAndAdabpter/NotificationHiveModel.dart';
 import '../../../CleanArch/features/stories/data/models/status_model.dart';
 import '../../../CleanArch/features/profile/data/models/user_model.dart';
-import '../../../CleanArch/features/add post/presentation/pages/add_post_screen.dart';
+import '../../../CleanArch/features/home/presentation/pages/add_post_screen.dart';
 import '../../../CleanArch/features/home/presentation/pages/posts_screen.dart';
 import '../../../CleanArch/features/stories/presentation/pages/status_screen.dart';
 import '../../../CleanArch/features/profile/presentation/pages/user_profile.dart';
@@ -353,8 +353,6 @@ class AppCubit extends Cubit<AppState> {
     }
   }
 
-
-
   void uploadProfileImage(
       {
         required String name,
@@ -389,11 +387,6 @@ class AppCubit extends Cubit<AppState> {
       print('Puting file Error ${error}');
     });
   }
-
-
-
-
-
 
   Uint8List? coverImage;
   String? otherCoverImage;
@@ -440,7 +433,6 @@ emit(UserCoverUpdateErrorState());
 });
 }
 
-
   void uploadCoverImage(
       {
         required String name,
@@ -476,12 +468,6 @@ emit(UserCoverUpdateErrorState());
     });
   }
 
-
-
-
-
-
-
   void AddPost({
     String? postText,
   }){
@@ -496,20 +482,16 @@ emit(UserCoverUpdateErrorState());
      postLikes:0,
      isUserLike:false,
      postComments: 0,
-    
     );
     FirebaseFirestore.instance.collection('posts')
         .add(model.toMap())
         .then((value){
-          print('post created true');
           emit(ImagePostUploadSuccessState());
     })
         .catchError((error){
-         print('creating post Erroorrrr ${error}');
          emit(ImagePostUploadErrorState());
     });
   }
-
 
   Uint8List? pickPostImage;
   String? stringPostImage;
@@ -519,17 +501,17 @@ emit(UserCoverUpdateErrorState());
     if(file!=null){
       stringPostImage=file.path;
       pickPostImage=await file.readAsBytes();
+      print('image  :: ${pickPostImage}');
       emit(ImagePostPickedSuccessState());
     }
     else{
-      print('no image selected');
       emit(ImagePostPickedErrorState());
-
     }
   }
 
   String? postImage;
   void uploadPostImage(){
+        emit(CreatePostLoadingState());
     firebase_storage.FirebaseStorage
         .instance
         .ref()

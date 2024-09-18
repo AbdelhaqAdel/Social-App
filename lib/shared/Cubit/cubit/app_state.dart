@@ -78,9 +78,11 @@ class UserCoverUpdateLoagingState extends AppState {}
 class UserCoverUpdateErrorState extends AppState {}
 
 /*-------------------post---------------*/
+class ImagePostPickedLoadingState extends AppState {}
 class ImagePostPickedSuccessState extends AppState {}
 class ImagePostPickedErrorState extends AppState {}
 
+class CreatePostLoadingState extends AppState {}
 class CreatePostSuccessState extends AppState {}
 class CreatePostErrorState extends AppState {}
 

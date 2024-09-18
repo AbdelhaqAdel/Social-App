@@ -1,6 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:newapp/shared/Cubit/cubit/app_cubit.dart';
+import 'dart:typed_data';
 
+import 'package:flutter/material.dart';
+import 'package:newapp/CleanArch/features/home/presentation/manager/cubit/post_cubit.dart';
 class PostImageCard extends StatelessWidget {
   const PostImageCard({super.key});
 
@@ -12,7 +13,7 @@ class PostImageCard extends StatelessWidget {
                         child: Card(
                             clipBehavior:Clip.antiAliasWithSaveLayer,
                             elevation: 10,
-                            child: Image.memory(AppCubit.get(context).pickPostImage!,
+                            child:Image.memory(PostCubit.get(context).imageAsByte!,
                               fit: BoxFit.cover,
                             ),
                           ),

@@ -42,3 +42,16 @@ class GetLikedUsersSuccessState extends PostState{
     final List<Map<String,dynamic>>likedUsers;
   GetLikedUsersSuccessState({required this.likedUsers});
 }
+
+
+class CreatePostLoadingState extends PostState {}
+class CreatePostSuccessState extends PostState {}
+class CreatePostErrorState extends PostState {}
+
+class PickPostImageLoadingState extends PostState {}
+class PickPostImageSuccessState extends PostState {}
+class PickPostImageErrorState extends PostState {}
+
+class UploadPostImageLoadingState extends PostState {}
+class UploadPostImageSuccessState extends PostState {}
+class UploadPostImageErrorState extends PostState {}

@@ -5,7 +5,7 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:newapp/CleanArch/config/theme/colors.dart';
 import 'package:newapp/CleanArch/core/utils/widgets/static_component.dart';
 import 'package:newapp/shared/Cubit/cubit/app_cubit.dart';
-import 'features/add post/presentation/pages/add_post_screen.dart';
+import 'features/home/presentation/pages/add_post_screen.dart';
 
 class LayoutScreen extends StatelessWidget {
   const LayoutScreen({Key? key}) : super(key: key);
