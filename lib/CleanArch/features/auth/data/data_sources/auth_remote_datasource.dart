@@ -46,13 +46,14 @@ final user = FirebaseAuth.instance;
     required String nickname})async {
      RegisterModel? registerModel;
      await user.createUserWithEmailAndPassword(email: email, password: password).then((value) {
+      print('user id ${value.user?.uid}');
       CacheHelper.saveData(key: 'UID', value: value.user!.uid);
       registerModel=RegisterModel(
       name:name,email: email,uId:uid,phone: phone,image: image,bio: bio,cover :cover,nickname: nickname);
       print(value.user!.uid);
-      uid=value.user!.uid;
+      uid=value.user?.uid??'';
       createUuser(
-      uId: value.user!.uid,
+      uId: value.user?.uid??'',
       registerModel: registerModel!,
       );
      });
@@ -63,14 +64,14 @@ final user = FirebaseAuth.instance;
        required String uId,
        required RegisterModel registerModel
   })async{
-    await FirebaseFirestore.instance.collection(Kusers).doc(uId).set(registerModel.toMap());
-    await FirebaseFirestore.instance.collection(Kusers).doc(uId).update({'uid':uId});
+    await FirebaseFirestore.instance.collection(kUsers).doc(uId).set(registerModel.toMap());
+    await FirebaseFirestore.instance.collection(kUsers).doc(uId).update({'uid':uId});
   }
   
   @override
   Future<RegisterModel> getUserData({required uid}) async{
      RegisterModel? userData;
-     await FirebaseFirestore.instance.collection(Kusers).doc(uid).get().then((value) {
+     await FirebaseFirestore.instance.collection(kUsers).doc(uid).get().then((value) {
         userData= RegisterModel.fromJson(json: value.data());
         HiveServices.saveDataToHive(HiveConstants.userDataBox,userData, HiveConstants.userDataBox);
      });

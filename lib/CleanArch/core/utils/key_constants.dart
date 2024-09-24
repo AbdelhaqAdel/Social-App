@@ -4,7 +4,10 @@ String KLogo='assets/images/kLogo.png';
 const String KMessagesCollection='messages';
 const String KcreatedAt='createdAt';
 
-const String Kusers='users';
+const String kUsers='users';
+const String kChatWith='chatwith';
+const String kAllChats='allChats';
+
 
 
 

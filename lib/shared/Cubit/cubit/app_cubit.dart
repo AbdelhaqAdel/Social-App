@@ -165,7 +165,7 @@ class AppCubit extends Cubit<AppState> {
   }){
     UserModel ?registerModel=UserModel(
       name:name,email: email,uId:uid!,phone: phone,image: image,bio: bio,cover :cover,nickname: nickname);
-    FirebaseFirestore.instance.collection(Kusers).doc(uId).set(registerModel.toMap()).then((value) {
+    FirebaseFirestore.instance.collection(kUsers).doc(uId).set(registerModel.toMap()).then((value) {
       emit(shopAddUserSuccessState(uId));
     }).catchError((onError){
       print(onError);
@@ -227,7 +227,7 @@ class AppCubit extends Cubit<AppState> {
   void GetUserData()async
   {
     emit(shopGetUserLoadingState());
-  await  FirebaseFirestore.instance.collection(Kusers).doc(CacheHelper.getData('UID')).get()
+  await  FirebaseFirestore.instance.collection(kUsers).doc(CacheHelper.getData('UID')).get()
         .then((value) {
          // print(CacheHelper.getData('uid'));
         //  print('token ${uid}');
@@ -424,7 +424,7 @@ UserModel model=UserModel(
   cover: coverImage?? userModel!.cover,
  nickname:nickname??userModel!.nickname,
 );
-FirebaseFirestore.instance.collection(Kusers).doc(model.uId).update(model.toMap())
+FirebaseFirestore.instance.collection(kUsers).doc(model.uId).update(model.toMap())
     .then((value) {
 GetUserData();
 }).catchError((error){
@@ -808,7 +808,7 @@ emit(UserCoverUpdateErrorState());
 
   Stream<QuerySnapshot> getStatusUpdates() {
     return FirebaseFirestore.instance
-        .collection(Kusers)
+        .collection(kUsers)
         .doc(userModel?.uId)
         .collection('status')
         .orderBy('postDate', descending: true)
@@ -820,7 +820,7 @@ emit(UserCoverUpdateErrorState());
   void whoUserAddStory()async {
     emit(GetUserAddStatusLoadingState());
 
-    await FirebaseFirestore.instance.collection(Kusers).get().then((value){
+    await FirebaseFirestore.instance.collection(kUsers).get().then((value){
       value.docs.forEach((element) {
         // print(element.id);
         element.reference.collection('status').get().then((value) {
@@ -905,7 +905,7 @@ emit(UserCoverUpdateErrorState());
   {
     emit(GetStatusLoadingState());
 
-    await  FirebaseFirestore.instance.collection(Kusers).doc(userId).collection('status')
+    await  FirebaseFirestore.instance.collection(kUsers).doc(userId).collection('status')
         .get().then((value) {
 
       value.docs.forEach((element) {
@@ -942,7 +942,7 @@ emit(UserCoverUpdateErrorState());
   void getAllUsers(){
     emit(GetUserLoadingState());
     if(allUsers.length==0) {
-      FirebaseFirestore.instance.collection('${Kusers}').get().then((value) {
+      FirebaseFirestore.instance.collection('${kUsers}').get().then((value) {
         value.docs.forEach((element) {
           if (element.data()['uid'] != userModel?.uId) {
             allUsers.add(UserModel.fromJson(json:element.data()));
@@ -968,7 +968,7 @@ emit(UserCoverUpdateErrorState());
     //    DateFormat.jm().format(DateTime.now())
     DateTime.now().toString(),
     );
-    FirebaseFirestore.instance.collection('${Kusers}')
+    FirebaseFirestore.instance.collection('${kUsers}')
         .doc(userModel!.uId).collection('allChats')
         .doc(userId).collection('chatwith').add(
       model.toMap()
@@ -979,7 +979,7 @@ emit(UserCoverUpdateErrorState());
     });
 
 
-    FirebaseFirestore.instance.collection('${Kusers}')
+    FirebaseFirestore.instance.collection('${kUsers}')
         .doc(userId).collection('allChats')
         .doc(userModel!.uId).collection('chatwith').add(
         model.toMap()
@@ -1003,7 +1003,7 @@ emit(UserCoverUpdateErrorState());
     message=[];
     emit(GetAllMessagesLoadingState());
     try{
-    FirebaseFirestore.instance.collection(Kusers)
+    FirebaseFirestore.instance.collection(kUsers)
         .doc(userModel?.uId).collection('allChats')
         .doc(userId).collection('chatwith').orderBy('date').snapshots()
          .listen((event)  {
@@ -1030,6 +1030,7 @@ emit(UserCoverUpdateErrorState());
 
    
   }
+
 
   // Stream<QuerySnapshot> getMessagesUpdates(String userId) {
   //   return  FirebaseFirestore.instance.collection('${Kusers}')

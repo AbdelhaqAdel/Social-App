@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:newapp/CleanArch/core/utils/Get%20it/auth_locator.dart';
+import 'package:newapp/CleanArch/core/utils/app_router.dart';
 import 'package:newapp/CleanArch/core/utils/set_up_hive.dart';
 import 'package:newapp/CleanArch/features/auth/presentation/pages/login_screen.dart';
 import 'package:newapp/CleanArch/generated/bloc_observer.dart';
@@ -94,12 +95,13 @@ class MyApp extends StatelessWidget {
           minTextAdapt: true,
           splitScreenMode: true,
           builder: (_ , child) {
-          return MaterialApp(
+          return MaterialApp.router(
             debugShowCheckedModeBanner: false,
             title: 'My App',
             theme: lightTheme,
             themeMode: ThemeMode.light,
-            home: StartWidget,
+            routerConfig: AppRouter.router,
+            // home: StartWidget,
           );});
         },
       ),

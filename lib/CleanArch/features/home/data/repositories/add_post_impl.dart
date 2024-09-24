@@ -54,7 +54,6 @@ class AddPostRepoImpl extends AddPostRepo{
 String? postImage;
  @override
   Future<Either<String, void>> uploadPostImage()async{
-          print('picked Fileeeee $pickedFile');
     try{
    await firebase_storage.FirebaseStorage
         .instance

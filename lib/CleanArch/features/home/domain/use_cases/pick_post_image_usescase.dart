@@ -3,7 +3,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:newapp/CleanArch/core/usecases/use_case.dart';
 import 'package:newapp/CleanArch/features/home/domain/repositories/add_post_repo.dart';
 
-class PickPostImageUseCase extends UseCase<XFile, NoParam>{
+class PickPostImageUseCase extends UseCase<XFile, NoParam,String>{
   AddPostRepo addPostRepo;
   PickPostImageUseCase({required this.addPostRepo});
   @override

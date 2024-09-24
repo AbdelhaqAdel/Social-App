@@ -8,8 +8,6 @@ import 'package:newapp/CleanArch/features/home/data/repositories/post_comment_re
 import 'package:newapp/CleanArch/features/home/data/repositories/post_like_repo_impl.dart';
 import 'package:newapp/CleanArch/features/home/data/repositories/posts_repo_impl.dart';
 import 'package:newapp/CleanArch/features/home/domain/use_cases/create_post_usecase.dart';
-
-
 part 'post_state.dart';
 
 class PostCubit extends Cubit<PostState> {
@@ -80,13 +78,22 @@ class PostCubit extends Cubit<PostState> {
     }
 
  Future<void> createPost({required String postText})async{
+  print('image : $imageString');
   emit(CreatePostLoadingState());
   if(imageString!=''){
     print('////////////////////////////////');
-  await uploadPostImage();}
+  await uploadPostImage().then((value)async {
+      final response=await createPostUseCase.call(postText);
+  response.fold((l) =>emit(CreatePostErrorState()),
+   (r) =>emit(CreatePostSuccessState()));
+   imageString='';
+  }
+  );}else{
   final response=await createPostUseCase.call(postText);
   response.fold((l) =>emit(CreatePostErrorState()),
    (r) =>emit(CreatePostSuccessState()));
+   imageString='';
+  }
   }
 
   Uint8List? imageAsByte;
@@ -97,6 +104,7 @@ class PostCubit extends Cubit<PostState> {
     final response=await createPostUseCase.pickPostImageUseCase.call();
     response.fold((l) =>emit(PickPostImageErrorState()),
      (r)async {
+      
       await r.readAsBytes().then((value) {
       imageString= base64Encode(value);
       imageAsByte=value;

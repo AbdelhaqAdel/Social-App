@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:newapp/CleanArch/features/chat/presentation/pages/chat_screen.dart';
 import 'package:newapp/CleanArch/features/profile/data/models/user_model.dart';
-import 'package:newapp/CleanArch/core/utils/widgets/static_component.dart';
-import 'package:newapp/shared/Cubit/cubit/app_cubit.dart';
+
 
 class AllUsersWidget extends StatelessWidget {
   const AllUsersWidget({
@@ -13,14 +11,7 @@ class AllUsersWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  InkWell(
-      onTap: () {
-       // AppCubit.get(context).message = [];
-        AppCubit.get(context).getMessages(user.uId);
-          print('all message ${user.uId}');
-        NavigateTo(context, ChatScreen(recieverModel: user));
-        },
-      child: Row(
+    return Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           CircleAvatar(
@@ -74,22 +65,13 @@ class AllUsersWidget extends StatelessWidget {
                         ),
                   ),
                 ),
-                // Text(
-                //   '${DateTime.parse(post!.postDate!).year}-${DateTime.parse(post.postDate!).month}'
-                //       '-${DateTime.parse(post!.postDate!).day} at '
-                //       '${DateTime.parse(post!.postDate!).hour}:${DateTime.parse(post.postDate!).minute}',
-                //   style: Theme.of(context)
-                //       .textTheme
-                //       .caption
-                //       ?.copyWith(height: 0.5,  color: Colors.grey[400],),
-                // ),
               ],
             ),
           ),
           IconButton(onPressed: () {}, icon: Icon(Icons.list))
         ],
-      ),
-    );
+      );
+    
 
   }
 }

@@ -1,8 +1,8 @@
 class MessagesModel{
   final String message;
-  final String reciever;
+  final String receiver;
   String date;
-  MessagesModel(this.message,this.reciever,this.date,);
+  MessagesModel(this.message,this.receiver,this.date,);
 
    factory MessagesModel.fromJson(jsonData){
     return MessagesModel(
@@ -11,7 +11,7 @@ class MessagesModel{
   Map<String,dynamic> toMap(){
     return{
     'message':message,
-      'id':reciever,
+      'id':receiver,
       'date':date
     };
   }
