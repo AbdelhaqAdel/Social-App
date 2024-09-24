@@ -4,7 +4,7 @@ import 'package:newapp/CleanArch/features/home/domain/repositories/add_post_repo
 import 'package:newapp/CleanArch/features/home/domain/use_cases/pick_post_image_usescase.dart';
 import 'package:newapp/CleanArch/features/home/domain/use_cases/upload_post_image_usecase.dart';
 
-class CreatePostUseCase extends UseCase<void, String>{
+class CreatePostUseCase extends UseCase<void, String,String>{
 
   final AddPostRepo addPostRepo;
   final PickPostImageUseCase pickPostImageUseCase;
