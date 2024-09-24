@@ -2,6 +2,12 @@ import 'package:get_it/get_it.dart';
 import 'package:newapp/CleanArch/features/auth/data/data_sources/auth_local_datasource.dart';
 import 'package:newapp/CleanArch/features/auth/data/data_sources/auth_remote_datasource.dart';
 import 'package:newapp/CleanArch/features/auth/data/repositories/auth_repo_impl.dart';
+import 'package:newapp/CleanArch/features/chat/data/data_sources/all_users_remote_data_source.dart';
+import 'package:newapp/CleanArch/features/chat/data/data_sources/chat_remote_data_source.dart';
+import 'package:newapp/CleanArch/features/chat/data/repositories/chat_repo_impl.dart';
+import 'package:newapp/CleanArch/features/chat/domain/use_cases/add_message_use_case.dart';
+import 'package:newapp/CleanArch/features/chat/domain/use_cases/get_all_users_use_case.dart';
+import 'package:newapp/CleanArch/features/chat/domain/use_cases/get_messages_use_case.dart';
 import 'package:newapp/CleanArch/features/home/data/data_sources/post_data_remote_datasource.dart';
 import 'package:newapp/CleanArch/features/home/data/data_sources/posts_local_datasource.dart';
 import 'package:newapp/CleanArch/features/home/data/data_sources/postss_remote_datasource.dart';
@@ -34,4 +40,14 @@ void setupLocator(){
     pickPostImageUseCase: PickPostImageUseCase(addPostRepo: addPostRepoImpl), 
     uploadPostImageUseCase: UploadPostImageUseCase( addPostRepo: addPostRepoImpl), ));
    
+
+   getIt.registerSingleton<AddMessageUseCase>(AddMessageUseCase
+    (ChatRepositoryImpl(remoteDataSource: ChatRemoteDataSourceImpl(), userRemoteDataSource: UserRemoteDataSourceImpl())));
+
+    getIt.registerSingleton<GetMessagesUseCase>(GetMessagesUseCase
+    (ChatRepositoryImpl(remoteDataSource: ChatRemoteDataSourceImpl(), userRemoteDataSource: UserRemoteDataSourceImpl())));
+    
+    getIt.registerSingleton<GetAllUsersUseCase>(GetAllUsersUseCase
+    (ChatRepositoryImpl(remoteDataSource: ChatRemoteDataSourceImpl(), userRemoteDataSource: UserRemoteDataSourceImpl())));
+    
 }
