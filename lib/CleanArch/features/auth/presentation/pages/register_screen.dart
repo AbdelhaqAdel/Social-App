@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:newapp/CleanArch/config/theme/colors.dart';
 import 'package:newapp/CleanArch/core/utils/Get%20it/auth_locator.dart';
+import 'package:newapp/CleanArch/core/utils/app_router.dart';
 import 'package:newapp/CleanArch/core/utils/widgets/custom_button.dart';
 import 'package:newapp/CleanArch/features/auth/data/repositories/auth_repo_impl.dart';
 import 'package:newapp/CleanArch/features/auth/presentation/manager/cubit/auth_cubit.dart';
 import 'package:newapp/CleanArch/features/auth/presentation/widgets/register_custom_widget.dart';
 import 'package:newapp/CleanArch/features/auth/presentation/widgets/text_button_auth_account.dart';
 import 'package:newapp/CleanArch/layout.dart';
-import '../../../../core/utils/widgets/static_component.dart';
 
 
 class RegisterScreen extends StatelessWidget {
@@ -26,7 +27,7 @@ class RegisterScreen extends StatelessWidget {
     child: BlocConsumer<AuthCubit,AuthState>(
       listener: (context,state){
           if(state is RegisterSuccessState){
-              NavigateAndFinish(context,const LayoutScreen());
+                         GoRouter.of(context).pushReplacement(AppRouter.kLayout);
                 ScaffoldMessenger.of(context).showSnackBar(
                  const SnackBar(
                   backgroundColor: Colors.green,

@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:newapp/CleanArch/config/theme/colors.dart';
 import 'package:newapp/CleanArch/core/utils/Get%20it/auth_locator.dart';
+import 'package:newapp/CleanArch/core/utils/app_router.dart';
 import 'package:newapp/CleanArch/core/utils/widgets/custom_button.dart';
 import 'package:newapp/CleanArch/features/auth/data/repositories/auth_repo_impl.dart';
 import 'package:newapp/CleanArch/features/auth/presentation/manager/cubit/auth_cubit.dart';
 import 'package:newapp/CleanArch/features/auth/presentation/pages/register_screen.dart';
 import 'package:newapp/CleanArch/features/auth/presentation/widgets/form_custom_widget.dart';
 import 'package:newapp/CleanArch/features/auth/presentation/widgets/text_button_auth_account.dart';
-import 'package:newapp/CleanArch/layout.dart';
-import 'package:newapp/CleanArch/core/utils/widgets/static_component.dart';
+
 
 class LoginScreen extends StatelessWidget {
  final GlobalKey<FormState> signInFormKey = GlobalKey();
@@ -31,7 +32,7 @@ class LoginScreen extends StatelessWidget {
             );
             print('uid ]]]]${state.uid}');
              AuthCubit.get(context).getUserData(uid:state.uid);
-             NavigateAndFinish(context,const LayoutScreen());
+             GoRouter.of(context).pushReplacement(AppRouter.kLayout);
           }else if (state is LoginErrorState) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
