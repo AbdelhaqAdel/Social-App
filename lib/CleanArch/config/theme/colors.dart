@@ -3,6 +3,7 @@ import 'package:hexcolor/hexcolor.dart';
 
 class AppColor{
   static Color layoutBackgroundColor= HexColor('#13003b');
+  static const Color otherMessage=Color(0xFA6A9BFF);
   static Color layoutBackgroundBottomColor=HexColor('#ea1a78');
   static const darkTextColor= Colors.black;
   static const whiteColor=Colors.white;

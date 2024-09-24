@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
 import 'package:newapp/CleanArch/config/theme/colors.dart';
 import 'package:newapp/CleanArch/features/chat/data/models/messages_model.dart';
 
@@ -43,11 +44,7 @@ class UserMessageWidget extends StatelessWidget {
           child: SizedBox(
             width: 80,
             child: Text(
-              'ccccc',
-              //'${message.date}',
-              // DateFormat.jm().format(DateTime.now()),
-              //'${DateFormat.jm().format(DateFormat("hh:mm:ss").parse("14:15:00"))}',
-              //'${DateTime.now().hour-4} : ${DateTime.now().minute+35}',
+              DateFormat('HH:mm a').format(DateTime.parse(message.date)),
               style: TextStyle(
                 color: Colors.grey[600],
               ),
