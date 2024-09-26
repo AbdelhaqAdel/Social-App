@@ -783,12 +783,12 @@ emit(UserCoverUpdateErrorState());
   }){
     emit(ImageStatusUploadLoadingState());
     StatusModel model=StatusModel(
-      userModel!.name,
-      userModel!.uId,
-      userModel!.image,
-      statusImage,
-      statusText,
-      DateTime.now().toString(),
+    name: userModel!.name,
+    uId: userModel!.uId,
+    image: userModel!.image,
+    postImage: statusImage,
+    postText: statusText,
+    postDate: DateTime.now().toString(),
       //color??Colors.white,
     );
     FirebaseFirestore.instance.collection('users')
@@ -829,8 +829,6 @@ emit(UserCoverUpdateErrorState());
                 &&DateTime.parse(element.get('postDate')).day!=DateTime.now().day
             ){
               element.reference.delete();
-              print('cleared::${DateTime.now().hour+1}');
-              print(DateTime.parse(element.get('postDate')).hour);
             }
             else{
               print('sss');
@@ -886,12 +884,12 @@ emit(UserCoverUpdateErrorState());
 
       var status = StatusModel(
         // Replace these with the actual fields in your PostModel
-        data['name'],
-        data['uId'],
-        data['image'],
-        data['postImage'],
-        data['postText'],
-        data['postDate'],
+       name: data['name'],
+       uId: data['uId'],
+       image: data['image'],
+       postImage: data['postImage'],
+       postText: data['postText'],
+       postDate: data['postDate'],
       );
 
       statusList.add(status);
@@ -912,12 +910,6 @@ emit(UserCoverUpdateErrorState());
 
        allStatus.add(StatusModel.fromJson(element.data()));
        print('${DateTime.now().hour}');
-
-        // print('not cleared ${DateTime.now().minute}');
-       // print(DateTime.parse(element.get('postDate')).minute);
-
-      //  print('${DateTime.parse(element.get('postDate')).hour.toInt()}  ss'
-      //      ' ${DateTime.parse(DateTime.now().hour.toString())}');
       });
       emit(GetStatusSuccessState());
 
@@ -926,13 +918,6 @@ emit(UserCoverUpdateErrorState());
       emit(GetStatusErrorState());
 
     });
-    // doc('RtFLE0gwZkqupKZB9pff')
-    //     .get().then((value) {
-    //       allStatus=statusModel.fromJson(value.data()!);
-    // }).catchError((error){
-    //   print('errorrr: ${error}');
-    // });
-    //print('dddddd : ${allStatus![2].postText}');
 
   }
 

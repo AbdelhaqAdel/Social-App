@@ -12,20 +12,18 @@ class StatusListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
-                          itemBuilder: (context, index) =>
-                              StatusCustomWidget(status:AppCubit.get(context).allUserAddStatus, index: index,),
-                          separatorBuilder: (context, index) => Column(
-                            children: [
-                              Container(
-                                height: 1,
-                                color: Colors.grey[300],
-                                width: double.infinity,
-                              ),
-                              SizedBox(height: 10.h),
-                            ],
-                          ),
-                          itemCount: AppCubit.get(context).allUserAddStatus.length,
-                            )
-                        ;
-  }
-}
+             itemBuilder: (context, index) =>
+             StatusCustomWidget(status:AppCubit.get(context).allUserAddStatus, index: index,),
+             separatorBuilder: (context, index) => Column(
+               children: [
+                 Container(
+                   height: 1,
+                   color: Colors.grey[300],
+                   width: double.infinity,
+                 ),
+                 SizedBox(height: 10.h),
+               ],
+             ),
+             itemCount: AppCubit.get(context).allUserAddStatus.length,
+               );
+}}
