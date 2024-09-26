@@ -18,6 +18,10 @@ import 'package:newapp/CleanArch/features/home/data/repositories/posts_repo_impl
 import 'package:newapp/CleanArch/features/home/domain/use_cases/create_post_usecase.dart';
 import 'package:newapp/CleanArch/features/home/domain/use_cases/pick_post_image_usescase.dart';
 import 'package:newapp/CleanArch/features/home/domain/use_cases/upload_post_image_usecase.dart';
+import 'package:newapp/CleanArch/features/stories/data/data_sources/status_remote_data_source.dart';
+import 'package:newapp/CleanArch/features/stories/data/repositories/status_repo_impl.dart';
+import 'package:newapp/CleanArch/features/stories/domain/use_cases/add_user_status_use_case.dart';
+import 'package:newapp/CleanArch/features/stories/domain/use_cases/get_all_status_use_case.dart';
 
 final getIt=GetIt.instance;
 void setupLocator(){
@@ -50,4 +54,9 @@ void setupLocator(){
     getIt.registerSingleton<GetAllUsersUseCase>(GetAllUsersUseCase
     (ChatRepositoryImpl(remoteDataSource: ChatRemoteDataSourceImpl(), userRemoteDataSource: UserRemoteDataSourceImpl())));
     
+    getIt.registerSingleton<GetAllStatusUseCase>(GetAllStatusUseCase
+    (StatusRepositoryImpl(StatusRemoteDataSourceImpl())));
+       
+    getIt.registerSingleton<AddUserStatusUseCase>(AddUserStatusUseCase
+    (StatusRepositoryImpl(StatusRemoteDataSourceImpl())));
 }

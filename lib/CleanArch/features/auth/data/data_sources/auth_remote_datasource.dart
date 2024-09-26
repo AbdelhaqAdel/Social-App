@@ -46,7 +46,7 @@ final user = FirebaseAuth.instance;
     required String nickname})async {
      RegisterModel? registerModel;
      await user.createUserWithEmailAndPassword(email: email, password: password).then((value) {
-      print('user id ${value.user?.uid}');
+      print('user id --------------${value.user?.uid}');
       CacheHelper.saveData(key: 'UID', value: value.user!.uid);
       registerModel=RegisterModel(
       name:name,email: email,uId:uid,phone: phone,image: image,bio: bio,cover :cover,nickname: nickname);

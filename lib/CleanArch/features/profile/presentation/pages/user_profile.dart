@@ -21,7 +21,8 @@ class USerProfile extends StatelessWidget {
     return BlocConsumer<AppCubit,AppState>(
         listener:(context,state){
           if(state is shopGetUserSuccessState){
-            uid=CacheHelper.getData('uid');
+            print('user id : ${CacheHelper.getData('UID')}');
+            uid=CacheHelper.getData('UID');
           }
         },
         builder:(context,state){
