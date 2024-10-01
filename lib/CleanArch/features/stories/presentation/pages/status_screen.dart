@@ -4,8 +4,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:newapp/CleanArch/core/utils/Get%20it/auth_locator.dart';
 import 'package:newapp/CleanArch/core/utils/app_router.dart';
+import 'package:newapp/CleanArch/core/utils/key_constants.dart';
 import 'package:newapp/CleanArch/features/stories/domain/use_cases/add_user_status_use_case.dart';
-import 'package:newapp/CleanArch/features/stories/domain/use_cases/get_all_status_use_case.dart';
+import 'package:newapp/CleanArch/features/stories/domain/use_cases/get_user_status_use_case.dart';
+import 'package:newapp/CleanArch/features/stories/domain/use_cases/get_users_added_status_use_case.dart';
 import 'package:newapp/CleanArch/features/stories/presentation/manager/cubit/story_cubit.dart';
 import 'package:newapp/CleanArch/features/stories/presentation/widgets/status_builder.dart';
 import 'package:newapp/CleanArch/core/utils/widgets/static_component.dart';
@@ -17,51 +19,13 @@ class StatusScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => StatusCubit(getAllStatusUseCase: getIt.get<GetAllStatusUseCase>(), 
-      addUserStatusUseCase: getIt.get<AddUserStatusUseCase>())..fetchStatuses(),
+      create: (context) => StatusCubit(getAllStatusUseCase: getIt.get<GetUserStatusUseCase>(), 
+      addUserStatusUseCase: getIt.get<AddUserStatusUseCase>(), 
+      getAddedStatusUseCase:getIt.get<GetUserAddedStatusUseCase>() )..fetchAllStatuses(),
       child: BlocConsumer<StatusCubit, StatusState>(
           listener: (context, state) {},
           builder: (context, state) {
             AppCubit cubit = AppCubit.get(context);
-
-            // List<statusModel> status =AppCubit.get(context).convertListQuerySnapshotToList(snapshot.data!);
-            // !.docs
-            //     .map((doc) => statusModel.fromJson(doc.data()as Map<String,dynamic>))
-            //     .toList();
-            //print(cubit.convertListQuerySnapshotToList(snapshot.data!)?.toMap().length);
-            // else if (snapshot.){
-            //   print(snapshot.data);
-            //   status?.add(
-            //       cubit.convertListQuerySnapshotToList(querySnapshot:snapshot.data!)!);
-            //  // snapshot.data?.docs.clear();
-            //
-            // }
-            // snapshot.data = null;
-            // status== cubit.allUserAddStatus;
-            // FirebaseFirestore.instance.collection('users')
-            //    .doc(cubit.userModel?.uId).collection('status').get().then((value) {
-            //      print(value.docs);
-            //      if(value.docs!=[]){
-            //snapshot.data.?docs
-            //.map((doc) => statusModel.fromJson(doc.data() as Map<String, dynamic>))
-            //       }
-            // });
-            // status = snapshot.data.docs
-            //    .map((doc) => statusModel.fromJson(doc.data() as Map<String, dynamic>))
-            //    .toList();
-            // if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-            //   return Center(child: Text('No status updates available.'));
-            // }
-            //   cubit.AddUsersStatus();
-            // var ss =cubit.convertListQuerySnapshotToList(snapshot.requireData);
-            //  String aa= snapshot.data!.docs.
-            //      .map((doc) =>
-            //          statusModel.fromJson(doc.data() as Map<String, dynamic>))
-            //      .toString();
-            //  print(aa[]);
-            //cubit.AddUsersStatus(statusText:aa);
-            // print(aa[0].postText);
-
             return Scaffold(
               backgroundColor: Colors.transparent,
               appBar: AppBar(
@@ -93,7 +57,7 @@ class StatusScreen extends StatelessWidget {
                               CircleAvatar(
                                 radius: 30,
                                 backgroundImage:
-                                    NetworkImage('${cubit.userModel?.image}'),
+                                    NetworkImage('${userModel?.image}'),
                               ),
                               SizedBox(
                                 width: 10.w,
@@ -110,7 +74,6 @@ class StatusScreen extends StatelessWidget {
                           const Spacer(),
                           IconButton(
                               onPressed: () {
-                                cubit.anotherGetStatus(cubit.userModel!.uId);
                                AppRouter.cubitContext=context;
                                GoRouter.of(context).push(AppRouter.kWriteStatus,);},
                               icon: const Icon(

@@ -9,8 +9,8 @@ class StatusBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<StatusCubit,StatusState>(builder:(context,state){
-      if(StatusCubit.get(context).status.isNotEmpty){
-        return StatusListView(status:StatusCubit.get(context).status );
+      if(StatusCubit.get(context).allStatus.isNotEmpty){
+        return StatusListView(status:StatusCubit.get(context).allStatus ,cubitContext: context,);
        }else if(state is GetAllStatusLoadingState){
         return const Center(child: CircularProgressIndicator());
        }else if(state is GetAllStatusErrorState){
