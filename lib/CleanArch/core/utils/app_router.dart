@@ -7,6 +7,7 @@ import 'package:newapp/CleanArch/features/chat/presentation/pages/chat_screen.da
 import 'package:newapp/CleanArch/features/profile/data/models/user_model.dart';
 import 'package:newapp/CleanArch/features/stories/presentation/manager/cubit/story_cubit.dart';
 import 'package:newapp/CleanArch/features/stories/presentation/pages/add_text_status_screen.dart';
+import 'package:newapp/CleanArch/features/stories/presentation/pages/show_status.dart';
 import 'package:newapp/CleanArch/layout.dart';
 
 abstract class AppRouter{
@@ -14,6 +15,7 @@ abstract class AppRouter{
     static const kLayout = '/LayoutScreen';
     static const kChatScreen = '/ChatScreen';
     static const kWriteStatus = '/TextStatusScreen';
+    static const kShowStatus = '/ShowStatus';
 
 
 
@@ -49,6 +51,16 @@ abstract class AppRouter{
          return BlocProvider.value(
            value: cubitContext!.read<StatusCubit>(),
            child:  TextStatusScreen(),
+         );
+       },
+     ),
+
+        GoRoute(
+        path: kShowStatus,
+       builder: (context, state) {
+         return BlocProvider.value(
+           value: cubitContext!.read<StatusCubit>()..fetchUserStatuses(userId: state.extra as String),
+           child:  const ShowStatus(),
          );
        },
      ),

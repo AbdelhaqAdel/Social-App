@@ -1,40 +1,82 @@
+import 'dart:ui';
+
 import 'package:bloc/bloc.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:newapp/CleanArch/features/stories/data/models/status_model.dart';
 import 'package:newapp/CleanArch/features/stories/domain/use_cases/add_user_status_use_case.dart';
-import 'package:newapp/CleanArch/features/stories/domain/use_cases/get_all_status_use_case.dart';
+import 'package:newapp/CleanArch/features/stories/domain/use_cases/get_user_status_use_case.dart';
+import 'package:newapp/CleanArch/features/stories/domain/use_cases/get_users_added_status_use_case.dart';
 
 part 'story_state.dart';
 
 class StatusCubit extends Cubit<StatusState> {
 static StatusCubit get(context)=>BlocProvider.of(context);   
 
- final GetAllStatusUseCase getAllStatusUseCase;
+ final GetUserStatusUseCase getAllStatusUseCase;
  final AddUserStatusUseCase addUserStatusUseCase;
-  StatusCubit({required this.getAllStatusUseCase,required this.addUserStatusUseCase}) : super(StatusInitial());
+ final GetUserAddedStatusUseCase getAddedStatusUseCase;
+  StatusCubit({required this.getAllStatusUseCase,required this.addUserStatusUseCase
+  ,required this.getAddedStatusUseCase}) : super(StatusInitial());
 
 
-List<StatusModel> status=[];
-  void fetchStatuses() {
+List<Map<String, dynamic>> allStatus=[];
+  void fetchAllStatuses() {
     emit(GetAllStatusLoadingState());
-    final result=getAllStatusUseCase.call();
+    final result=getAddedStatusUseCase.call();
     result.fold(
       (l) => emit(GetAllStatusErrorState(l.message)),
       (allStatus){
         allStatus.listen((status) {
-          this.status=status;
+          this.allStatus=status;
          emit(GetAllStatusSuccessState(status));
         });
       }
       );
   }
   
-  void addUserStatus({required String statusText})async{
+
+List<StatusModel> userStatus=[];
+  void fetchUserStatuses({required String userId}) {
+    emit(GetUserStatusLoadingState());
+    final result=getAllStatusUseCase.call(userId:userId );
+    result.fold(
+      (l) => emit(GetUserStatusErrorState(l.message)),
+      (userStatus){
+        userStatus.listen((status) {
+          this.userStatus=status;
+         emit(GetUserStatusSuccessState(status));
+        });
+      }
+      );
+  }
+  
+
+ Future< void> addUserStatus({required String statusText})async{
     emit(AddStatusLoadingLoadingState());
-   final result=await addUserStatusUseCase.call(statusText);  
+   final result=await addUserStatusUseCase.call(text: statusText,statusColor: statusColor[colorIndex]);  
    result.fold((l) =>emit(AddStatusErrorState(l.message)),
-    (r) =>emit(AddStatusSuccessState()) );
+    (r) {
+      fetchAllStatuses();
+      emit(AddStatusSuccessState());} );
+  }
+
+ int colorIndex=2;
+  List<Color>statusColor=[
+    Colors.teal,
+    Colors.deepPurple,
+    Colors.deepOrange,
+    Colors.redAccent,
+  ];
+  void changeCurrentStatusColorIndex(){
+    if(colorIndex< statusColor.length-1) {
+      colorIndex = colorIndex + 1;
+    }
+    else {
+      colorIndex=0;
+    }
+    emit(ChangeStatusColorIndex());
   }
 
   //   Uint8List? pickStatusImage;
