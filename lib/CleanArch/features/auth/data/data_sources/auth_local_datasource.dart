@@ -13,6 +13,7 @@ class LocalDataSource implements IAuthLocalDatasource{
      user=await HiveServices.get(boxName: HiveConstants.userDataBox, key:HiveConstants.userDataBox );
      userModel=user;
      userImage=user.image??'';
+     print('user image : ${userModel?.name}');
      return user;
   }
 }

@@ -1,19 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-import '../../../../../shared/Cubit/cubit/app_cubit.dart';
-
+import 'package:newapp/CleanArch/features/stories/presentation/manager/cubit/story_cubit.dart';
 class TextStatusScreen extends StatelessWidget {
   final statusTextController = TextEditingController();
 
   TextStatusScreen({super.key});
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<AppCubit, AppState>(
+    return BlocConsumer<StatusCubit, StatusState>(
         listener: (context, state) {},
         builder: (context, state) {
-          AppCubit cubit = AppCubit.get(context);
+          StatusCubit cubit = StatusCubit.get(context);
           return Scaffold(
             appBar: AppBar(
               backgroundColor: cubit.statusColor[cubit.colorIndex],
@@ -21,10 +19,9 @@ class TextStatusScreen extends StatelessWidget {
               actions: [
                 TextButton(
                     onPressed: () {
-                      cubit.AddUsersStatus(
+                      StatusCubit.get(context).addUserStatus(
                         statusText: statusTextController.text,
-                      );
-                      Navigator.pop(context);
+                      ).then((value) => Navigator.pop(context));
                     },
                     child: Text('post',
                         style: Theme.of(context).textTheme.titleMedium?.copyWith(

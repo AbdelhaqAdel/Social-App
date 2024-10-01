@@ -84,9 +84,9 @@ class MyApp extends StatelessWidget {
   MyApp(this.StartWidget);
   @override
   Widget build(BuildContext context){
-    return  BlocProvider(create: (BuildContext context)=>AppCubit()
+    return  BlocProvider(create: (BuildContext context)=>AppCubit(),
     // ..GetUserData()
-    ..GetAllPosts()..whoUserAddStory(),
+    //  ..whoUserAddStory(),
       child: BlocConsumer<AppCubit,AppState>(
         listener:(context,state){} ,
         builder: (context,state){

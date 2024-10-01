@@ -783,12 +783,12 @@ emit(UserCoverUpdateErrorState());
   }){
     emit(ImageStatusUploadLoadingState());
     StatusModel model=StatusModel(
-      userModel!.name,
-      userModel!.uId,
-      userModel!.image,
-      statusImage,
-      statusText,
-      DateTime.now().toString(),
+    name: userModel!.name,
+    uId: userModel!.uId,
+    userImage: userModel!.image,
+    statusImage: statusImage,
+    statusText: statusText,
+    statusDate: DateTime.now().toString(),
       //color??Colors.white,
     );
     FirebaseFirestore.instance.collection('users')
@@ -806,51 +806,50 @@ emit(UserCoverUpdateErrorState());
     });
   }
 
-  Stream<QuerySnapshot> getStatusUpdates() {
-    return FirebaseFirestore.instance
-        .collection(kUsers)
-        .doc(userModel?.uId)
-        .collection('status')
-        .orderBy('postDate', descending: true)
-        .snapshots();
-  }
+  // Stream<QuerySnapshot> getStatusUpdates() {
+  //   return FirebaseFirestore.instance
+  //       .collection(kUsers)
+  //       .doc(userModel?.uId)
+  //       .collection('status')
+  //       .orderBy('postDate', descending: true)
+  //       .snapshots();
+  // }
 
 
-  List<StatusModel>allUserAddStatus=[];
-  void whoUserAddStory()async {
-    emit(GetUserAddStatusLoadingState());
+  // List<StatusModel>allUserAddStatus=[];
+  // void whoUserAddStory()async {
+  //   emit(GetUserAddStatusLoadingState());
 
-    await FirebaseFirestore.instance.collection(kUsers).get().then((value){
-      value.docs.forEach((element) {
-        // print(element.id);
-        element.reference.collection('status').get().then((value) {
-          value.docs.forEach((element) {
-            if(DateTime.parse(element.get('postDate')).hour<=DateTime.now().hour
-                &&DateTime.parse(element.get('postDate')).day!=DateTime.now().day
-            ){
-              element.reference.delete();
-              print('cleared::${DateTime.now().hour+1}');
-              print(DateTime.parse(element.get('postDate')).hour);
-            }
-            else{
-              print('sss');
-            }
-          });
-          //  print(value.docs.isEmpty);
-          if(value.docs.isNotEmpty){
-            allUserAddStatus.add(StatusModel.fromJson(element.data()));
-          }
-          emit(GetUserAddStatusSuccessState(status: allUserAddStatus));
-        });
-      });
-      // print('lllll${allUserAddStatus.length}');
-    }).catchError((error){
-      print('getting all ststus user error ${error}');
-      emit(GetUserAddStatusErrorState());
+  //   await FirebaseFirestore.instance.collection(kUsers).get().then((value){
+  //     value.docs.forEach((element) {
+        
+  //       // print(element.id);
+  //       element.reference.collection('status').get().then((value) {
+  //         value.docs.forEach((element) {
+  //           if(DateTime.parse(element.get('postDate')).hour<=DateTime.now().hour
+  //               &&DateTime.parse(element.get('postDate')).day!=DateTime.now().day
+  //           ){
+  //             element.reference.delete();
+  //           }
+  //           else{
+  //             print('sss');
+  //           }
+  //         });
+  //         //  print(value.docs.isEmpty);
+  //         if(value.docs.isNotEmpty){
+  //           allUserAddStatus.add(StatusModel.fromJson(element.data()));
+  //         }
+  //         emit(GetUserAddStatusSuccessState(status: allUserAddStatus));
+  //       });
+  //     });
+  //     // print('lllll${allUserAddStatus.length}');
+  //   }).catchError((error){
+  //     print('getting all ststus user error ${error}');
+  //     emit(GetUserAddStatusErrorState());
 
-    });
+  //   });
 
-  }
+  // }
 
 
 
@@ -879,62 +878,49 @@ emit(UserCoverUpdateErrorState());
 
 
 
- List <StatusModel> convertListQuerySnapshotToList(QuerySnapshot querySnapshot) {
-   List <StatusModel> statusList=[] ;
-    querySnapshot.docs.forEach((doc) {
-      var data = doc.data() as Map<String, dynamic>;
+//  List <StatusModel> convertListQuerySnapshotToList(QuerySnapshot querySnapshot) {
+//    List <StatusModel> statusList=[] ;
+//     querySnapshot.docs.forEach((doc) {
+//       var data = doc.data() as Map<String, dynamic>;
 
-      var status = StatusModel(
-        // Replace these with the actual fields in your PostModel
-        data['name'],
-        data['uId'],
-        data['image'],
-        data['postImage'],
-        data['postText'],
-        data['postDate'],
-      );
+//       var status = StatusModel(
+//         // Replace these with the actual fields in your PostModel
+//        name: data['name'],
+//        uId: data['uId'],
+//        image: data['image'],
+//        postImage: data['postImage'],
+//        postText: data['postText'],
+//        postDate: data['postDate'],
+//       );
 
-      statusList.add(status);
-    });
+//       statusList.add(status);
+//     });
 
-    return statusList;
-  }
+//     return statusList;
+//   }
 
-  List<StatusModel> allStatus=[];
-  void anotherGetStatus(String? userId)async
-  {
-    emit(GetStatusLoadingState());
+//   List<StatusModel> allStatus=[];
+//   void anotherGetStatus(String? userId)async
+//   {
+//     emit(GetStatusLoadingState());
 
-    await  FirebaseFirestore.instance.collection(kUsers).doc(userId).collection('status')
-        .get().then((value) {
+//     await  FirebaseFirestore.instance.collection(kUsers).doc(userId).collection('status')
+//         .get().then((value) {
 
-      value.docs.forEach((element) {
+//       value.docs.forEach((element) {
 
-       allStatus.add(StatusModel.fromJson(element.data()));
-       print('${DateTime.now().hour}');
+//        allStatus.add(StatusModel.fromJson(element.data()));
+//        print('${DateTime.now().hour}');
+//       });
+//       emit(GetStatusSuccessState());
 
-        // print('not cleared ${DateTime.now().minute}');
-       // print(DateTime.parse(element.get('postDate')).minute);
+//     }).catchError((error){
+//       print('error from get status : ${error}');
+//       emit(GetStatusErrorState());
 
-      //  print('${DateTime.parse(element.get('postDate')).hour.toInt()}  ss'
-      //      ' ${DateTime.parse(DateTime.now().hour.toString())}');
-      });
-      emit(GetStatusSuccessState());
+//     });
 
-    }).catchError((error){
-      print('error from get status : ${error}');
-      emit(GetStatusErrorState());
-
-    });
-    // doc('RtFLE0gwZkqupKZB9pff')
-    //     .get().then((value) {
-    //       allStatus=statusModel.fromJson(value.data()!);
-    // }).catchError((error){
-    //   print('errorrr: ${error}');
-    // });
-    //print('dddddd : ${allStatus![2].postText}');
-
-  }
+//   }
 
 
   List<UserModel>allUsers=[];
