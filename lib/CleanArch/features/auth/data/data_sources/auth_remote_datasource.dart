@@ -27,7 +27,6 @@ final user = FirebaseAuth.instance;
   Future<String> signIn({required email, required password}) async{
     String? token;
     await user.signInWithEmailAndPassword(email: email, password: password).then((value){
-      print('............${value.user?.uid}');
       token=value.user?.uid;
        CacheHelper.saveData(key: 'UID', value:value.user?.uid);
       });
@@ -52,7 +51,7 @@ final user = FirebaseAuth.instance;
       name:name,email: email,uId:uid,phone: phone,image: image,bio: bio,cover :cover,nickname: nickname);
       print(value.user!.uid);
       uid=value.user?.uid??'';
-      createUuser(
+      createUser(
       uId: value.user?.uid??'',
       registerModel: registerModel!,
       );
@@ -60,7 +59,7 @@ final user = FirebaseAuth.instance;
      return registerModel!;
   }
 
-    void createUuser({
+    void createUser({
        required String uId,
        required RegisterModel registerModel
   })async{
@@ -73,6 +72,7 @@ final user = FirebaseAuth.instance;
      RegisterModel? userData;
      await FirebaseFirestore.instance.collection(kUsers).doc(uid).get().then((value) {
         userData= RegisterModel.fromJson(json: value.data());
+        userImage=userData?.image??'';
         HiveServices.saveDataToHive(HiveConstants.userDataBox,userData, HiveConstants.userDataBox);
      });
      return userData!;

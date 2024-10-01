@@ -65,11 +65,11 @@ class AuthRepository implements IAuthRepo{
  @override
  Future<Either<Failure, RegisterModel>> getUserProfile({required uid}) async {
   try{
-    final cachedData=await localDataSource.getUserData();
-    print(cachedData.image);
-    if(cachedData.image!=null){
-      return right(cachedData);
-    }
+    // final cachedData=await localDataSource.getUserData();
+    // // print(cachedData.image);
+    // if(cachedData.image!=null){
+    //   return right(cachedData);
+    // }
     final response = await remoteDataSource.getUserData(uid: uid);
     userModel=response;
     return right(response);
