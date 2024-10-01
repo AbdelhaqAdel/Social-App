@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:newapp/CleanArch/core/utils/error_handliing.dart';
@@ -10,10 +12,21 @@ class StatusRepositoryImpl implements StatusRepository {
   final StatusRemoteDataSource remoteDataSource;
   StatusRepositoryImpl(this.remoteDataSource);
 
+   @override
+  Either<Failure,Stream<List<Map<String, dynamic>>>> getAllUsersAddedStatus() {
+       try{
+    final response = remoteDataSource.getAllUsersAddedStatus();
+    return right(response);
+    }catch(e){
+      if(e is FirebaseAuthException){return left(FirebaseError.firebaseException(e));}
+      else{return left(ServerFailure(e.toString()));}
+     }
+  }
+ 
   @override
-  Either<Failure,Stream<List<StatusModel>>> getAllStatus() {
+  Either<Failure,Stream<List<StatusModel>>> getUserStatus({required String userId}) {
     try{
-    final response = remoteDataSource.getAllStatus();
+    final response = remoteDataSource.getUserStatus(userId: userId);
     return right(response);
     }catch(e){
       if(e is FirebaseAuthException){return left(FirebaseError.firebaseException(e));}
@@ -22,13 +35,15 @@ class StatusRepositoryImpl implements StatusRepository {
   }
   
   @override
-  Future<Either<Failure,void>> addUserStatus({required String statusText})async {
+  Future<Either<Failure,void>> addUserStatus({required String statusText,required Color statusColor})async {
     try{
-   final response=await remoteDataSource.addUserStatus(statusText: statusText);
+   final response=await remoteDataSource.addUserStatus(statusText: statusText,statusColor: statusColor);
    return right(response);
   }catch(e){
      if(e is FirebaseAuthException){return left(FirebaseError.firebaseException(e));}
       else{return left(ServerFailure(e.toString()));}
   }
   }
+  
+ 
 }

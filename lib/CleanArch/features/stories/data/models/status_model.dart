@@ -1,20 +1,22 @@
 class StatusModel{
   String? name;
   String? uId;
-  String? image;
-  String? postImage;
-  String? postText;
-  String? postDate;
+  String? userImage;
+  String? statusImage;
+  String? statusText;
+  String? statusDate;
+  int? statusColor;
 
-  StatusModel({this.name,this.uId,this.image,this.postImage,this.postText,this.postDate,});
+  StatusModel({this.name,this.uId,this.userImage,this.statusImage,this.statusText,this.statusDate,this.statusColor});
   factory StatusModel.fromJson(Map<String,dynamic>json){
    return StatusModel(  
     name:json['name'],
     uId:json['uid'],
-    image:json['image'],
-    postImage:json['postImage'],
-    postText:json['postText'],
-    postDate:json['postDate'],
+    userImage:json['userImage'],
+    statusImage:json['statusImage'],
+    statusText:json['statusText'],
+    statusDate:json['statusDate'],
+    statusColor:json['statusColor'],
    );
   }
 
@@ -22,10 +24,11 @@ class StatusModel{
     return{
       'name':name,
       'uid':uId,
-      'image':image,
-      'postImage':postImage,
-      'postText':postText,
-      'postDate':postDate,
+      'userImage':userImage,
+      'statusImage':statusImage,
+      'statusText':statusText,
+      'statusDate':statusDate,
+      'statusColor':statusColor,
     };
   }
 }
