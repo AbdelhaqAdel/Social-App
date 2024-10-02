@@ -17,9 +17,7 @@ class ShowStatus extends StatefulWidget {
 class _ShowStatusState extends State<ShowStatus> {
   var boarderController = PageController();
   bool isLast = false;
-  int currentIndex = 0;  // No longer nullable
-
-  @override
+  int currentIndex = 0;
 
  @override
 Widget build(BuildContext context) {
@@ -28,7 +26,6 @@ Widget build(BuildContext context) {
     builder: (context, state) {
       StatusCubit cubit = StatusCubit.get(context);
       bool hasStatus = cubit.userStatus.isNotEmpty;
-      
       return Scaffold(
         backgroundColor: hasStatus && currentIndex < cubit.userStatus.length
             ? Color(cubit.userStatus[currentIndex].statusColor!)
@@ -51,7 +48,7 @@ Widget build(BuildContext context) {
                     Padding(
                       padding: const EdgeInsets.all(4.0),
                       child: CircleAvatar(
-                        radius: 27,
+                        radius: 27.sp,
                         backgroundImage: NetworkImage(
                           '${cubit.userStatus[0].userImage}',
                         ),
@@ -124,12 +121,22 @@ Widget build(BuildContext context) {
                       const Spacer(),
                       CircularPercentIndicator(
                         animation: true,
-                        animationDuration: 1000,
+                        animationDuration: 7000,
                         radius: 38,
                         lineWidth: 5,
                         percent: (currentIndex + 1) / cubit.userStatus.length,
                         progressColor: isLast ? Colors.pink[800] : Colors.pink[600],
                         circularStrokeCap: CircularStrokeCap.round,
+                        onAnimationEnd: (){
+                            if (isLast || cubit.userStatus.length == 1) {
+                              cubit.userStatus.clear();
+                              Navigator.pop(context);
+                            } else {
+                              boarderController.nextPage(
+                                duration: const Duration(milliseconds: 750),
+                                curve: Curves.fastLinearToSlowEaseIn,
+                              );}
+                        },
                         center: FloatingActionButton(
                           onPressed: () {
                             if (isLast || cubit.userStatus.length == 1) {

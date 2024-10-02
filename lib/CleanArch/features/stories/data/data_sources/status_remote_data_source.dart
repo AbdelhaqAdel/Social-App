@@ -11,32 +11,55 @@ abstract class StatusRemoteDataSource {
 
 class StatusRemoteDataSourceImpl implements StatusRemoteDataSource {
 
-  @override
-  Stream<List<Map<String,dynamic>>> getAllUsersAddedStatus() {
-    List<Map<String,dynamic>>allUsersData=[];
-     return FirebaseFirestore.instance.collection('status').snapshots().map((doc) {
-        for(var element in doc.docs){
-          allUsersData.add(element.data());
-        }
-        return allUsersData;
-      });
+@override
+Stream<List<Map<String, dynamic>>> getAllUsersAddedStatus() {
+  return FirebaseFirestore.instance.collection('status').snapshots().map((snapshot) {
+    List<Map<String, dynamic>> allUsersData = [];
+    for (var element in snapshot.docs) {
+      if(element.data()['statusNumber']!=0){
+      allUsersData.add(element.data());}
     }
+    return allUsersData.isNotEmpty ? allUsersData : [];
+  });
+}
+ 
+@override
+Stream<List<StatusModel>> getUserStatus({required String userId}) {
+   var newStatus= FirebaseFirestore.instance.collection('status').doc(uid);
+
+  return FirebaseFirestore.instance
+      .collection('status')
+      .doc(userId)
+      .collection('allStatus')
+      .snapshots()
+      .asyncMap((snapshot) async {
+        final now = DateTime.now();
+        final List<StatusModel> statuses = [];
+
+        for (var doc in snapshot.docs) {
+          final status = StatusModel.fromJson(doc.data());
+          final createdAt = DateTime.parse(status.statusDate!);
+
+          if (now.difference(createdAt).inHours < 24) {
+            statuses.add(status);
+          } else {
+            await FirebaseFirestore.instance
+                .collection('status')
+                .doc(userId)
+                .collection('allStatus')
+                .doc(doc.id)
+                .delete();
+          newStatus.set(setUserStatus(statusNum:await addStatusNumber(newStatus)));
+          }
+        }
+        return statuses;
+      });
+}
+
 
   @override
-  Stream<List<StatusModel>> getUserStatus({required String userId}) {
-    return FirebaseFirestore.instance
-.collection('status').doc(userId).collection('allStatus')
-    .snapshots()
-        .map((snapshot) {
-          print('userrr status ${snapshot.docs.length}');
-          return snapshot.docs
-              .map((doc) => StatusModel.fromJson(doc.data()))
-              .toList();
-        });
-  }
-  
-  @override
   Future<void> addUserStatus({required String statusText,required Color statusColor})async {
+ var newStatus= FirebaseFirestore.instance.collection('status').doc(uid);
 
       final status = StatusModel(
       name: userModel?.name,
@@ -47,29 +70,29 @@ class StatusRemoteDataSourceImpl implements StatusRemoteDataSource {
       statusDate: DateTime.now().toString(),
       statusColor: statusColor.value,
     );
-         var newStatus=FirebaseFirestore.instance.collection('status').doc(uid);
-         FirebaseFirestore.instance.collection('status').doc(uid).collection('allStatus').get().then((value){
-           value.docs.length;
+        
+      await newStatus.collection('allStatus').add(status.toMap());
+
+      newStatus.set( setUserStatus(statusNum:await addStatusNumber(newStatus)));
+  }
+  
+  Future<int> addStatusNumber(newStatus)async{
+     int? statusNumber;
+  await newStatus.collection('allStatus').get().then((value){
+       statusNumber= value.docs.length;
          });
-        int statusNum=await addStatusNumber(newStatus)+1;
-    final Map<String,dynamic> userData = {
+   return statusNumber!;
+  }
+
+Map<String,dynamic> setUserStatus({required int statusNum}) {
+     final Map<String,dynamic> userData = {
       'name':userModel?.name,
       'image':userModel?.image,
       'date':DateTime.now().toString(),
       'uId':userModel?.uId,
       'statusNumber':statusNum
     };
-      await newStatus.collection('allStatus').add(status.toMap());
-          newStatus.set(userData);
-  }
-  Future<int> addStatusNumber(newStatus)async{
-     int? statusNumber;
-  await newStatus.collection('allStatus').get().then((value){
-       statusNumber= value.docs.length;
-           print('status number---------------------------- $statusNumber');
-         });
-   return statusNumber!;
-  }
-
+    return userData;
+}
 
 }

@@ -22,15 +22,12 @@ class StatusCustomWidget extends StatelessWidget {
                 width: 63,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(40),
-                    //shape: BoxShape.circle,
                     color: Colors.white,
                     border: Border.all(color: Colors.blue, width: 4)),
               ),
               CircleAvatar(
                 radius: 25,
                 backgroundImage: NetworkImage('${status[index]['image']}'
-                    //'https://th.bing.com/th/id/OIP.rvSWtRd_oPRTwDoTCmkP5gHaE8?pid=ImgDet&rs=1'
-                    //${post?.image}'
                     ),
               ),
             ]),

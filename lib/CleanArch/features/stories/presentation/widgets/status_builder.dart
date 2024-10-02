@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:newapp/CleanArch/features/stories/presentation/manager/cubit/story_cubit.dart';
 import 'package:newapp/CleanArch/features/stories/presentation/widgets/status_list_view.dart';
 
@@ -16,7 +17,9 @@ class StatusBuilder extends StatelessWidget {
        }else if(state is GetAllStatusErrorState){
         return Center(child: Text(state.message));
        }else{
-        return const Center(child: Text('No Status Now'),);
+        return  Center(child: Text('No Status Now',style: Theme.of(context).textTheme.titleMedium?.copyWith(
+          fontSize: 15.sp
+        ),),);
        }
     }
      
