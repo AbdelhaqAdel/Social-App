@@ -18,6 +18,9 @@ import 'package:newapp/CleanArch/features/home/data/repositories/posts_repo_impl
 import 'package:newapp/CleanArch/features/home/domain/use_cases/create_post_usecase.dart';
 import 'package:newapp/CleanArch/features/home/domain/use_cases/pick_post_image_usescase.dart';
 import 'package:newapp/CleanArch/features/home/domain/use_cases/upload_post_image_usecase.dart';
+import 'package:newapp/CleanArch/features/profile/data/data_sources/profile_local_datasource.dart';
+import 'package:newapp/CleanArch/features/profile/data/data_sources/profile_remote_datasource.dart';
+import 'package:newapp/CleanArch/features/profile/data/repositories/profile_repo_impl.dart';
 import 'package:newapp/CleanArch/features/stories/data/data_sources/status_remote_data_source.dart';
 import 'package:newapp/CleanArch/features/stories/data/repositories/status_repo_impl.dart';
 import 'package:newapp/CleanArch/features/stories/domain/use_cases/add_user_status_use_case.dart';
@@ -63,4 +66,8 @@ void setupLocator(){
 
      getIt.registerSingleton<GetUserAddedStatusUseCase>(GetUserAddedStatusUseCase
     (StatusRepositoryImpl(StatusRemoteDataSourceImpl())));
+
+      getIt.registerSingleton<ProfileRepository>(ProfileRepository
+    (remoteDataSource: ProfileRemoteDataSource(),localDataSource: ProfileLocalDataSource()));
+
 }
