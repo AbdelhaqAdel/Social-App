@@ -16,6 +16,7 @@ import 'package:meta/meta.dart';
 import 'package:newapp/CleanArch/features/chat/data/models/messages_model.dart';
 import 'package:newapp/CleanArch/features/home/data/models/post_model.dart';
 import 'package:newapp/CleanArch/core/utils/key_constants.dart';
+import 'package:newapp/CleanArch/features/profile/presentation/pages/profile_screen.dart';
 import 'package:newapp/shared/network/DioHelper.dart';
 import 'package:newapp/CleanArch/core/cache_helper.dart';
 import '../../../models/NotificationModelAndAdabpter/NotificationHiveModel.dart';
@@ -24,7 +25,7 @@ import '../../../CleanArch/features/profile/data/models/user_model.dart';
 import '../../../CleanArch/features/home/presentation/pages/add_post_screen.dart';
 import '../../../CleanArch/features/home/presentation/pages/posts_screen.dart';
 import '../../../CleanArch/features/stories/presentation/pages/status_screen.dart';
-import '../../../CleanArch/features/profile/presentation/pages/user_profile.dart';
+import '../../../CleanArch/features/profile/presentation/pages/profile_body.dart';
 import '../../../CleanArch/features/chat/presentation/pages/all_chats_screen.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
@@ -89,7 +90,7 @@ class AppCubit extends Cubit<AppState> {
     MessagesScreen(),
     AddPostScreen(),
     StatusScreen(),
-    USerProfile()
+    const ProfileScreen()
   ];
   int currentIndex=0;
   void ChangeCurrentIndex(int index){
