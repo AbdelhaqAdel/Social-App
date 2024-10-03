@@ -68,6 +68,6 @@ void setupLocator(){
     (StatusRepositoryImpl(StatusRemoteDataSourceImpl())));
 
       getIt.registerSingleton<ProfileRepository>(ProfileRepository
-    (remoteDataSource: ProfileRemoteDataSource(),localDataSource: ProfileLocalDataSource()));
+    (remoteDataSource: ProfileRemoteDataSource()));
 
 }

@@ -5,6 +5,8 @@ import 'package:newapp/CleanArch/features/auth/presentation/pages/login_screen.d
 import 'package:newapp/CleanArch/features/chat/presentation/manager/cubit/chat_cubit.dart';
 import 'package:newapp/CleanArch/features/chat/presentation/pages/chat_screen.dart';
 import 'package:newapp/CleanArch/features/profile/data/models/user_model.dart';
+import 'package:newapp/CleanArch/features/profile/presentation/manager/profile_cubit.dart';
+import 'package:newapp/CleanArch/features/profile/presentation/pages/edit_profile_screen.dart';
 import 'package:newapp/CleanArch/features/stories/presentation/manager/cubit/story_cubit.dart';
 import 'package:newapp/CleanArch/features/stories/presentation/pages/add_text_status_screen.dart';
 import 'package:newapp/CleanArch/features/stories/presentation/pages/show_status.dart';
@@ -16,6 +18,7 @@ abstract class AppRouter{
     static const kChatScreen = '/ChatScreen';
     static const kWriteStatus = '/TextStatusScreen';
     static const kShowStatus = '/ShowStatus';
+    static const kEditProfile = '/EditProfileScreen';
 
 
 
@@ -61,6 +64,17 @@ abstract class AppRouter{
          return BlocProvider.value(
            value: cubitContext!.read<StatusCubit>()..fetchUserStatuses(userId: state.extra as String),
            child:  const ShowStatus(),
+         );
+       },
+     ),
+
+         GoRoute(
+        path: kEditProfile,
+       builder: (context, state) {
+         final UserModel userModel = state.extra as UserModel;   
+         return BlocProvider.value(
+           value: cubitContext!.read<ProfileCubit>(),
+           child:  EditProfileScreen(userModel: userModel,),
          );
        },
      ),

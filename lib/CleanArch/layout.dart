@@ -13,9 +13,9 @@ class LayoutScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<AppCubit,AppState>(
         listener:(context,state){
-          if(state is AddPostIndexState){
-            NavigateTo(context, AddPostScreen());
-          }
+          // if(state is AddPostIndexState){
+          //   NavigateTo(context, AddPostScreen());
+          // }
         },
         builder:(context,state){
           AppCubit cubit=AppCubit.get(context);
@@ -58,7 +58,7 @@ class LayoutScreen extends StatelessWidget {
                     child: const SizedBox(),
                   ),
                 ),
-                cubit.Screens[cubit.currentIndex],
+                cubit.screens[cubit.currentIndex],
                 Column(
                   children: [
                     const Spacer(),
