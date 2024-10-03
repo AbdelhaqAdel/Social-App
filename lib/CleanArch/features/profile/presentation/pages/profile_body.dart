@@ -33,25 +33,31 @@ class ProfileBody extends StatelessWidget {
                       SizedBox(
                       height: 5.h,
                     ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Text('${userModel.nickname}',
-                          style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                              color: Colors.grey[400],
-                              fontSize: 15
-                          )
-                        ),
-                        Text('${userModel.bio}',
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text('${userModel.nickname}',
                             style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                                 color: Colors.grey[400],
+                                fontSize: 20
                             )
-                        ),
-                      ],
+                          ),
+                            SizedBox(
+                           height: 5.h,
+                           ),
+                          Text('${userModel.bio}',
+                              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                  color: Colors.grey[400],
+                              )
+                          ),
+                        ],
+                      ),
                     ),
                     SizedBox(height: 40.h,),
-                    const EditProfileAndLogout(),
+                     EditProfileAndLogout(userModel: userModel,cubitContext: context,),
                     SizedBox(height: 10.h,),                  
                     Container(height: 0.5.h,color: Colors.grey[400],),
                     Row(

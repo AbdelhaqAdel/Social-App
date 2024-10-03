@@ -13,13 +13,15 @@ class PostInteraction extends StatefulWidget {
    final int index;
    final PostModel post;
    final GlobalKey<FormState> formKey=GlobalKey<FormState>();
-   bool isCommentIconPressed=false;
-   ScrollController scrollController=ScrollController();
+
   @override
   State<PostInteraction> createState() => _PostInteractionState();
 }
 
 class _PostInteractionState extends State<PostInteraction> {
+  late bool? isLike=widget.post.isUserLike;
+     bool isCommentIconPressed=false;
+   ScrollController scrollController=ScrollController();
   @override
   Widget build(BuildContext context) {
     return  Form(
@@ -45,7 +47,7 @@ class _PostInteractionState extends State<PostInteraction> {
                     controller: widget.commentController,
                     onTap: (){
                       setState(() {
-                        widget.isCommentIconPressed=true;
+                        isCommentIconPressed=true;
                       });
                     },
                     decoration: InputDecoration(
@@ -70,7 +72,7 @@ class _PostInteractionState extends State<PostInteraction> {
                   ),
             ),
             const Spacer(),
-               widget.isCommentIconPressed
+               isCommentIconPressed
                   ?IconButton(onPressed: (){
                     if(widget.formKey.currentState!.validate()){
                      PostCubit.get(context).addComment(postIndex:widget.index,
@@ -79,6 +81,9 @@ class _PostInteractionState extends State<PostInteraction> {
                    icon:  const Icon(Icons.send_outlined),color: Colors.blue,) 
                    :IconButton(
                 onPressed: () {
+                  setState(() {
+                    isLike=!isLike!;
+                  });
                   PostCubit.get(context)
                       .addLike(postIndex: widget.index);
                 },
@@ -92,8 +97,9 @@ class _PostInteractionState extends State<PostInteraction> {
                       Icon(Icons.favorite,
                       size: 27,
                       color://PostCubit.get(context).allPostsList[widget.index].isUserLike==true
-                      widget.post.isUserLike==true
-                      ?Colors.red:Colors.transparent,
+                      // widget.post.isUserLike==true
+                      isLike!?
+                      Colors.red:Colors.transparent,
                       ),
                       ]
                 )),

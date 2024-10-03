@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:newapp/shared/Cubit/cubit/app_cubit.dart';
+import 'package:go_router/go_router.dart';
+import 'package:newapp/CleanArch/config/theme/colors.dart';
+import 'package:newapp/CleanArch/core/utils/widgets/text_form_feild.dart';
+import 'package:newapp/CleanArch/features/profile/presentation/manager/profile_cubit.dart';
 import '../../data/models/user_model.dart';
 import '../../../../core/utils/widgets/static_component.dart';
 
@@ -10,20 +13,20 @@ class EditProfileScreen extends StatelessWidget {
   final nicknameController = TextEditingController();
   final phoneController = TextEditingController();
   final bioController = TextEditingController();
-
-  EditProfileScreen({super.key});
+  final UserModel userModel;
+  EditProfileScreen({super.key, required this.userModel});
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<AppCubit, AppState>(
-      listener: (context, state) {},
-      builder: (context, state) {
-        var screenSize=MediaQuery.of(context).size;
-        AppCubit cubit = AppCubit.get(context);
-        UserModel? userModel = cubit.userModel;
-        nameController.text = userModel!.name!;
+      nameController.text = userModel.name!;
         phoneController.text=userModel.phone!;
         bioController.text = userModel.bio!;
         nicknameController.text=userModel.nickname!;
+    return BlocConsumer<ProfileCubit, ProfileState>(
+      listener: (context, state) {},
+      builder: (context, state) {
+        var screenSize=MediaQuery.of(context).size;
+        ProfileCubit cubit = ProfileCubit.get(context);
+      
         return Scaffold(
           appBar: defaultAppBar(
             context: context,
@@ -31,18 +34,13 @@ class EditProfileScreen extends StatelessWidget {
             actions: [
               TextButton(
                 onPressed: () {
-                  cubit.uploadProfileImage(
+                  cubit.updateUserInfo(
                       name: nameController.text,
                       phone: phoneController.text,
                       bio: bioController.text,
                     nickname: nicknameController.text
-                  );
-                  cubit.uploadCoverImage(
-                      name: nameController.text,
-                      phone: phoneController.text,
-                      bio: bioController.text,
-                      nickname: nicknameController.text,
-                  );
+                  ).then((value) => 
+                  GoRouter.of(context).pop());
                 },
                 child: Text(
                   "Update",
@@ -57,7 +55,7 @@ class EditProfileScreen extends StatelessWidget {
           body: SingleChildScrollView(
             child: Column(
               children: [
-                if (state is UserUpdateLoagingState||state is UserCoverUpdateLoagingState)
+                if (state is UserUpdateLoadingState||state is ImageUploadLoadingState)
                   const LinearProgressIndicator(),
                 SizedBox(
                   height: 15.h,
@@ -91,25 +89,11 @@ class EditProfileScreen extends StatelessWidget {
                               Padding(
                                 padding: const EdgeInsets.all(10.0),
                                 child: CircleAvatar(
-                                    backgroundColor: Colors.deepOrange,
+                                    backgroundColor: AppColor.defaultColor,
                                     radius: 20,
-                                    child: cubit.coverImage != null
-                                        ? IconButton(
+                                    child: IconButton(
                                             onPressed: () {
-                                              cubit.uploadCoverImage(
-                                                  name: nameController.text,
-                                                  phone: phoneController.text,
-                                                  bio: bioController.text,
-                                                nickname: nicknameController.text,
-                                              );
-                                            },
-                                            icon: Icon(
-                                              Icons.check_circle,
-                                              size: 20.sp,
-                                            ))
-                                        : IconButton(
-                                            onPressed: () {
-                                              cubit.PickCoverImage();
+                                              cubit.pickCoverImage();
                                             },
                                             icon: Icon(
                                               Icons.add_a_photo_outlined,
@@ -121,9 +105,9 @@ class EditProfileScreen extends StatelessWidget {
                       Stack(
                           alignment: Alignment.bottomCenter,
                           children: [
-                        cubit.Image != null
+                        cubit.image != null
                             ? CircleAvatar(
-                                backgroundImage: MemoryImage(cubit.Image!),
+                                backgroundImage: MemoryImage(cubit.image!),
                                 radius: 45,
                               )
                             : CircleAvatar(
@@ -132,25 +116,11 @@ class EditProfileScreen extends StatelessWidget {
                                 radius: 45,
                               ),
                         CircleAvatar(
-                            backgroundColor: Colors.deepOrange,
+                            backgroundColor: AppColor.defaultColor,
                             radius: 18,
-                            child: cubit.Image != null
-                                ? IconButton(
+                            child: IconButton(
                                     onPressed: () {
-                                      cubit.uploadProfileImage(
-                                          name: nameController.text,
-                                          phone: phoneController.text,
-                                          bio: bioController.text,
-                                        nickname: nicknameController.text,
-                                      );
-                                    },
-                                    icon: Icon(
-                                      Icons.check_circle,
-                                      size: 18.sp,
-                                    ))
-                                : IconButton(
-                                    onPressed: () {
-                                      cubit.PickProfileImage();
+                                      cubit.pickProfileImage();
                                     },
                                     icon: Icon(
                                       Icons.add_a_photo_outlined,
@@ -160,80 +130,23 @@ class EditProfileScreen extends StatelessWidget {
                     ],
                   ),
                 ),
-                const SizedBox(
-                  height: 30,
-                ),
-                TextFormField(
-                  controller: nameController,
-                  keyboardType: TextInputType.name,
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'name can\'t be empty';
-                    }
-                    return null;
-                  },
-                  decoration: const InputDecoration(
-                    labelText: 'Name',
-                    prefixIcon: Icon(
-                      Icons.perm_identity,
-                    ),
-                  
-                    border: OutlineInputBorder(),
-                  ),
-                ),
                 SizedBox(
                   height: 30.h,
                 ),
-                TextFormField(
-                  controller: nicknameController,
-                  keyboardType: TextInputType.name,
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'can\'t be empty';
-                    }
-                    return null;
-                  },
-                  decoration: const InputDecoration(
-                    labelText: 'Name',
-                    prefixIcon: Icon(
-                      Icons.perm_identity,
-                    ),
-                    border: OutlineInputBorder(),
-                  ),
+                
+                ProfileCustomTextFormField(controller: nameController, labelText: 'Name', icon: Icons.perm_identity,),
+                   SizedBox(
+                  height: 15.h,
                 ),
-                SizedBox(
-                  height: 30.h,
+                ProfileCustomTextFormField(controller: nicknameController, labelText: 'Nick name', icon: Icons.perm_identity,),
+                   SizedBox(
+                  height: 15.h,
                 ),
-                TextFormField(
-                  controller: phoneController,
-                  keyboardType: TextInputType.phone,
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'phone can\'t be empty';
-                    }
-                    return null;
-                  },
-                  decoration: const InputDecoration(
-                    labelText: 'Phone',
-                    prefixIcon: Icon(
-                      Icons.mobile_friendly,
-                    ),
-                    border: OutlineInputBorder(),
-                  ),
+                ProfileCustomTextFormField(controller: phoneController, labelText: 'phone', icon: Icons.phone_android,),
+                    SizedBox(
+                  height: 15.h,
                 ),
-                SizedBox(
-                  height: 30.h,
-                ),
-                TextFormField(
-                  controller: bioController,
-                  keyboardType: TextInputType.text,
-                  decoration: const InputDecoration(
-                    labelText: 'edit your bio',
-                    prefixIcon: Icon(
-                      Icons.info_outlined,
-                    ),
-                  ),
-                ),
+                ProfileCustomTextFormField(controller: bioController, labelText: 'bio', icon: Icons.info_outline,),
 
               ],
             ),
