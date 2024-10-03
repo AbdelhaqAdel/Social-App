@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:typed_data';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:newapp/CleanArch/features/home/data/models/post_model.dart';
@@ -14,13 +13,10 @@ class PostCubit extends Cubit<PostState> {
   PostCubit({required this.postRepository,
   required this.postLikeRepo,required this.postCommentRepo,
   required this.createPostUseCase,
-  //required this.pickPostImageUseCase,
-  // required this.uploadPostImageUseCase,
   }) : super(PostInitial());
-  
+
   final CreatePostUseCase createPostUseCase;
-  // final PickPostImageUseCase pickPostImageUseCase;
-  // final UploadPostImageUseCase uploadPostImageUseCase;
+
 
   final PostRepository postRepository;
   final PostLikeRepository postLikeRepo;
@@ -37,9 +33,6 @@ class PostCubit extends Cubit<PostState> {
            allPostsList.add(element);
       }
        emit(GetPostsSuccessState(posts:allPosts ,
-        // postLikes: postRepository.postLikes,
-        // postLikeNum: postRepository.postLikeNum,
-        // postCommrntsNum: postRepository.postCommrntsNum
         ));
      });
     getPostsId();
@@ -81,7 +74,6 @@ class PostCubit extends Cubit<PostState> {
   print('image : $imageString');
   emit(CreatePostLoadingState());
   if(imageString!=''){
-    print('////////////////////////////////');
   await uploadPostImage().then((value)async {
       final response=await createPostUseCase.call(postText);
   response.fold((l) =>emit(CreatePostErrorState()),
