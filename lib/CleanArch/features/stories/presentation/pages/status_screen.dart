@@ -10,9 +10,6 @@ import 'package:newapp/CleanArch/features/stories/domain/use_cases/get_user_stat
 import 'package:newapp/CleanArch/features/stories/domain/use_cases/get_users_added_status_use_case.dart';
 import 'package:newapp/CleanArch/features/stories/presentation/manager/cubit/story_cubit.dart';
 import 'package:newapp/CleanArch/features/stories/presentation/widgets/status_builder.dart';
-import 'package:newapp/CleanArch/core/utils/widgets/static_component.dart';
-import 'package:newapp/shared/Cubit/cubit/app_cubit.dart';
-import 'add_status_screen.dart';
 
 class StatusScreen extends StatelessWidget {
   const StatusScreen({super.key});
@@ -25,7 +22,6 @@ class StatusScreen extends StatelessWidget {
       child: BlocConsumer<StatusCubit, StatusState>(
           listener: (context, state) {},
           builder: (context, state) {
-            AppCubit cubit = AppCubit.get(context);
             return Scaffold(
               backgroundColor: Colors.transparent,
               appBar: AppBar(
@@ -50,8 +46,7 @@ class StatusScreen extends StatelessWidget {
                         children: [
                           GestureDetector(
                             onTap: () {
-                              cubit.pickStatusImage = null;
-                              NavigateTo(context, AddStatusScreen());
+                              // NavigateTo(context, AddStatusScreen());
                             },
                             child: Row(children: [
                               CircleAvatar(

@@ -21,7 +21,7 @@ class UserImage extends StatelessWidget {
                                 height:screenSize.height/4.5,
                                 child: Card(
                                   elevation: 10,
-                                  child: Image.network('${userModel?.cover}',
+                                  child: Image.network('${userData?.cover}',
                                     fit: BoxFit.cover,
                                   ),
                                 ),
@@ -31,7 +31,7 @@ class UserImage extends StatelessWidget {
                               backgroundColor:HexColor('#13003b'),
                               radius: screenSize.width/8,
                               child: CircleAvatar(
-                                backgroundImage: NetworkImage('${userModel?.image}'),
+                                backgroundImage: NetworkImage('${userData?.image}'),
                                 radius: screenSize.width/8.5,
                           ),
                             ),
