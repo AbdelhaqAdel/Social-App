@@ -11,7 +11,7 @@ class LocalDataSource implements IAuthLocalDatasource{
   Future<RegisterModel> getUserData() async{
      RegisterModel user;
      user=await HiveServices.get(boxName: HiveConstants.userDataBox, key:HiveConstants.userDataBox );
-     userModel=user;
+    //  userModel=user;
      userImage=user.image??'';
      print('user image : ${userModel?.name}');
      return user;
