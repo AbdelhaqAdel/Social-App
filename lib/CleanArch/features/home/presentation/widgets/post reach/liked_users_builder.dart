@@ -9,8 +9,8 @@ class LikedUsersBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<PostCubit,PostState>(builder:(context,state){
-      if(state is GetLikedUsersSuccessState){
-        return LikedUserList(likedUsers: state.likedUsers);
+      if(GetLikedUsersSuccessState.likedUsers.isNotEmpty){
+        return LikedUserList(likedUsers: GetLikedUsersSuccessState.likedUsers);
       }
        else if(state is GetLikedUsersLoadingState){
         return const Center(child: CircularProgressIndicator());

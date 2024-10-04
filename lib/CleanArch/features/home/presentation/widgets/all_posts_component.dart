@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -17,7 +18,8 @@ class BuildPostsWidget extends StatelessWidget {
     super.key,
   required this.cubitContext,
 });
-  final BuildContext cubitContext;   final TextEditingController commentController;
+  final BuildContext cubitContext;  
+   final TextEditingController commentController;
    final GlobalKey<ScaffoldState> scaffoldKey;
    final PostModel post;
    final int index;
@@ -25,7 +27,7 @@ class BuildPostsWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return   Padding(
       padding: const EdgeInsets.only(left: 6.0, right: 6, bottom: 2),
-      child: Container(
+      child:  Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(7),
           color:AppColor.postCardColor
@@ -61,7 +63,9 @@ class BuildPostsWidget extends StatelessWidget {
           ),
         ),
       ),
-    );
+ 
+
+       );
   }
 }
 

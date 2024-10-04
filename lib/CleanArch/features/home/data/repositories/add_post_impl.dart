@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'dart:typed_data';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:image_picker/image_picker.dart';
@@ -33,7 +32,6 @@ class AddPostRepoImpl extends AddPostRepo{
    }
   }
 
-  Uint8List? imageAsByte;
   String? pickedFile;
   @override
  Future<Either<String, XFile>> pickPostImage()async{
@@ -42,7 +40,6 @@ class AddPostRepoImpl extends AddPostRepo{
     XFile? file=await imagePicker.pickImage(source: ImageSource.gallery);
     if(file!=null){
       pickedFile=file.path;
-      imageAsByte=await file.readAsBytes();
     return right(file);
     }
     return left('image not picked');
@@ -62,7 +59,6 @@ String? postImage;
         .pathSegments.last}')
         .putFile(File(pickedFile!)).then((value){
       value.ref.getDownloadURL().then((value) {
-        print('------------------$value');
         postImage=value;
       });
   });

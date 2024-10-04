@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
@@ -28,7 +29,10 @@ class UsersListView extends StatelessWidget {
                                 'receiver':users[index],
                                });
                           },
-                          child: AllUsersWidget(user: users[index])),
+                          child: FadeInRight(
+                            delay: Duration(milliseconds: index*150),
+                            from: 100,
+                            child: AllUsersWidget(user: users[index]))),
                     separatorBuilder: (BuildContext context, int index) =>
                         SizedBox(
                       height: 13.h,
