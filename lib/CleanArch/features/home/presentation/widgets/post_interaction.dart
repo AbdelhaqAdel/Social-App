@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:newapp/CleanArch/core/utils/key_constants.dart';
@@ -89,19 +90,23 @@ class _PostInteractionState extends State<PostInteraction> {
                 },
                 icon:  
                 
-                Stack(
-                  children:[ const Icon(Icons.favorite_border_outlined,
-                      size: 27,
-                      color:Colors.red,
-                      ),
-                      Icon(Icons.favorite,
-                      size: 27,
-                      color://PostCubit.get(context).allPostsList[widget.index].isUserLike==true
-                      // widget.post.isUserLike==true
-                      isLike!?
-                      Colors.red:Colors.transparent,
-                      ),
-                      ]
+                FadeInRight(
+                    delay: const Duration(milliseconds: 1000),
+            from:400,
+                  child: Stack(
+                    children:[ const Icon(Icons.favorite_border_outlined,
+                        size: 27,
+                        color:Colors.red,
+                        ),
+                        Icon(Icons.favorite,
+                        size: 27,
+                        color://PostCubit.get(context).allPostsList[widget.index].isUserLike==true
+                        // widget.post.isUserLike==true
+                        isLike!?
+                        Colors.red:Colors.transparent,
+                        ),
+                        ]
+                  ),
                 )),
           ],
         ),

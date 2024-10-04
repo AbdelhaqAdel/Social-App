@@ -13,10 +13,25 @@ class PostsLikesWidget extends StatelessWidget {
     return  Container(
       padding: EdgeInsets.all(8.sp),
       width: double.infinity,
-      child: Text(
-        '${likedUsers[index]['user']}',
-        style: const TextStyle(color: Colors.white),
-      ),
+      child:
+         Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  CircleAvatar(
+                    radius: 26,
+                    backgroundImage: NetworkImage('${likedUsers[index]['userImage']}'),
+                  ),
+                  SizedBox(
+                    width: 10.h,
+                  ),
+                   Text(
+                   '${likedUsers[index]['user']}',
+                   style: const TextStyle(color: Colors.white),
+                ),
+                 ],
+              )
+  
+      
     );
   }
 }

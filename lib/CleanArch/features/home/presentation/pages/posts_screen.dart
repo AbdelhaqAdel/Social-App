@@ -27,24 +27,6 @@ class PostsScreen extends StatelessWidget {
           child: BlocConsumer<PostCubit, PostState>(
             listener: (context, state) {},
             builder: (context, state) {
-                    // Assuming you have a function to convert QuerySnapshot to a list of PostModel
-                    // posts = cubit.convertQuerySnapshotToList(snapshot.data!);
-                    // cubit.GetPosts();
-                    //   StreamBuilder<QuerySnapshot>(
-                    // stream: allPosts.orderBy('postDate',descending: true).snapshots(),
-                    //  builder:(BuildContext context, snapshot) {
-                      // if(snapshot.data!.size > posts.length){
-                      //   print(snapshot.data!.docs);
-                      //   //cubit.GetPosts();
-                      //  // snapshot.data?.docs.forEach((element) {    //element is map<String dynamic> contain all data in post model
-                      // //  print(element.data());
-                      //   //cubit.AddPost();
-                      //   //posts.add(snapshot.data!.docs[snapshot.data!.docs.length-1]);    //to add all data in element to posts list
-                      //  // });
-                      //   // for(int i=0;i<snapshot.data!.docs.length;i++){
-                      //   //   posts.add(PostModel.fromJson()
-                      //   // }
-                      // }
                     return Scaffold(
                       backgroundColor: Colors.transparent,
                       key: scaffoldKey,

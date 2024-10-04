@@ -67,7 +67,9 @@ class PostCubit extends Cubit<PostState> {
   void getPostLikedUser({required int postIndex})async{
     emit(GetLikedUsersLoadingState());
     final response=await postLikeRepo.getLikedUsers(postId: postsId[postIndex]);
-    emit(GetLikedUsersSuccessState(likedUsers:response));
+    print('response : ${response[0]['user']}');
+    GetLikedUsersSuccessState.setLikedUsers(response);
+    emit(GetLikedUsersSuccessState());
     }
 
  Future<void> createPost({required String postText})async{

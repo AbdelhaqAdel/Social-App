@@ -5,13 +5,11 @@ import 'package:newapp/CleanArch/features/home/presentation/widgets/post%20reach
 
 class PostLikesDialog extends StatelessWidget {
   const PostLikesDialog({
-    required this.height,
     required this.width,
     super.key,
   required this.cubitContext,
 });
   final BuildContext cubitContext;
-    final double height;
   final double width;
   @override
   Widget build(BuildContext context) {
@@ -27,7 +25,7 @@ class PostLikesDialog extends StatelessWidget {
            child: SizedBox(
 
              width: MediaQuery.of(context).size.width,
-             height: height,
+             height:  MediaQuery.of(context).size.height/1.5,
              child:
                  GestureDetector(
                    onTap: (){},
@@ -46,20 +44,6 @@ class PostLikesDialog extends StatelessWidget {
                                     ),
                                 const Expanded(
                                      child:LikedUsersBuilder(),
-                          
-                            //           ConditionalBuilder(
-                                        //               condition:cubit.state is GetLikedUsersSuccessState ,
-                                        //               builder: (context) => ListView.builder(
-                                        //                   itemBuilder: (context, index) =>
-                                        //                       PostsLikesWidget(index: index, likedUsers: [],),
-                                        //                   itemCount: AppCubit.get(context)
-                                        //                       .likedName
-                                        //                       .length),
-                                        //               fallback: (context) =>
-                                        //                   const Center(
-                                        //                       child: CircularProgressIndicator()),
-                                        // ),
-                                   
                                    ),
                                            
                                ],

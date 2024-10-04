@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -30,26 +31,18 @@ class PostsBuilder extends StatelessWidget {
             for(var element in newData){
              newList.add(PostModel.fromJson(element.data()as Map<String, dynamic>));
             }
-           return PostsList(scaffoldKey: scaffoldKey, posts:newList,cubitContext: context,);
+           return FadeInUp(
+             animate: true,
+             from: 200,
+             child:
+             PostsList(scaffoldKey: scaffoldKey, posts:newList,cubitContext: context,));
            }
-          //  else if(state is GetPostsSuccessState){
-          //    return PostsList(scaffoldKey: scaffoldKey, posts:PostCubit.get(context).allPostsList ,cubitContext: context,);
-          //  }
            else if(state is GetPostsErrorState){
              return Text(state.errMessage);
            }else{
              return const Center(child: CircularProgressIndicator(),);
            }
     } );
-   
-//     if(state is GetPostsSuccessState){
-//       return PostsList(scaffoldKey: scaffoldKey, posts:GetPostsSuccessState.allPosts,cubitContext: context,);
-//     }else if(state is GetPostsErrorState){
-//       return Text(state.errMessage);
-//     } 
-//     else{return const Center(child: CircularProgressIndicator(),);
-//  }
-     
     });}  
 }
 

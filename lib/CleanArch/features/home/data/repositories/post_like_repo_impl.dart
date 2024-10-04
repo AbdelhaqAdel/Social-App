@@ -33,6 +33,7 @@ PostLikeRepository({required this.postsRepo});
    postDoc.update({'likes':thisPostLikes+1});
    postDoc.update({'isUserLike':true});
   }
+
   List<Map<String, dynamic>> likedUsers=[];
   @override
   Future<List<Map<String, dynamic>>> getLikedUsers({required String postId})async {
@@ -40,8 +41,11 @@ PostLikeRepository({required this.postsRepo});
    await FirebaseFirestore.instance.collection('posts')
         .doc(postId).collection('likes')
         .get().then((value) {
+                  print('liked user ${value.docs.length}');
+
       for (var element in value.docs) {
         likedUsers.add({"user":element.get('user'),"userImage":element.get('userImage')});
+        print('liked user ${element.get('user')}');
       }
     });
     return likedUsers;

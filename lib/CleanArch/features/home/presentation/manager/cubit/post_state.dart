@@ -39,8 +39,12 @@ class ChangeLikeButtonState extends PostState {}
 class GetLikedUsersLoadingState extends PostState{}
 
 class GetLikedUsersSuccessState extends PostState{
-    final List<Map<String,dynamic>>likedUsers;
-  GetLikedUsersSuccessState({required this.likedUsers});
+
+   static List<Map<String,dynamic>>likedUsers=[];
+   static void setLikedUsers(List<Map<String,dynamic>>users){
+    likedUsers=users;
+   }
+  GetLikedUsersSuccessState();
 }
 
 
