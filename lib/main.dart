@@ -10,18 +10,15 @@ import 'package:newapp/CleanArch/features/auth/presentation/pages/login_screen.d
 import 'package:newapp/CleanArch/generated/bloc_observer.dart';
 import 'package:newapp/CleanArch/layout.dart';
 import 'package:newapp/CleanArch/core/utils/key_constants.dart';
-import 'package:newapp/CleanArch/core/utils/hive_constant.dart';
+import 'package:newapp/shared/Cubit/Notification/sevices/local_notifications_service.dart';
+import 'package:newapp/shared/Cubit/Notification/sevices/push_notifications_service.dart';
 import 'package:newapp/shared/Cubit/cubit/app_cubit.dart';
 import 'package:newapp/shared/Styles/themes.dart';
 import 'package:newapp/shared/network/DioHelper.dart';
 import 'package:newapp/CleanArch/core/cache_helper.dart';
 import 'firebase_options.dart';
-import 'models/NotificationModelAndAdabpter/NotifyAdapter.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  // If you're going to use other Firebase services in the background, such as Firestore,
-  // make sure you call `initializeApp` before using other Firebase services.
   print("Handling a background message: ${message.data.toString()}");
 }
 
@@ -30,7 +27,10 @@ void main() async{
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  //  AppNotification().initNotification();
+    await Future.wait([   //two functions must be independent 
+    PushNotificationsService.init(),//2
+    LocalNotificationService.init(),//3
+  ]);
     Bloc.observer = MyBlocObserver();
 
   // final _firebaseMessaging=FirebaseMessaging.instance;
@@ -85,8 +85,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context){
     return  BlocProvider(create: (BuildContext context)=>AppCubit(),
-    // ..GetUserData()
-    //  ..whoUserAddStory(),
       child: BlocConsumer<AppCubit,AppState>(
         listener:(context,state){} ,
         builder: (context,state){
@@ -101,7 +99,6 @@ class MyApp extends StatelessWidget {
             theme: lightTheme,
             themeMode: ThemeMode.light,
             routerConfig: AppRouter.router,
-            // home: StartWidget,
           );});
         },
       ),
