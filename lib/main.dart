@@ -10,8 +10,8 @@ import 'package:newapp/CleanArch/features/auth/presentation/pages/login_screen.d
 import 'package:newapp/CleanArch/generated/bloc_observer.dart';
 import 'package:newapp/CleanArch/layout.dart';
 import 'package:newapp/CleanArch/core/utils/key_constants.dart';
-import 'package:newapp/shared/Cubit/Notification/sevices/local_notifications_service.dart';
-import 'package:newapp/shared/Cubit/Notification/sevices/push_notifications_service.dart';
+import 'package:newapp/shared/Notification/sevices/local_notifications_service.dart';
+import 'package:newapp/shared/Notification/sevices/push_notifications_service.dart';
 import 'package:newapp/shared/Cubit/cubit/app_cubit.dart';
 import 'package:newapp/shared/Styles/themes.dart';
 import 'package:newapp/shared/network/DioHelper.dart';
@@ -32,6 +32,8 @@ void main() async{
     LocalNotificationService.init(),//3
   ]);
     Bloc.observer = MyBlocObserver();
+    navigatorKey = GlobalKey<NavigatorState>();
+    scaffoldKey= GlobalKey();
 
   // final _firebaseMessaging=FirebaseMessaging.instance;
   // await _firebaseMessaging.requestPermission().then((value){
