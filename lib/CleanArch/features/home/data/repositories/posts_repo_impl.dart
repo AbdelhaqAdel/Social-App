@@ -1,5 +1,8 @@
+import 'dart:developer';
+
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:newapp/CleanArch/core/utils/error_handliing.dart';
 import 'package:newapp/CleanArch/core/utils/firebase_handle_error.dart';
 import 'package:newapp/CleanArch/features/home/data/data_sources/post_data_remote_datasource.dart';
@@ -27,6 +30,8 @@ class PostRepository extends PostRepo{
         postLikeNum=postData.postLikeNum;
         postCommrntsNum=postData.postCommrntsNum;
       });
+       FirebaseMessaging.instance.subscribeToTopic('all').then((val){
+         log('subscribed');});
       return right(posts);
     }catch(e){
       if(e is FirebaseAuthException){return left(FirebaseError.firebaseException(e));}

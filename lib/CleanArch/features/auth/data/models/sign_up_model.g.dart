@@ -25,6 +25,7 @@ class RegisterModelAdapter extends TypeAdapter<RegisterModel> {
       bio: fields[6] as String?,
       cover: fields[5] as String?,
       nickname: fields[7] as String?,
+      fcmToken: fields[8] as String?,
     );
   }
 
@@ -46,6 +47,8 @@ class RegisterModelAdapter extends TypeAdapter<RegisterModel> {
       ..write(obj.cover)
       ..writeByte(6)
       ..write(obj.bio)
+      ..writeByte(7)
+      ..write(obj.nickname)
       ..writeByte(7)
       ..write(obj.nickname);
   }

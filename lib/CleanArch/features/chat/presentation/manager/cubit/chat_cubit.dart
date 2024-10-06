@@ -21,13 +21,13 @@ class ChatCubit extends Cubit<ChatState> {
   }) : super(ChatInitial());
 
   Future<void> addToUserChat({
-    required String receiver,
+    required  UserModel receiverModel,
     required String message,
   }) async {
 
     emit(AddChatLoadingState());
       final result= await addMessageUseCase.call(
-         receiver, message,
+         receiverModel, message,
       );
       result.fold((l) => emit(AddChatErrorState()),
           (r) => emit(AddChatSuccessState()));

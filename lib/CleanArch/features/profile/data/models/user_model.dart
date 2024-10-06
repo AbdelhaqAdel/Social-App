@@ -7,8 +7,9 @@ class UserModel{
  final String? cover;
  final String? bio;
  final String? nickname;
+ final String? fcmToken;
   UserModel({required this.name,required this.email,required this.uId,
- required this.phone,this.image,this.bio,this.cover,this.nickname});
+ required this.phone,this.image,this.bio,this.cover,this.nickname,required this.fcmToken});
 
   factory UserModel.fromJson({required Map<String,dynamic>? json}){
     return UserModel(
@@ -19,7 +20,9 @@ class UserModel{
     image:json?['image']??'',
     bio:json?['bio']??'',
     cover:json?['cover']??'',
-    nickname:json?['nickname']??'');
+    nickname:json?['nickname']??'',
+    fcmToken: json?['fcm'] ?? '',
+    );
   }
 
 
@@ -33,6 +36,7 @@ class UserModel{
       'bio':bio,
       'cover':cover,
       'nickname':nickname,
+      'fcm':fcmToken  
     };
   }
 }

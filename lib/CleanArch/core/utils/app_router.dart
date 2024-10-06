@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:newapp/CleanArch/core/utils/key_constants.dart';
 import 'package:newapp/CleanArch/features/auth/presentation/pages/login_screen.dart';
 import 'package:newapp/CleanArch/features/chat/presentation/manager/cubit/chat_cubit.dart';
 import 'package:newapp/CleanArch/features/chat/presentation/pages/chat_screen.dart';
@@ -25,6 +26,7 @@ abstract class AppRouter{
     static BuildContext? cubitContext;
 
     static final router = GoRouter(
+      navigatorKey:navigatorKey,
     routes: [
       GoRoute(
         path: kLogin,

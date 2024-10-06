@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:newapp/CleanArch/core/utils/app_router.dart';
+import 'package:newapp/CleanArch/core/utils/key_constants.dart';
 import 'package:newapp/CleanArch/features/chat/presentation/manager/cubit/chat_cubit.dart';
 import 'package:newapp/CleanArch/features/chat/presentation/widgets/all_users_custom_widget.dart';
 import 'package:newapp/CleanArch/features/profile/data/models/user_model.dart';
@@ -23,7 +24,7 @@ class UsersListView extends StatelessWidget {
                           onTap: (){
                               ChatCubit.get(cubitContext).messages=[];
                               AppRouter.cubitContext=cubitContext;
-                               GoRouter.of(cubitContext).push(AppRouter.kChatScreen,
+                               GoRouter.of(navigatorKey.currentState!.context).push(AppRouter.kChatScreen,
                                extra: {
                                 'userId': users[index].uId,
                                 'receiver':users[index],

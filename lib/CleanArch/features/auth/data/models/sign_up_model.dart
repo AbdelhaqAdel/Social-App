@@ -27,8 +27,11 @@ class RegisterModel{
   @HiveField(7) 
  final String? nickname;
 
+ @HiveField(8)
+ final String? fcmToken;
+
   RegisterModel({required this.name,required this.email,required this.uId,
- required this.phone,this.image,this.bio,this.cover,this.nickname});
+ required this.phone,this.image,this.bio,this.cover,this.nickname,required this.fcmToken,});
 
   factory RegisterModel.fromJson({required Map<String,dynamic>? json}){
     return RegisterModel(
@@ -39,7 +42,9 @@ class RegisterModel{
     image:json?['image']??'',
     bio:json?['bio']??'',
     cover:json?['cover']??'',
-    nickname:json?['nickname']??'');
+    nickname:json?['nickname']??'',
+    fcmToken: json?['fcm']??''
+    );
   }
 
 
@@ -53,6 +58,7 @@ class RegisterModel{
       'bio':bio,
       'cover':cover,
       'nickname':nickname,
+      'fcm':fcmToken
     };
   }
 }

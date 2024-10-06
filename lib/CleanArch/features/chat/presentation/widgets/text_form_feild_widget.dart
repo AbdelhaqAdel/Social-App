@@ -45,7 +45,7 @@ class CustomTextFormField extends StatelessWidget {
                        if (messageController.text.isNotEmpty) {
                          ChatCubit.get(context).addToUserChat(
                            message: messageController.text,
-                           receiver: receiverModel.uId,
+                           receiverModel: receiverModel,
                          );                  
                           messageController.clear();
 }

@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:newapp/CleanArch/core/utils/key_constants.dart';
 import 'package:newapp/CleanArch/features/home/data/data_sources/postss_remote_datasource.dart';
 import 'package:newapp/CleanArch/features/home/domain/repositories/post_like_repo.dart';
+import 'package:newapp/shared/Notification/notification_model.dart';
+import 'package:newapp/shared/Notification/notification_services.dart';
 
 class PostLikeRepository extends PosLikeRepo{
 PostLikeRepository({required this.postsRepo});
@@ -9,8 +11,11 @@ PostLikeRepository({required this.postsRepo});
   @override
  Future<void>addLike(String postId) async {
     var postDoc= FirebaseFirestore.instance.collection('posts').doc(postId);
+     String? fcm;
+     
          postDoc.get().then((value){
         int thisPostLikes=value['likes'];
+        fcm=value['fcm'];
           postDoc.collection('likes').get().then((value) {
             for (var element in value.docs) {
               if(uid==element.id) {
@@ -18,6 +23,11 @@ PostLikeRepository({required this.postsRepo});
               return ;              
              }}
             addNewLike(postDoc,thisPostLikes);
+             sendNotification(fcmToken:fcm,
+       notification:NotificationModel(title: 'New like',
+       body:'${userModel?.name} liked your post'),
+       );
+      
         });
         });
          return;

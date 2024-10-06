@@ -1,11 +1,15 @@
+import 'dart:developer';
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:newapp/CleanArch/core/utils/key_constants.dart';
 import 'package:newapp/CleanArch/features/home/data/models/post_model.dart';
 import 'package:newapp/CleanArch/features/home/domain/repositories/add_post_repo.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'package:newapp/shared/Notification/notification_model.dart';
+import 'package:newapp/shared/Notification/notification_services.dart';
 
 
 class AddPostRepoImpl extends AddPostRepo{
@@ -21,10 +25,15 @@ class AddPostRepoImpl extends AddPostRepo{
      postDate:  DateTime.now().toString(),
      postLikes:0,
      isUserLike:false,
-     postComments: 0,
+     postComments: 0, fcmToken: fcmToken,
     );
    await FirebaseFirestore.instance.collection('posts')
         .add(model.toMap());
+        FirebaseMessaging.instance.unsubscribeFromTopic('all').then((val){
+         log('unsubscribed');
+         sendNotification(notification:NotificationModel(title: 'New Post from ${model.name}',
+       body:'check it now',image:postImage ));
+       });
     return right(null);
    }catch(e){
      return left(e.toString());

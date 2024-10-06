@@ -111,6 +111,7 @@ Future<void> updateUserInfo({
       bio: bio,
       cover: uploadedCoverImage ?? userData?.cover,
       nickname: nickname ?? userData?.nickname,
+      fcmToken: fcmToken,
     );
 
     await FirebaseFirestore.instance

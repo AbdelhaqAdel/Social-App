@@ -8,10 +8,13 @@ class PostModel{
   String? postDate;
   int?postLikes;
   int?postComments;
+  String? fcmToken;
 
   bool?isUserLike;
 
-  PostModel({this.name,this.uId,this.image,this.postImage,this.postText,this.postDate,this.postLikes,this.postComments,required this.isUserLike});
+  PostModel({this.name,this.uId,this.image,this.postImage,this.postText,this.postDate,this.postLikes,this.postComments,required this.isUserLike,
+  required this.fcmToken
+  });
   factory PostModel.fromJson(Map<String,dynamic>json){
     return PostModel(
     name:     json['name'],
@@ -23,6 +26,7 @@ class PostModel{
     postLikes:json['likes'],
     postComments:json['comments'],
     isUserLike:json['isUserLike'],
+    fcmToken:json['fcm']
     );
   }
 
@@ -37,7 +41,8 @@ class PostModel{
       'postDate':postDate,
       'likes':postLikes,
       'isUserLike':isUserLike,
-      'comments':postComments
+      'comments':postComments,
+      'fcm':fcmToken
     };
   }
 }
