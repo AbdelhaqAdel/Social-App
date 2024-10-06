@@ -48,7 +48,7 @@ final user = FirebaseAuth.instance;
       print('user id --------------${value.user?.uid}');
       CacheHelper.saveData(key: 'UID', value: value.user!.uid);
       registerModel=RegisterModel(
-      name:name,email: email,uId:uid,phone: phone,image: image,bio: bio,cover :cover,nickname: nickname);
+      name:name,email: email,uId:uid,phone: phone,image: image,bio: bio,cover :cover,nickname: nickname,fcmToken: fcmToken);
       print(value.user!.uid);
       uid=value.user?.uid??'';
       createUser(

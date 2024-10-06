@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:newapp/CleanArch/features/auth/data/models/sign_up_model.dart';
 import 'package:newapp/CleanArch/features/profile/data/models/user_model.dart';
 
@@ -21,3 +22,10 @@ RegisterModel? userModel;
 String userImage='';
 
 UserModel? userData;
+
+String? fcmToken;
+
+late final GlobalKey<NavigatorState> navigatorKey;
+
+  GlobalKey? scaffoldKey;
+
