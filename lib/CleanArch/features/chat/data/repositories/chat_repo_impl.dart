@@ -7,6 +7,9 @@ import 'package:newapp/CleanArch/features/chat/data/data_sources/chat_remote_dat
 import 'package:newapp/CleanArch/features/chat/data/models/messages_model.dart';
 import 'package:newapp/CleanArch/features/chat/domain/repositories/chat_repo.dart';
 import 'package:newapp/CleanArch/features/profile/data/models/user_model.dart';
+import 'package:newapp/shared/Notification/notification_data_model.dart';
+import 'package:newapp/shared/Notification/notification_model.dart';
+import 'package:newapp/shared/Notification/notification_services.dart';
 
 class ChatRepositoryImpl implements ChatRepository {
   final ChatRemoteDataSource remoteDataSource;
@@ -14,9 +17,14 @@ class ChatRepositoryImpl implements ChatRepository {
   ChatRepositoryImpl({required this.remoteDataSource,required this.userRemoteDataSource});  
 
   @override
-  Future<Either<Failure, void>> addMessage(String receiverId, String message) async {
+  Future<Either<Failure, void>> addMessage(UserModel receiverModel, String message) async {
     try {
-      await remoteDataSource.addMessage(receiverId, message);
+      await remoteDataSource.addMessage(receiverModel, message);
+      sendNotification(fcmToken: receiverModel.fcmToken,
+       notification:NotificationModel(title: 'New Message from ${receiverModel.name}',
+       body:message),
+        data: NotificationDataModel(userId: receiverModel.uId,screen: 'chat_screen'));
+      
       return const Right(null); 
     } catch (e) {
        if(e is FirebaseAuthException){return left(FirebaseError.firebaseException(e));}
@@ -30,7 +38,6 @@ class ChatRepositoryImpl implements ChatRepository {
       final response= remoteDataSource.getMessages(userId);
       return Right(response);
     } catch (e) {
-      print('get message error ${e.toString()}');
       return Left(ServerFailure(e.toString()));
     }
   }

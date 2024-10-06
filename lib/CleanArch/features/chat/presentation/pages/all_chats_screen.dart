@@ -21,6 +21,7 @@ class MessagesScreen extends StatelessWidget {
       child: BlocConsumer<ChatCubit, ChatState>(
         listener: (context, state) {},
         builder: (context, state) {
+          
           return Scaffold(
             backgroundColor: Colors.transparent,
             appBar: AppBar(
