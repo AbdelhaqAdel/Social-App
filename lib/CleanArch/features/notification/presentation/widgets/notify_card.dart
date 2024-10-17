@@ -8,14 +8,14 @@ import 'package:newapp/CleanArch/features/notification/presentation/widgets/card
 
 class NotifyCard extends StatelessWidget {
   final IconData icon;
-  final NotifyModel history;
+  final NotifyModel notify;
   final int index;
   final Function(int) onDismissed;
 
   const NotifyCard({
     super.key,
     required this.icon,
-    required this.history,
+    required this.notify,
     required this.index,
     required this.onDismissed,
   });
@@ -26,7 +26,7 @@ class NotifyCard extends StatelessWidget {
     return SizedBox(
       height:screenSize.height / 7,
       child: Dismissible(
-        key: Key(history.hiveIndex.toString()),
+        key: Key(notify.hiveIndex.toString()),
         onDismissed: (direction) {
           onDismissed(index);
         },
@@ -48,14 +48,14 @@ class NotifyCard extends StatelessWidget {
                       alignment: Alignment.center,
                       child: FaIcon(
                         icon,
-                        color: AppColor.defaultColor,
+                        color: AppColor.layoutBackgroundColor,
                         size: 30.sp,
                       ),
                     ),
                   ),
                 ),
                 const SizedBox(width: 15),
-                CardData(notify: history,),
+                CardData(notify: notify,),
               ],
             ),
           ),

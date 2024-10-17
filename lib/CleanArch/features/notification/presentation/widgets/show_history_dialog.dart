@@ -30,8 +30,6 @@ class ShowDialogFun {
                   backgroundColor: Colors.transparent,
                   contentPadding: EdgeInsets.zero,
                 );
-        
-        
            })),
             );
   }}

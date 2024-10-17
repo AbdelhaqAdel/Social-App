@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:newapp/CleanArch/core/cubit/app_cubit.dart';
 import 'package:newapp/CleanArch/features/notification/data/NotificationModelAndAdabpter/notify_model.dart';
-import 'package:newapp/CleanArch/features/notification/presentation/widgets/history_card.dart';
+import 'package:newapp/CleanArch/features/notification/presentation/widgets/notify_card.dart';
 
 class RecentActivityList extends StatefulWidget {
   final BuildContext cubitContext;
@@ -17,21 +17,11 @@ class RecentActivityList extends StatefulWidget {
 class _RecentActivityListState extends State<RecentActivityList> {
   late List<NotifyModel> activities;
 
-  final List<IconData> recent = [
-    FontAwesomeIcons.penClip,
-    FontAwesomeIcons.bookBookmark,
-    FontAwesomeIcons.featherPointed,
-    FontAwesomeIcons.book,
-    FontAwesomeIcons.bookBookmark,
-    FontAwesomeIcons.penClip,
-    FontAwesomeIcons.featherPointed,
-    FontAwesomeIcons.book,
-  ];
 
   @override
   void initState() {
     super.initState();
-        AppCubit.get(widget.cubitContext).getNotifyData();
+       activities= AppCubit.get(widget.cubitContext).getNotifyData();
   }
 
   void removeItem({required int index}) {
@@ -62,10 +52,9 @@ class _RecentActivityListState extends State<RecentActivityList> {
             physics: const BouncingScrollPhysics(),
             itemBuilder: (context, index) {
               return NotifyCard(
-                icon: recent[index < recent.length ? index : 0],
-                history: activities[index],
+                icon:FontAwesomeIcons.bell,
+                notify: activities[index],
                 index: index,
-                // Pass the removeItem method correctly
                 onDismissed: (d) => removeItem(index: index),
               );
             },

@@ -19,9 +19,9 @@ class CardData extends StatelessWidget {
                         child: Text(
                           notify.notifyTitle??'',
                           maxLines: 1,
-                          style: const TextStyle(
+                          style:  TextStyle(
                             fontWeight: FontWeight.w800,
-                            color: AppColor.defaultColor,
+                            color: AppColor.layoutBackgroundColor,
                             fontSize: 15,
                             overflow: TextOverflow.ellipsis,
                           ),
@@ -29,9 +29,9 @@ class CardData extends StatelessWidget {
                       ),
                       const SizedBox(height: 1),
                       Text(notify.notifyBody??'',
-                        style: const TextStyle(
+                        style:  TextStyle(
                           fontWeight: FontWeight.w500,
-                          color: AppColor.defaultColor,
+                          color: AppColor.layoutBackgroundColor,
                           fontSize: 14,
                           overflow: TextOverflow.ellipsis,
                         ),

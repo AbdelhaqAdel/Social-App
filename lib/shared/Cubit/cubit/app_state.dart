@@ -11,7 +11,7 @@ class GetNotifyLoadingState extends AppState {}
 class GetNotifySuccessState extends AppState {}
 class GetNotifyErrorState extends AppState {}
 
-class DeleteHiStoryLoadingState extends AppState {}
+class DeleteNotifyLoadingState extends AppState {}
 class DeleteNotifySuccessState extends AppState {}
 class DeleteNotifyErrorState extends AppState {}
 
