@@ -5,6 +5,7 @@ import 'package:newapp/CleanArch/core/utils/key_constants.dart';
 import 'package:newapp/CleanArch/features/auth/presentation/pages/login_screen.dart';
 import 'package:newapp/CleanArch/features/chat/presentation/manager/cubit/chat_cubit.dart';
 import 'package:newapp/CleanArch/features/chat/presentation/pages/chat_screen.dart';
+import 'package:newapp/CleanArch/features/home/presentation/pages/add_post_screen.dart';
 import 'package:newapp/CleanArch/features/profile/data/models/user_model.dart';
 import 'package:newapp/CleanArch/features/profile/presentation/manager/profile_cubit.dart';
 import 'package:newapp/CleanArch/features/profile/presentation/pages/edit_profile_screen.dart';
@@ -20,6 +21,7 @@ abstract class AppRouter{
     static const kWriteStatus = '/TextStatusScreen';
     static const kShowStatus = '/ShowStatus';
     static const kEditProfile = '/EditProfileScreen';
+    static const kAddPost = '/AddPostScreen';
 
 
 
@@ -79,6 +81,10 @@ abstract class AppRouter{
            child:  EditProfileScreen(userModel: userModel,),
          );
        },
+     ),
+     GoRoute(
+        path: kAddPost,
+        builder: (context, state) => const AddPostScreen(),
      ),
      ]
       );

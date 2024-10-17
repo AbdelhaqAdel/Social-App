@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -11,7 +12,7 @@ class StatusBuilder extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<StatusCubit,StatusState>(builder:(context,state){
       if(StatusCubit.get(context).allStatus.isNotEmpty){
-        return StatusListView(status:StatusCubit.get(context).allStatus ,cubitContext: context,);
+        return FadeInUp(child: StatusListView(status:StatusCubit.get(context).allStatus ,cubitContext: context,));
        }else if(state is GetAllStatusLoadingState){
         return const Center(child: CircularProgressIndicator());
        }else if(state is GetAllStatusErrorState){

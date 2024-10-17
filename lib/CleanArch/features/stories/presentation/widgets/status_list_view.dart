@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
@@ -15,12 +16,15 @@ class StatusListView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView.separated(
              itemBuilder: (context, index) =>
-               GestureDetector(
-            onTap: () {
-               AppRouter.cubitContext=cubitContext;
-               GoRouter.of(context).push(AppRouter.kShowStatus,extra: status[index]['uId']);
-            },
-            child: StatusCustomWidget(status:status, index: index,),
+              FadeInRight(
+                  delay: Duration(milliseconds: index*150),
+                  from: 100,
+                 child: GestureDetector(
+                           onTap: () {
+                 AppRouter.cubitContext=cubitContext;
+                 GoRouter.of(context).push(AppRouter.kShowStatus,extra: status[index]['uId']);},
+                           child: StatusCustomWidget(status:status, index: index,),
+                 ),
                ),
              separatorBuilder: (context, index) => Column(
                children: [

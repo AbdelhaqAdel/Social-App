@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:newapp/CleanArch/core/functions/store_to_notification.dart';
 import 'package:newapp/CleanArch/core/utils/key_constants.dart';
 import 'package:newapp/shared/Notification/sevices/local_notifications_service.dart';
 
@@ -18,13 +19,14 @@ class PushNotificationsService {
       sendTokenToServer(value);
     });
     FirebaseMessaging.onBackgroundMessage(handleBackgroundMessage);
-    //foreground
     handleForegroundMessage();
     messaging.subscribeToTopic('all').then((val){
-      log('sub');
     });
-
-    // messaging.unsubscribeFromTopic('all');
+       FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      if (message.notification != null) {
+        NotifyServices.storeNotifyToHive(title:message.notification!.title??'',body:message.notification!.body??'');
+      }
+    });
   }
 
   static Future<void> handleBackgroundMessage(RemoteMessage message) async {
@@ -35,14 +37,12 @@ class PushNotificationsService {
   static void handleForegroundMessage() {
     FirebaseMessaging.onMessage.listen(
       (RemoteMessage message) {
-        // show local notification
         LocalNotificationService.showBasicNotification(
           message,
         );
       },
     );
   }
-
   static void sendTokenToServer(String token) {
   }
 }

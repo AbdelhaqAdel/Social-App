@@ -1,11 +1,12 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:newapp/CleanArch/config/theme/colors.dart';
-import 'package:newapp/CleanArch/core/utils/widgets/static_component.dart';
-import 'package:newapp/shared/Cubit/cubit/app_cubit.dart';
-import 'features/home/presentation/pages/add_post_screen.dart';
+import 'package:newapp/CleanArch/core/utils/app_router.dart';
+import 'package:newapp/CleanArch/core/utils/key_constants.dart';
+import 'package:newapp/CleanArch/core/cubit/app_cubit.dart';
 
 class LayoutScreen extends StatelessWidget {
   const LayoutScreen({Key? key}) : super(key: key);
@@ -13,13 +14,14 @@ class LayoutScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<AppCubit,AppState>(
         listener:(context,state){
-          // if(state is AddPostIndexState){
-          //   NavigateTo(context, AddPostScreen());
-          // }
+          if(state is AddPostState){
+        GoRouter.of(navigatorKey.currentState!.context).push(AppRouter.kAddPost);
+          }
         },
         builder:(context,state){
           AppCubit cubit=AppCubit.get(context);
           return Scaffold(
+            // appBar: AppBar(leading:const NotifyIconButton(),),
             backgroundColor:AppColor.layoutBackgroundColor,
             body:
             Stack(
@@ -88,7 +90,7 @@ class LayoutScreen extends StatelessWidget {
                               type: BottomNavigationBarType.fixed,
                               onTap: (index)
                               {
-                                cubit.ChangeCurrentIndex(index);
+                                cubit.changeCurrentIndex(index);
                               },
                               currentIndex: cubit.currentIndex,
                               items:cubit.navBarItems,
