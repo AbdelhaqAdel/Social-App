@@ -9,7 +9,7 @@ import 'package:newapp/CleanArch/features/chat/domain/repositories/chat_repo.dar
 import 'package:newapp/CleanArch/features/profile/data/models/user_model.dart';
 import 'package:newapp/shared/Notification/notification_data_model.dart';
 import 'package:newapp/shared/Notification/notification_model.dart';
-import 'package:newapp/shared/Notification/notification_services.dart';
+import 'package:newapp/shared/Notification/sevices/notification_services.dart';
 
 class ChatRepositoryImpl implements ChatRepository {
   final ChatRemoteDataSource remoteDataSource;

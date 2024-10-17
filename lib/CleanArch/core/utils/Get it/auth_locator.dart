@@ -8,7 +8,6 @@ import 'package:newapp/CleanArch/features/chat/data/repositories/chat_repo_impl.
 import 'package:newapp/CleanArch/features/chat/domain/use_cases/add_message_use_case.dart';
 import 'package:newapp/CleanArch/features/chat/domain/use_cases/get_all_users_use_case.dart';
 import 'package:newapp/CleanArch/features/chat/domain/use_cases/get_messages_use_case.dart';
-import 'package:newapp/CleanArch/features/home/data/data_sources/post_data_remote_datasource.dart';
 import 'package:newapp/CleanArch/features/home/data/data_sources/posts_local_datasource.dart';
 import 'package:newapp/CleanArch/features/home/data/data_sources/postss_remote_datasource.dart';
 import 'package:newapp/CleanArch/features/home/data/repositories/add_post_impl.dart';
@@ -18,7 +17,6 @@ import 'package:newapp/CleanArch/features/home/data/repositories/posts_repo_impl
 import 'package:newapp/CleanArch/features/home/domain/use_cases/create_post_usecase.dart';
 import 'package:newapp/CleanArch/features/home/domain/use_cases/pick_post_image_usescase.dart';
 import 'package:newapp/CleanArch/features/home/domain/use_cases/upload_post_image_usecase.dart';
-import 'package:newapp/CleanArch/features/profile/data/data_sources/profile_local_datasource.dart';
 import 'package:newapp/CleanArch/features/profile/data/data_sources/profile_remote_datasource.dart';
 import 'package:newapp/CleanArch/features/profile/data/repositories/profile_repo_impl.dart';
 import 'package:newapp/CleanArch/features/stories/data/data_sources/status_remote_data_source.dart';
@@ -33,14 +31,13 @@ void setupLocator(){
     (remoteDataSource: RemoteDataSource(),localDataSource: LocalDataSource()));
 
     getIt.registerSingleton<PostRepository>(PostRepository
-    (postRemoteDataSource: PostRemoteDatasourceImpl(),postLocalDatasource: PostLocalDatasourceImpl(), 
-    postData: PostDataRemoteDatasourceImpl()));
+    (postRemoteDataSource: PostRemoteDataSourceImpl(),postLocalDatasource: PostLocalDataSourceImpl(),));
 
    getIt.registerSingleton<PostLikeRepository>(PostLikeRepository
-    (postsRepo: PostRemoteDatasourceImpl()));
+    (postsRepo: PostRemoteDataSourceImpl()));
 
    getIt.registerSingleton<PostCommentRepository>(PostCommentRepository
-    (postsRepo: PostRemoteDatasourceImpl()));
+    (postsRepo: PostRemoteDataSourceImpl()));
    
    AddPostRepoImpl addPostRepoImpl=AddPostRepoImpl();
    getIt.registerSingleton<CreatePostUseCase >(CreatePostUseCase 

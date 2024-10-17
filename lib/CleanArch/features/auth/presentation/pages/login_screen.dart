@@ -13,7 +13,7 @@ import 'package:newapp/CleanArch/features/auth/presentation/pages/register_scree
 import 'package:newapp/CleanArch/features/auth/presentation/widgets/form_custom_widget.dart';
 import 'package:newapp/CleanArch/features/auth/presentation/widgets/text_button_auth_account.dart';
 import 'package:newapp/shared/Notification/notification_model.dart';
-import 'package:newapp/shared/Notification/notification_services.dart';
+import 'package:newapp/shared/Notification/sevices/notification_services.dart';
 
 
 class LoginScreen extends StatelessWidget {
