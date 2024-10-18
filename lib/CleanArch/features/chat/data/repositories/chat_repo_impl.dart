@@ -7,7 +7,6 @@ import 'package:newapp/CleanArch/features/chat/data/data_sources/all_users_remot
 import 'package:newapp/CleanArch/features/chat/data/data_sources/chat_remote_data_source.dart';
 import 'package:newapp/CleanArch/features/chat/data/models/messages_model.dart';
 import 'package:newapp/CleanArch/features/chat/domain/repositories/chat_repo.dart';
-import 'package:newapp/CleanArch/features/notification/data/notification_data_model.dart';
 import 'package:newapp/CleanArch/features/notification/data/notification_model.dart';
 import 'package:newapp/CleanArch/features/profile/data/models/user_model.dart';
 
@@ -22,9 +21,7 @@ class ChatRepositoryImpl implements ChatRepository {
       await remoteDataSource.addMessage(receiverModel, message);
       sendNotification(fcmToken: receiverModel.fcmToken,
        notification:NotificationModel(title: 'New Message from ${receiverModel.name}',
-       body:message),
-        data: NotificationDataModel(userId: receiverModel.uId,screen: 'chat_screen')
-        );
+       body:message),);
       
       return const Right(null); 
     } catch (e) {

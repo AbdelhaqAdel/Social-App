@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:newapp/CleanArch/core/utils/key_constants.dart';
@@ -13,26 +14,34 @@ class UserImage extends StatelessWidget {
                         child: Stack(
                           alignment: Alignment.bottomCenter,
                           children:[
-                            Align(
-                              alignment: AlignmentDirectional.topCenter,
-                              child: SizedBox(
-                                width: double.infinity,
-                                height:screenSize.height/4.5,
-                                child: Card(
-                                  elevation: 10,
-                                  child: Image.network('${userData?.cover}',
-                                    fit: BoxFit.cover,
+                            FadeIn(
+                            delay: const Duration(milliseconds:500),
+                            // from: 100,
+                              child: Align(
+                                alignment: AlignmentDirectional.topCenter,
+                                child: SizedBox(
+                                  width: double.infinity,
+                                  height:screenSize.height/4.5,
+                                  child: Card(
+                                    elevation: 10,
+                                    child: Image.network('${userData?.cover}',
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
                                 ),
                               ),
                             ),
-                            CircleAvatar(
-                              backgroundColor:HexColor('#13003b'),
-                              radius: screenSize.width/8,
+                            FadeInUp(
+                            delay: const Duration(milliseconds:500),
+                            from: 100,
                               child: CircleAvatar(
-                                backgroundImage: NetworkImage('${userData?.image}'),
-                                radius: screenSize.width/8.5,
-                          ),
+                                backgroundColor:HexColor('#13003b'),
+                                radius: screenSize.width/7,
+                                child: CircleAvatar(
+                                  backgroundImage: NetworkImage('${userData?.image}'),
+                                  radius: screenSize.width/7.5,
+                                                      ),
+                              ),
                             ),
                             ]
                         ),

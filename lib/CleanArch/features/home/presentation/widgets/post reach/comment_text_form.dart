@@ -6,22 +6,8 @@ import 'package:newapp/CleanArch/features/home/presentation/manager/cubit/post_c
 class CommentTextFormField extends StatelessWidget {
 
    const CommentTextFormField({
-      //  required this.messageController,
-      //  required this.controller,
-      //  required this.formKey, 
     super.key, required this.index});
-      // final TextEditingController messageController;
-      // final ScrollController controller;
-      // final GlobalKey<FormState> formKey ;
       final int index;
-      //  void scrollDown(){
-      //    Future.delayed(const Duration(milliseconds: 100), () {
-      //        controller.animateTo(
-      //          controller.position.maxScrollExtent,
-      //          duration: const Duration(milliseconds: 300),
-      //          curve: Curves.easeOut,
-      //        );
-      //      });  }
   @override
   Widget build(BuildContext context) {
         GlobalKey formKey = GlobalKey<FormState>();
