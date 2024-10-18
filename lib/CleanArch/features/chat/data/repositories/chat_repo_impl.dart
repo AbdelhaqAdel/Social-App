@@ -19,6 +19,7 @@ class ChatRepositoryImpl implements ChatRepository {
   Future<Either<Failure, void>> addMessage(UserModel receiverModel, String message) async {
     try {
       await remoteDataSource.addMessage(receiverModel, message);
+      print('----------------------${receiverModel.fcmToken}');
       sendNotification(fcmToken: receiverModel.fcmToken,
        notification:NotificationModel(title: 'New Message from ${receiverModel.name}',
        body:message),);

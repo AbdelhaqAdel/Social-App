@@ -11,6 +11,7 @@ class PushNotificationsService {
   static Future init() async {
     await messaging.requestPermission();
     await messaging.getToken().then((value) {
+      log(value!);
       fcmToken=value;
     });
     messaging.onTokenRefresh.listen((value){
