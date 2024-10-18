@@ -2,14 +2,14 @@ import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:newapp/CleanArch/core/utils/error_handliing.dart';
 import 'package:newapp/CleanArch/core/utils/firebase_handle_error.dart';
+import 'package:newapp/CleanArch/core/utils/notification_services/notification_services.dart';
 import 'package:newapp/CleanArch/features/chat/data/data_sources/all_users_remote_data_source.dart';
 import 'package:newapp/CleanArch/features/chat/data/data_sources/chat_remote_data_source.dart';
 import 'package:newapp/CleanArch/features/chat/data/models/messages_model.dart';
 import 'package:newapp/CleanArch/features/chat/domain/repositories/chat_repo.dart';
+import 'package:newapp/CleanArch/features/notification/data/notification_data_model.dart';
+import 'package:newapp/CleanArch/features/notification/data/notification_model.dart';
 import 'package:newapp/CleanArch/features/profile/data/models/user_model.dart';
-import 'package:newapp/shared/Notification/notification_data_model.dart';
-import 'package:newapp/shared/Notification/notification_model.dart';
-import 'package:newapp/shared/Notification/sevices/notification_services.dart';
 
 class ChatRepositoryImpl implements ChatRepository {
   final ChatRemoteDataSource remoteDataSource;
@@ -23,7 +23,8 @@ class ChatRepositoryImpl implements ChatRepository {
       sendNotification(fcmToken: receiverModel.fcmToken,
        notification:NotificationModel(title: 'New Message from ${receiverModel.name}',
        body:message),
-        data: NotificationDataModel(userId: receiverModel.uId,screen: 'chat_screen'));
+        data: NotificationDataModel(userId: receiverModel.uId,screen: 'chat_screen')
+        );
       
       return const Right(null); 
     } catch (e) {

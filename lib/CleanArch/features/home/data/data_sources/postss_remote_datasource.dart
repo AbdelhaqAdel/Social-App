@@ -1,24 +1,24 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:newapp/CleanArch/core/utils/key_constants.dart';
 import 'package:newapp/CleanArch/features/home/data/models/post_model.dart';
-import 'package:newapp/CleanArch/features/home/presentation/manager/cubit/post_cubit.dart';
 
-
-abstract class PostRmoteDataSourse{
-  Future <List<PostModel>>fetchPosts();
+abstract class PostRemoteDataSource{
+ Stream<List<PostModel>>fetchPosts();
 }
-class PostRemoteDatasourceImpl extends PostRmoteDataSourse{
+class PostRemoteDataSourceImpl extends PostRemoteDataSource{
   List<PostModel>postsList=[];
-
-  @override
-  Future<List<PostModel>> fetchPosts()async {
-      FirebaseFirestore.instance.collection('posts').orderBy('postDate')
-      .snapshots().listen((value) {
-        fillPostsList(value.docs);
+@ override
+Stream<List<PostModel>> fetchPosts() {
+  return FirebaseFirestore.instance
+      .collection('posts')
+      .orderBy('postDate')
+      .snapshots()
+      .map((snapshot) {
+        fillPostsList(snapshot.docs);
+        // GetPostsSuccessState.setAllPosts(postsList);
+        // HiveServices.saveDataToHive<PostModel>(HiveConstants.postBox, postsList, HiveConstants.postBox); // Uncomment if needed
+        return postsList;
       });
-    // HiveServices.saveDataToHive<PostModel>(HiveConstants.postBox,postsList, HiveConstants.postBox);
-    GetPostsSuccessState.setAllPosts(postsList);
-   return postsList;
 }
 
  void fillPostsList(list) {
@@ -27,7 +27,6 @@ class PostRemoteDatasourceImpl extends PostRmoteDataSourse{
           isCurrentUserLikeCurrentPost(element);
           postsList.add(PostModel.fromJson(element.data()));
        }
-       print('----***************');
  }
 
  void isCurrentUserLikeCurrentPost(element){
