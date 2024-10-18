@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:newapp/CleanArch/core/cubit/app_cubit.dart';
 import 'package:newapp/CleanArch/core/utils/app_router.dart';
-import 'package:newapp/shared/Styles/themes.dart';
+import 'package:newapp/CleanArch/config/theme/themes.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key, required this.startWidget});

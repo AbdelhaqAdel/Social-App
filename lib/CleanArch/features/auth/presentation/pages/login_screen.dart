@@ -6,14 +6,14 @@ import 'package:newapp/CleanArch/config/theme/colors.dart';
 import 'package:newapp/CleanArch/core/utils/Get%20it/auth_locator.dart';
 import 'package:newapp/CleanArch/core/utils/app_router.dart';
 import 'package:newapp/CleanArch/core/utils/key_constants.dart';
+import 'package:newapp/CleanArch/core/utils/notification_services/notification_services.dart';
 import 'package:newapp/CleanArch/core/utils/widgets/custom_button.dart';
 import 'package:newapp/CleanArch/features/auth/data/repositories/auth_repo_impl.dart';
 import 'package:newapp/CleanArch/features/auth/presentation/manager/cubit/auth_cubit.dart';
 import 'package:newapp/CleanArch/features/auth/presentation/pages/register_screen.dart';
 import 'package:newapp/CleanArch/features/auth/presentation/widgets/form_custom_widget.dart';
 import 'package:newapp/CleanArch/features/auth/presentation/widgets/text_button_auth_account.dart';
-import 'package:newapp/shared/Notification/notification_model.dart';
-import 'package:newapp/shared/Notification/sevices/notification_services.dart';
+import 'package:newapp/CleanArch/features/notification/data/notification_model.dart';
 
 
 class LoginScreen extends StatelessWidget {

@@ -9,7 +9,7 @@ import '../../features/home/presentation/pages/add_post_screen.dart';
 import '../../features/home/presentation/pages/posts_screen.dart';
 import '../../features/stories/presentation/pages/status_screen.dart';
 import '../../features/chat/presentation/pages/all_chats_screen.dart';
-part '../../../shared/Cubit/cubit/app_state.dart';
+part 'app_state.dart';
 
 
 
@@ -36,7 +36,7 @@ class AppCubit extends Cubit<AppState> {
     )
   ];
   List<Widget>screens=[
-    PostsScreen(),
+    const PostsScreen(),
     const MessagesScreen(),
     const AddPostScreen(),
     const StatusScreen(),
