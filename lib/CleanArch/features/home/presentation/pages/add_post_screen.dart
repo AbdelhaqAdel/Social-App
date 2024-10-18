@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:newapp/CleanArch/config/theme/colors.dart';
 import 'package:newapp/CleanArch/core/utils/Get%20it/auth_locator.dart';
+import 'package:newapp/CleanArch/core/utils/key_constants.dart';
 import 'package:newapp/CleanArch/features/home/data/repositories/post_comment_repo_impl.dart';
 import 'package:newapp/CleanArch/features/home/data/repositories/post_like_repo_impl.dart';
 import 'package:newapp/CleanArch/features/home/data/repositories/posts_repo_impl.dart';
@@ -12,10 +14,11 @@ import 'package:newapp/CleanArch/features/home/presentation/widgets/add%20post/i
 import 'package:newapp/CleanArch/features/home/presentation/widgets/add%20post/select_image.dart';
 
 class AddPostScreen extends StatelessWidget {
-  final postTextController =TextEditingController();
-  AddPostScreen({super.key});
+  const AddPostScreen({super.key});
   @override
   Widget build(BuildContext context) {
+   TextEditingController postTextController =TextEditingController();
+
     return BlocProvider(
       create: (context )=>PostCubit(postRepository:getIt.get<PostRepository>(),postLikeRepo:getIt.get<PostLikeRepository>(),
           postCommentRepo: getIt.get<PostCommentRepository>(),
@@ -37,7 +40,7 @@ class AddPostScreen extends StatelessWidget {
                   TextButton(onPressed: (){
                      cubit.createPost(
                         postText:postTextController.text,
-                    ).then((value) => Navigator.pop(context));
+                    ).then((value) => GoRouter.of(navigatorKey.currentState!.context).pop());
                   }, child:Text('Post',
                     style: Theme.of(context).textTheme.titleMedium?.copyWith(
                       fontSize: 20.sp)

@@ -1,4 +1,4 @@
-part of '../../../CleanArch/core/cubit/app_cubit.dart';
+part of 'app_cubit.dart';
 
 @immutable
 abstract class AppState {}

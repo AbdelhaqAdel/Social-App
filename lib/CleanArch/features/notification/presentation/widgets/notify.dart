@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:newapp/CleanArch/config/theme/colors.dart';
 import 'package:newapp/CleanArch/core/utils/widgets/glass_box.dart';
-import 'package:newapp/CleanArch/features/notification/presentation/widgets/recent_activity_list_builder.dart';
+import 'package:newapp/CleanArch/features/notification/presentation/widgets/notify_list_builder.dart';
 class RecentActivityDialog extends StatelessWidget {
   final BuildContext cubitContext;
 
@@ -39,6 +39,7 @@ class RecentActivityContent extends StatelessWidget {
     return Stack(
       children: [
         Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             const SizedBox(height:60),
             const Center(child: RecentActivityHeader()),
@@ -56,7 +57,7 @@ class RecentActivityHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Text(
-      'Recent Activity',
+      'Notifications',
       style: TextStyle(
         fontSize: 25,
         fontWeight: FontWeight.w900,

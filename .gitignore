@@ -32,6 +32,9 @@ migrate_working_dir/
 .pub/
 /build/
 /lib/shared/Notification/notification_services.dart
+/lib/CleanArch/core/utils/api_constatnts.dart
+/lib/firebase_options.dart
+/lib/CleanArch/core/utils/key_constants.dart
 # Symbolication related
 app.*.symbols
 

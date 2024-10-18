@@ -5,11 +5,11 @@ import 'package:dartz/dartz.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:newapp/CleanArch/core/utils/key_constants.dart';
+import 'package:newapp/CleanArch/core/utils/notification_services/notification_services.dart';
 import 'package:newapp/CleanArch/features/home/data/models/post_model.dart';
 import 'package:newapp/CleanArch/features/home/domain/repositories/add_post_repo.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
-import 'package:newapp/shared/Notification/notification_model.dart';
-import 'package:newapp/shared/Notification/notification_services.dart';
+import 'package:newapp/CleanArch/features/notification/data/notification_model.dart';
 
 
 class AddPostRepoImpl extends AddPostRepo{

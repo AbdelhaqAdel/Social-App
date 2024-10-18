@@ -3,7 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:newapp/CleanArch/core/functions/store_to_notification.dart';
 import 'package:newapp/CleanArch/core/utils/key_constants.dart';
-import 'package:newapp/shared/Notification/sevices/local_notifications_service.dart';
+import 'package:newapp/CleanArch/core/utils/notification_services/local_notifications_service.dart';
 
 class PushNotificationsService {
   static FirebaseMessaging messaging = FirebaseMessaging.instance;
@@ -11,9 +11,7 @@ class PushNotificationsService {
   static Future init() async {
     await messaging.requestPermission();
     await messaging.getToken().then((value) {
-      log(value!);
       fcmToken=value;
-      sendTokenToServer(value);
     });
     messaging.onTokenRefresh.listen((value){
       sendTokenToServer(value);
@@ -21,9 +19,11 @@ class PushNotificationsService {
     FirebaseMessaging.onBackgroundMessage(handleBackgroundMessage);
     handleForegroundMessage();
     messaging.subscribeToTopic('all').then((val){
+      print('Subscription');
     });
        FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       if (message.notification != null) {
+       isNotifyOpened=false;
         NotifyServices.storeNotifyToHive(title:message.notification!.title??'',body:message.notification!.body??'');
       }
     });

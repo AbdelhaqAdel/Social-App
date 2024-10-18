@@ -8,6 +8,7 @@ class LikedUserList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  ListView.builder(
+      physics: const BouncingScrollPhysics(),
         itemBuilder: (context, index) =>
             PostsLikesWidget(index: index,likedUsers: likedUsers,),
     
