@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:newapp/CleanArch/config/theme/colors.dart';
 import 'package:newapp/CleanArch/features/home/presentation/manager/cubit/post_cubit.dart';
 import 'package:newapp/CleanArch/features/home/presentation/widgets/post%20reach/liked_user_list_view.dart';
 
@@ -16,7 +17,7 @@ class LikedUsersBuilder extends StatelessWidget {
         return const Center(child: CircularProgressIndicator());
        }
       else{
-       return const Text('No Liked Users');
+       return const Center(child: Text('No Likes yet',style: TextStyle(color: AppColor.whiteColor),));
       }
     }
      );
