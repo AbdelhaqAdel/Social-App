@@ -11,6 +11,7 @@ class PostContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
                       Text(
                 '${post.postText}',

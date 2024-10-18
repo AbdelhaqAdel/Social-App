@@ -25,19 +25,19 @@ class PostCubit extends Cubit<PostState> {
   
   List <String>postsId=[];
   List<PostModel>allPostsList=[];
-  Future <void>fetchAllPosts()async{
-    final response=await postRepository.getAllPosts();
+  void fetchAllPosts(){
+    emit(GetPostsLoadingState());
+    final response=postRepository.getAllPosts();
     response.fold((l) =>emit(GetPostsErrorState(errMessage: l.message)),
      (allPosts) {
-      for (var element in allPosts){
-           allPostsList.add(element);
-      }
-       emit(GetPostsSuccessState(posts:allPosts ,
-        ));
+       allPosts.listen((posts) {
+         allPostsList=posts;
+         emit(GetPostsSuccessState());
+       });
      });
     getPostsId();
-  
-  }  
+  }
+
   void changeLikeButton({required int postIndex})async{
     allPostsList[postIndex].isUserLike=!allPostsList[postIndex].isUserLike!;
   }
@@ -67,13 +67,18 @@ class PostCubit extends Cubit<PostState> {
   void getPostLikedUser({required int postIndex})async{
     emit(GetLikedUsersLoadingState());
     final response=await postLikeRepo.getLikedUsers(postId: postsId[postIndex]);
-    print('response : ${response[0]['user']}');
     GetLikedUsersSuccessState.setLikedUsers(response);
     emit(GetLikedUsersSuccessState());
     }
 
+    void getPostComments({required int postIndex})async{
+    emit(GetPostCommentsLoadingState());
+    final response=await postCommentRepo.getPostComments(postId: postsId[postIndex]);
+    GetPostCommentsSuccessState.setPostComments(response);
+    emit(GetPostCommentsSuccessState(postIndex));
+    }
+
  Future<void> createPost({required String postText})async{
-  print('image : $imageString');
   emit(CreatePostLoadingState());
   if(imageString!=''){
   await uploadPostImage().then((value)async {
