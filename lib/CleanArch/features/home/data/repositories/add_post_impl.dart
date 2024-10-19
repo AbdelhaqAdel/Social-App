@@ -58,21 +58,18 @@ class AddPostRepoImpl extends AddPostRepo{
   }
 
 String? postImage;
- @override
-  Future<Either<String, void>> uploadPostImage()async{
-    try{
-   await firebase_storage.FirebaseStorage
-        .instance
+
+@override
+Future<Either<String, String?>> uploadPostImage() async {
+  try {
+    final uploadTask = await firebase_storage.FirebaseStorage.instance
         .ref()
-        .child('posts/${Uri.file(pickedFile!)
-        .pathSegments.last}')
-        .putFile(File(pickedFile!)).then((value){
-      value.ref.getDownloadURL().then((value) {
-        postImage=value;
-      });
-  });
-  return right(null);
-    }catch(e){ 
-      return left(e.toString());
-}
-  }}
+        .child('posts/${Uri.file(pickedFile!).pathSegments.last}')
+        .putFile(File(pickedFile!));
+    final downloadUrl = await uploadTask.ref.getDownloadURL();
+    postImage = downloadUrl;
+   return right(postImage);
+  } catch (e) {
+    return left(e.toString());
+  }
+}}
