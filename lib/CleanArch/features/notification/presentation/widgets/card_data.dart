@@ -35,7 +35,7 @@ class CardData extends StatelessWidget {
                           fontSize: 14,
                           overflow: TextOverflow.ellipsis,
                         ),
-                        maxLines: 1,
+                        maxLines:2,
                       ),
                        const SizedBox(height: 5),
                       Container(

@@ -35,6 +35,8 @@ migrate_working_dir/
 /lib/CleanArch/core/utils/api_constatnts.dart
 /lib/firebase_options.dart
 /lib/CleanArch/core/utils/key_constants.dart
+lib/CleanArch/features/profile/presentation/manager/profile_cubit.dart
+lib/CleanArch/core/utils/widgets/snack_bar.dart
 # Symbolication related
 app.*.symbols
 

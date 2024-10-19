@@ -6,6 +6,7 @@ import 'package:newapp/CleanArch/features/auth/presentation/pages/login_screen.d
 import 'package:newapp/CleanArch/features/chat/presentation/manager/cubit/chat_cubit.dart';
 import 'package:newapp/CleanArch/features/chat/presentation/pages/chat_screen.dart';
 import 'package:newapp/CleanArch/features/home/presentation/pages/add_post_screen.dart';
+import 'package:newapp/CleanArch/features/on_boarding/presentation/pages/on_boarding_screen.dart';
 import 'package:newapp/CleanArch/features/profile/data/models/user_model.dart';
 import 'package:newapp/CleanArch/features/profile/presentation/manager/profile_cubit.dart';
 import 'package:newapp/CleanArch/features/profile/presentation/pages/edit_profile_screen.dart';
@@ -15,7 +16,8 @@ import 'package:newapp/CleanArch/features/stories/presentation/pages/show_status
 import 'package:newapp/CleanArch/layout.dart';
 
 abstract class AppRouter{
-    static const kLogin = '/';
+    static const kOnBoarding = '/';
+    static const kLogin = '/Login';
     static const kLayout = '/LayoutScreen';
     static const kChatScreen = '/ChatScreen';
     static const kWriteStatus = '/TextStatusScreen';
@@ -23,13 +25,14 @@ abstract class AppRouter{
     static const kEditProfile = '/EditProfileScreen';
     static const kAddPost = '/AddPostScreen';
 
-
-
     static BuildContext? cubitContext;
-
     static final router = GoRouter(
       navigatorKey:navigatorKey,
     routes: [
+       GoRoute(
+        path: kOnBoarding,
+        builder: (context, state) => OnBoarding(),
+     ),
       GoRoute(
         path: kLogin,
         builder: (context, state) => LoginScreen(),

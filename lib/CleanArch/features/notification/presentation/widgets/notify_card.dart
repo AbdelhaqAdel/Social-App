@@ -24,7 +24,7 @@ class NotifyCard extends StatelessWidget {
   Widget build(BuildContext context) {
     var screenSize= MediaQuery.of(context).size;
     return SizedBox(
-      height:screenSize.height / 7,
+      height:screenSize.height / 6.5,
       child: Dismissible(
         key: Key(notify.hiveIndex.toString()),
         onDismissed: (direction) {

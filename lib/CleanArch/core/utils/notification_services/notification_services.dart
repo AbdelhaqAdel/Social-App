@@ -1,12 +1,11 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:newapp/CleanArch/core/utils/api_constatnts.dart';
-import 'package:newapp/CleanArch/features/notification/data/notification_data_model.dart';
 import 'package:newapp/CleanArch/features/notification/data/notification_model.dart';
 
 
-Future<void> sendNotification({String? fcmToken,required NotificationModel notification,NotificationDataModel? data}) async {
-  //  print("notification ----------------------$fcmToken  ${data?.}   ${notification.title}");
+Future<void> sendNotification({String? fcmToken,required NotificationModel notification}) async {
+  print('$fcmToken');
     final Map<String, dynamic> body = {
     "message": {
       if (fcmToken != null)
@@ -14,8 +13,6 @@ Future<void> sendNotification({String? fcmToken,required NotificationModel notif
       else
         "topic": "all", 
       "notification":notification.toMap(),
-      if(data != null)
-      "data":data.toMap(),
     }
   };
 

@@ -16,7 +16,7 @@ class StatusListView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView.separated(
              itemBuilder: (context, index) =>
-              FadeInRight(
+              FadeInUp(
                   delay: Duration(milliseconds: index*150),
                   from: 100,
                  child: GestureDetector(
