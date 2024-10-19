@@ -1,3 +1,4 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:newapp/CleanArch/config/theme/colors.dart';
@@ -16,6 +17,8 @@ class CustomTextFormField extends StatelessWidget {
       final ScrollController controller;
       final GlobalKey<FormState> formKey ;
 
+
+
        void scrollDown(){
          Future.delayed(const Duration(milliseconds: 100), () {
              controller.animateTo(
@@ -26,6 +29,12 @@ class CustomTextFormField extends StatelessWidget {
            });  }
   @override
   Widget build(BuildContext context) {
+  final AudioPlayer _audioPlayer = AudioPlayer();
+  final AudioCache _audioCache = AudioCache();
+  Future<void> _playSound() async {
+    final audioFile = await _audioCache.load('audio/like_sound.mp3');
+    await _audioPlayer.play(DeviceFileSource(audioFile.path));
+   }
     return Form(
       key:formKey ,
       child: Padding(
@@ -43,10 +52,11 @@ class CustomTextFormField extends StatelessWidget {
                 suffixIcon: IconButton(
                                onPressed: () {
                        if (messageController.text.isNotEmpty) {
+                           _playSound();
                          ChatCubit.get(context).addToUserChat(
                            message: messageController.text,
                            receiverModel: receiverModel,
-                         );                  
+                         );                
                           messageController.clear();
 }
                 },

@@ -107,6 +107,7 @@ flutter:
     - assets/images/
     - assets/rive/
     - assets/audio/like_sound.mp3
+    - assets/audio/button_sound.mp3
 
 
 

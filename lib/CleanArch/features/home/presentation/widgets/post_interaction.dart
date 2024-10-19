@@ -35,7 +35,7 @@ class _PostInteractionState extends State<PostInteraction> {
 
   // Play the sound method
   Future<void> _playSound() async {
-    final audioFile = await widget._audioCache.load('audio/like_sound.mp3');
+    final audioFile = await widget._audioCache.load('audio/button_sound.mp3');
     await widget._audioPlayer.play(DeviceFileSource(audioFile.path));
   }
 
