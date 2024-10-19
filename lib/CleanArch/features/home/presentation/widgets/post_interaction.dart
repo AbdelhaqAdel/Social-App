@@ -28,7 +28,7 @@ class PostInteraction extends StatefulWidget {
 }
 
 class _PostInteractionState extends State<PostInteraction> {
-  late bool? isLike = widget.post.isUserLike;
+  late bool isLike = widget.post.isUserLike??false;
   bool isCommentIconPressed = false;
   double iconSize = 27.0;
   ScrollController scrollController = ScrollController();
@@ -124,7 +124,7 @@ class _PostInteractionState extends State<PostInteraction> {
                       onPressed: () {
                         _playSound(); // Play sound on like
                         setState(() {
-                          isLike = !isLike!;
+                          isLike = !isLike;
                           iconSize = 35.0;
                         });
                         Future.delayed(const Duration(milliseconds: 200), () {
@@ -149,7 +149,7 @@ class _PostInteractionState extends State<PostInteraction> {
                               Icons.favorite,
                               size: iconSize,
                               color:
-                                  isLike! ? Colors.red : Colors.transparent,
+                                  isLike ? Colors.red : Colors.transparent,
                             ),
                           ],
                         ),

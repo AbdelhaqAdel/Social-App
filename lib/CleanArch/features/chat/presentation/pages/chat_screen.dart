@@ -10,57 +10,63 @@ import '../../../profile/data/models/user_model.dart';
 class ChatScreen extends StatelessWidget {
   ChatScreen({super.key, 
    required this.receiverModel
-});
+  });
+  
   final UserModel receiverModel;
-  final TextEditingController messageController=TextEditingController();
+  final TextEditingController messageController = TextEditingController();
   final ScrollController scrollController = ScrollController();
   final GlobalKey<FormState> formKey = GlobalKey();
-  void scrollDown(){
-    scrollController.jumpTo(1);
 
+  void scrollDown() {
+    scrollController.jumpTo(1);
   }
+
   @override
   Widget build(BuildContext context) {
-    return Builder(builder:(context) {
+    return Builder(builder: (context) {
       return BlocConsumer<ChatCubit, ChatState>(
-              listener: (context, state) {},
-              builder: (context, state) {
-                      return Scaffold(
-                          appBar: AppBar(
-                            leading: IconButton(
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                              icon: const Icon(Icons.arrow_back_ios,color: AppColor.titleText,),
-                            ),
-                            automaticallyImplyLeading: false,
-                            title:Text('${receiverModel.name}',
-                            style: const TextStyle(
-                              color: AppColor.titleText,
-                            ),
-                            ),
-                            centerTitle: true,
-                            backgroundColor: AppColor.layoutBackgroundColor
-                          ),
-                          body: ListView(
-                            children: [
-                               SizedBox(
-                                height:MediaQuery.of(context).size.height/1.28,
-                                 child: MessageBuilder(receiverModel: receiverModel, 
-                                  controller: scrollController,
-                                   messageController: messageController,),
-                               ),
-                               CustomTextFormField(messageController: messageController,
-                                receiverModel: receiverModel, 
-                               controller: scrollController,
-                               formKey: formKey,
-                               ),
-
-                            ],
-                          ),
-                        );
-              },
-            );
-         });
+        listener: (context, state) {},
+        builder: (context, state) {
+          return Scaffold(
+            appBar: AppBar(
+              leading: IconButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                icon: const Icon(Icons.arrow_back_ios, color: AppColor.titleText),
+              ),
+              automaticallyImplyLeading: false,
+              title: Text(
+                '${receiverModel.name}',
+                style: const TextStyle(color: AppColor.titleText),
+              ),
+              centerTitle: true,
+              backgroundColor: AppColor.layoutBackgroundColor,
+            ),
+            body: SafeArea(
+              child: Column(
+                children: [
+                  // Using Expanded to take available space for the message list
+                  Expanded(
+                    child: MessageBuilder(
+                      receiverModel: receiverModel,
+                      controller: scrollController,
+                      messageController: messageController,
+                    ),
+                  ),
+                  // Custom TextField widget at the bottom
+                  CustomTextFormField(
+                    messageController: messageController,
+                    receiverModel: receiverModel,
+                    controller: scrollController,
+                    formKey: formKey,
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
+      );
+    });
   }
 }
