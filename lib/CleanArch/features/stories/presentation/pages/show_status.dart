@@ -2,6 +2,7 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:newapp/CleanArch/config/theme/colors.dart';
 import 'package:newapp/CleanArch/features/stories/presentation/manager/cubit/story_cubit.dart';
 import 'package:newapp/CleanArch/features/stories/presentation/widgets/view_status_custom_widget.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
@@ -29,10 +30,11 @@ Widget build(BuildContext context) {
       return Scaffold(
         backgroundColor: hasStatus && currentIndex < cubit.userStatus.length
             ? Color(cubit.userStatus[currentIndex].statusColor!)
-            : Colors.transparent,
+            : AppColor.layoutBackgroundColor,
         body: Padding(
           padding: const EdgeInsets.all(12.0),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(height: 40.h),
               Row(

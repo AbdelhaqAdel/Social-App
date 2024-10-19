@@ -63,7 +63,7 @@ Stream<List<StatusModel>> getUserStatus({required String userId}) {
 
       final status = StatusModel(
       name: userModel?.name,
-      uId: userModel?.uId,
+      uId: uid,
       userImage: userModel?.image,
       statusImage: '',
       statusText: statusText,
@@ -89,7 +89,7 @@ Map<String,dynamic> setUserStatus({required int statusNum}) {
       'name':userModel?.name,
       'image':userModel?.image,
       'date':DateTime.now().toString(),
-      'uId':userModel?.uId,
+      'uId':uid,
       'statusNumber':statusNum
     };
     return userData;

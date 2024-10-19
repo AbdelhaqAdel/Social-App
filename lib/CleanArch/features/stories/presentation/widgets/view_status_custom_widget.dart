@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:newapp/CleanArch/config/theme/colors.dart';
 import 'package:newapp/CleanArch/features/stories/data/models/status_model.dart';
 
 class ViewStatusWidget extends StatelessWidget {
@@ -15,7 +16,12 @@ class ViewStatusWidget extends StatelessWidget {
         Container(
            color: Color(status[index].statusColor!),
             child: Center(
-              child: Text('${status[index].statusText}'),
+              child: Text('${status[index].statusText}',
+              style: const TextStyle(
+                fontSize: 25,
+                color: AppColor.whiteColor
+              ),
+              ),
             ),
           );
 

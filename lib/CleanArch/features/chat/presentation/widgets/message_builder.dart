@@ -22,11 +22,14 @@ class MessageBuilder extends StatelessWidget {
         controller: controller,
         messageController: messageController,
         messages: ChatCubit.get(context).messages,);
-      }else if(state is GetAllMessagesErrorState){
-        return  Center(child: Text('Start New Chat with your friend ${receiverModel.name}'),);
+      }else if(state is GetAllMessagesLoadingState){
+          return const Center(child: CircularProgressIndicator(),);
       }
       else{
-        return const Center(child: CircularProgressIndicator(),);
+        return Center(child: Text('Start New Chat with your friend ${receiverModel.name}',
+        style: const TextStyle(fontSize: 15),
+        ),
+        );
       }
     });
   }
